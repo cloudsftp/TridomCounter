@@ -1,10 +1,20 @@
 package de.melon.tridomcounter
 
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.LinearLayout
+import android.widget.ListView
+import de.melon.tridomcounter.logic.Session
+import de.melon.tridomcounter.logic.SessionCardAdapter
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,10 +25,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        setTitle("Tridom Couter - Sessions")
+
+        val decorView = this.window.decorView
+        decorView.setBackgroundColor(Color.BLACK)
+
+        setSessionsList()
+
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+    }
+
+    fun setSessionsList() {
+        val recyclerView = findViewById<RecyclerView>(R.id.sessionsRecyclerView)
+
+        val sessions = ArrayList<Session>()
+
+        for (i in 0..5)
+            sessions.add(Session())
+
+        recyclerView.adapter = SessionCardAdapter(sessions)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
