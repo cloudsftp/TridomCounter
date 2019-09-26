@@ -12,10 +12,14 @@ class SessionTests {
 
     val numberOfPlayers = 2
 
-    lateinit var session: Session
-
     val player1 = "Fabian"
     val player2 = "Paul"
+    val player3 = "Tim"
+
+    companion object {
+        lateinit var session: Session
+
+    }
 
     @Test
     @Before
@@ -34,25 +38,21 @@ class SessionTests {
         assert(session.players[0].equals(player1))
         assert(session.players[1].equals(player2))
 
-    }
-
-    val player3 = "Tim"
-
-    @Test
-    fun t03_setTooManyPlayers() {
-        session.addPlayer(player1)
-        session.addPlayer(player2)
-
-        assert(session.players[0].equals(player1))
-        assert(session.players[1].equals(player2))
-
         try {
             session.addPlayer(player3)
 
         } catch (e: TooManyPlayersException) {
-            assert(e.message.equals("Too many players: #3 Tim"))
+            assertException(e, "Too many players: #3 Tim")
 
         }
+
+    }
+
+    @Test
+    fun t03_addRound() {
+        val round = session.newRound()
+
+        assert(round.session == session)
 
     }
 

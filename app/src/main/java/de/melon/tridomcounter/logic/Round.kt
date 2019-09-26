@@ -1,5 +1,7 @@
 package de.melon.tridomcounter.logic
 
-class Round() {
+class Round(val session: Session) {
+
+
 
 }

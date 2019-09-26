@@ -4,7 +4,7 @@ import de.melon.tridomcounter.logic.exceptions.TooManyPlayersException
 
 class Session(val numOfPlayers: Int) {
 
-    internal val rounds = MutableList(0) {Round()}
+    internal val rounds = MutableList(0) {Round(this)}
 
     val players = Array(numOfPlayers) { String() }
     internal var playersSet = 0
@@ -15,9 +15,17 @@ class Session(val numOfPlayers: Int) {
             playersSet++
 
         } else {
-            throw TooManyPlayersException(playersSet, player)
+            throw TooManyPlayersException(players.size + 1, player)
 
         }
+
+    }
+
+    fun newRound(): Round {
+        val round = Round(this)
+        rounds.add(round)
+
+        return round
 
     }
 
