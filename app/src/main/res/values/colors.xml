@@ -3,5 +3,6 @@
     <color name="colorPrimary">#0C1D5A</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorTextCard">#FFFFFF</color>
+    <color name="colorCard">#3081DA</color>
+    <color name="colorText">#FFFFFF</color>
 </resources>

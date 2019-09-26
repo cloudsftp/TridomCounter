@@ -1,20 +1,15 @@
-package de.melon.tridomcounter
+package de.melon.tridomcounter.activities.sessions
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
-import android.widget.ListView
+import de.melon.tridomcounter.R
 import de.melon.tridomcounter.logic.Session
-import de.melon.tridomcounter.logic.SessionCardAdapter
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -46,7 +41,8 @@ class MainActivity : AppCompatActivity() {
         for (i in 0..5)
             sessions.add(Session())
 
-        recyclerView.adapter = SessionCardAdapter(sessions)
+        recyclerView.adapter =
+            SessionCardAdapter(sessions)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
     }

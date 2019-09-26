@@ -1,4 +1,4 @@
-package de.melon.tridomcounter.logic
+package de.melon.tridomcounter.activities.sessions
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.logic.Session
 
 class SessionCardAdapter(private var sessions: ArrayList<Session>) : RecyclerView.Adapter<SessionCardAdapter.ViewHolder>() {
 
