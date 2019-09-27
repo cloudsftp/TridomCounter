@@ -2,7 +2,7 @@ package de.melon.tridomcounter.logic
 
 import de.melon.tridomcounter.logic.exceptions.TooManyPlayersException
 
-class Session(val numOfPlayers: Int) {
+class Session(numOfPlayers: Int) {
 
     internal val rounds = MutableList(0) {Round(this)}
 
