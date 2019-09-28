@@ -10,7 +10,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 
 import de.melon.tridomcounter.R
-import de.melon.tridomcounter.activities.session.SessionActivity
+import de.melon.tridomcounter.activities.session.NewSessionActivity
 import org.junit.*
 import org.junit.runner.RunWith
 
@@ -35,7 +35,7 @@ class MainActivityTest {
     fun t01_dummy() {
         onView(withId(R.id.fab)).perform(click())
 
-        intended(hasComponent(SessionActivity::class.java.name))
+        intended(hasComponent(NewSessionActivity::class.java.name))
 
     }
 }
