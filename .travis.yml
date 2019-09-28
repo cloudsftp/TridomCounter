@@ -9,7 +9,7 @@ env:
    - ANDROID_BUILD_TOOLS_VERSION=28.0.3
    - ANDROID_ABI=x86_64
    - ANDROID_TAG=google_apis
-   - ADB_INSTALL_TIMEOUT=20
+   - ADB_INSTALL_TIMEOUT=40
    - ANDROID_HOME=/usr/local/android-sdk
    - TOOLS=${ANDROID_HOME}/tools
    - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
@@ -34,7 +34,6 @@ before_install:
   - echo y | sdkmanager "extras;android;m2repository" >/dev/null
   - echo y | sdkmanager "system-images;android-$ANDROID_API_LEVEL;default;$ANDROID_ABI" >/dev/null
 
-before_script:
   - echo n | avdmanager create avd --force -n test -k "system-images;android-$ANDROID_API_LEVEL;default;$ANDROID_ABI"
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
