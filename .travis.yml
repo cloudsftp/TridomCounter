@@ -33,8 +33,7 @@ before_install:
    - echo y | sdkmanager --channel=4 "emulator" >/dev/null
    - echo y | sdkmanager "extras;android;m2repository" >/dev/null
    - echo y | sdkmanager "system-images;android-$ANDROID_API_LEVEL;default;$ANDROID_ABI" >/dev/null
-
-bfore_script:
+   
    - echo n | avdmanager create avd --force -n test -k "system-images;android-$ANDROID_API_LEVEL;default;$ANDROID_ABI"
    - emulator -verbose -avd test -no-accel -no-snapshot -no-window -no-audio -no-window -camera-back none -camera-front none -selinux permissive -qemu &
    - android-wait-for-emulator
