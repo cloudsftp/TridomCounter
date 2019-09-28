@@ -6,3 +6,8 @@ android:
     - build-tools-26.0.2
     - android-28
     - sys-img-x86-android-29
+
+notification:
+  slack:
+    on_failure: always
+    on_success: change
