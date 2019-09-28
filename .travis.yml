@@ -25,7 +25,7 @@ before_install:
   - echo y | sdkmanager "platform-tools" >/dev/null
   - echo y | sdkmanager "tools" >/dev/null
   - echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION" >/dev/null
-  - echo y | sdkmanager "platforms;android-$API" >/dev/null
+  - echo y | sdkmanager "platforms;android-$ANDROID_API_LEVEL" >/dev/null
   - echo y | sdkmanager "platforms;android-28" >/dev/null
   - echo y | sdkmanager --channel=4 "emulator" >/dev/null
   - echo y | sdkmanager "extras;android;m2repository" >/dev/null
