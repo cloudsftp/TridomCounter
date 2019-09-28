@@ -7,6 +7,9 @@ android:
     - android-28
     - sys-img-x86-android-29
 
+before_install:
+  - yes | sdkmanager "platforms;android-28"
+
 notification:
   slack:
     on_failure: always
