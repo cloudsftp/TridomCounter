@@ -1,4 +1,4 @@
-package de.melon.tridomcounter.activities.sessions
+package de.melon.tridomcounter.activities.menu
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

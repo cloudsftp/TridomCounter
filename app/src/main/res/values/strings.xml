@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TridomCounter</string>
     <string name="action_settings">Settings</string>
+    <string name="menu_title">Tridom Counter</string>
+    <string name="newsession_title">New Session</string>
+    <string name="session_title">Session</string>
 </resources>
