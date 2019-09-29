@@ -1,7 +1,6 @@
 package de.melon.tridomcounter.activities.menu
 
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.ViewAssertion
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
@@ -16,6 +15,10 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.session.NewSessionActivity
 import org.junit.*
 import org.junit.runner.RunWith
+import android.view.WindowManager
+import org.junit.Before
+
+
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
@@ -27,6 +30,16 @@ class MainActivityTest {
     @Before
     fun initIntents() {
         Intents.init()
+    }
+
+    @Before
+    fun unlockScreen() {
+        val activity = activityRule.getActivity()
+        val wakeUpDevice = Runnable {
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
+                                            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                                            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)}
+        activity.runOnUiThread(wakeUpDevice)
     }
 
     @After
