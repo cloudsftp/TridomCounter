@@ -1,11 +1,14 @@
 package de.melon.tridomcounter.activities.menu
 
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.ViewAssertion
 import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.Intents.intended
 import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 
@@ -32,7 +35,13 @@ class MainActivityTest {
     }
 
     @Test
-    fun t01_dummy() {
+    fun t00_dummy() {
+        onView(withId(R.id.testTextView)).check(matches(withText("test")))
+
+    }
+
+    @Test
+    fun t01_newSessoin() {
         onView(withId(R.id.fab)).perform(click())
 
         intended(hasComponent(NewSessionActivity::class.java.name))
