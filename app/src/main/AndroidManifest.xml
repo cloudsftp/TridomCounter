@@ -10,14 +10,19 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".activities.sessions.MainActivity"
-                android:label="@string/app_name"
+                android:name=".activities.menu.MainActivity"
+                android:label="@string/menu_title"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+                android:name="de.melon.tridomcounter.activities.session.NewSessionActivity"
+                android:label="@string/newsession_title"
+                android:parentActivityName="de.melon.tridomcounter.activities.menu.MainActivity" >
         </activity>
     </application>
 
