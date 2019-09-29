@@ -43,7 +43,7 @@ class MainActivityTest {
     }
 
     @After
-    fun tearDonwIntents()  {
+    fun tearDownIntents()  {
         Intents.release()
     }
 
@@ -54,7 +54,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun t01_newSessoin() {
+    fun t01_newSession() {
         onView(withId(R.id.fab)).perform(click())
 
         intended(hasComponent(NewSessionActivity::class.java.name))
