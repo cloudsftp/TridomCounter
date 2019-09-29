@@ -39,16 +39,10 @@ class MainActivityTest {
     }
 
     @Test
-    fun t00_dummy() {
-        onView(withId(R.id.testTextView)).check(matches(withText("test")))
-
-    }
-/*
-    @Test
     fun t01_newSession() {
         onView(withId(R.id.fab)).perform(click())
 
         intended(hasComponent(NewSessionActivity::class.java.name))
 
-    }*/
+    }
 }
