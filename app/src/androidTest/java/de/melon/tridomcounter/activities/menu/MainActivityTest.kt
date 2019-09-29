@@ -32,16 +32,6 @@ class MainActivityTest {
         Intents.init()
     }
 
-    @Before
-    fun unlockScreen() {
-        val activity = activityRule.getActivity()
-        val wakeUpDevice = Runnable {
-        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
-                                            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                                            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)}
-        activity.runOnUiThread(wakeUpDevice)
-    }
-
     @After
     fun tearDownIntents()  {
         Intents.release()
@@ -52,12 +42,12 @@ class MainActivityTest {
         onView(withId(R.id.testTextView)).check(matches(withText("test")))
 
     }
-
+/*
     @Test
     fun t01_newSession() {
         onView(withId(R.id.fab)).perform(click())
 
         intended(hasComponent(NewSessionActivity::class.java.name))
 
-    }
+    }*/
 }
