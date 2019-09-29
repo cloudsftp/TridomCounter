@@ -16,7 +16,6 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.session.NewSessionActivity
 import org.junit.*
 import org.junit.runner.RunWith
-import android.view.WindowManager
 import org.junit.Before
 
 
