@@ -10,9 +10,6 @@ env:
    - ANDROID_ABI=x86
    - ANDROID_TAG=google_apis
    - ADB_INSTALL_TIMEOUT=20
-   - ANDROID_HOME=/usr/local/android-sdk
-   - TOOLS=${ANDROID_HOME}/tools
-   - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
 
 android:
   components:
