@@ -1,5 +1,6 @@
 package de.melon.tridomcounter.activities.menu
 
+import android.content.Intent
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
@@ -30,6 +31,11 @@ class MainActivityTest {
     @Before
     fun initIntents() {
         Intents.init()
+    }
+
+    @Before
+    fun closeDialogs() {
+        activityRule.activity.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
     }
 
     @After
