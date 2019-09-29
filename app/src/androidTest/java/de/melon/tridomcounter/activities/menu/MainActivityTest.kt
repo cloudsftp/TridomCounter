@@ -33,11 +33,6 @@ class MainActivityTest {
         Intents.init()
     }
 
-    @Before
-    fun closeDialogs() {
-        activityRule.activity.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
-    }
-
     @After
     fun tearDownIntents()  {
         Intents.release()
