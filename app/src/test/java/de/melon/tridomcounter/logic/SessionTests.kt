@@ -22,7 +22,6 @@ class SessionTests {
     }
 
     @Test
-    @Before
     fun t01_instantiation() {
         session = Session(numberOfPlayers)
 
