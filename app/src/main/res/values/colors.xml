@@ -6,4 +6,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorCard">#3081DA</color>
     <color name="colorText">#FFFFFF</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

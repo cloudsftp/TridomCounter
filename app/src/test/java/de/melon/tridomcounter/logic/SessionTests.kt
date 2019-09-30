@@ -1,8 +1,6 @@
 package de.melon.tridomcounter.logic
 
 import de.melon.tridomcounter.logic.exceptions.TooManyPlayersException
-import org.junit.Before
-
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
@@ -22,7 +20,6 @@ class SessionTests {
     }
 
     @Test
-    @Before
     fun t01_instantiation() {
         session = Session(numberOfPlayers)
 

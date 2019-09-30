@@ -1,9 +1,7 @@
 package de.melon.tridomcounter.activities.menu
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -21,9 +19,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-        val decorView = this.window.decorView
-        //decorView.setBackgroundColor(Color.BLACK)
 
         setSessionsList()
 
