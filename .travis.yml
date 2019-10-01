@@ -48,10 +48,6 @@ before_install:
   - adb shell input keyevent 66 # Enter - confirm choice
   - sleep 10
 
-  - adb shell screencap -p /sdcard/screen.png
-  - adb pull /sdcard/screen.png
-  - ./im/imgur.sh screen.png
-
 after_failure:
   - git clone https://github.com/tremby/imgur.sh im
   - chmod a+x im/imgur.sh
