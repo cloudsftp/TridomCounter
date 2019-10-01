@@ -67,6 +67,11 @@ before_install:
   - adb pull /sdcard/screen.png
   - ./im/imgur.sh screen.png
 
+after_failure:
+  - adb shell screencap -p /sdcard/screen.png
+  - adb pull /sdcard/screen.png
+  - ./im/imgur.sh screen.png
+
 notification:
   slack:
     on_failure: always
