@@ -7,6 +7,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.widget.NumberPicker
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.setNumberPickerValue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,11 +24,21 @@ class NewSessionActivityTest {
     var activityRule = ActivityTestRule(NewSessionActivity::class.java)
 
     @Test
-    fun t01_setNumberOfPlayers() {
-        numOfPlayersPicker = activityRule.activity.findViewById<NumberPicker>(R.id.numOfPlayersPicker)
+    fun t01_initial() {
+        numOfPlayersPicker = activityRule.activity.findViewById(R.id.numOfPlayersPicker)
         assert(numOfPlayersPicker.value == initialNumberOfPlayers)
 
         onView(withId(R.id.newPlayerNamesRecyclerView)).check(matches(hasChildCount(initialNumberOfPlayers)))
+
+    }
+
+    @Test
+    fun t02_changeNumberOfPlayers() {
+        val newNumberOfPlayers = 4
+
+        setNumberPickerValue(onView(withId(R.id.numOfPlayersPicker)), newNumberOfPlayers)
+
+        onView(withId(R.id.newPlayerNamesRecyclerView)).check(matches(hasChildCount(newNumberOfPlayers)))
 
     }
 
