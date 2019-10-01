@@ -42,13 +42,15 @@ before_install:
   - adb shell settings put global window_animation_scale 0
   - adb shell settings put global transition_animation_scale 0
   - adb shell settings put global animator_duration_scale 0
-  - sleep 20
+  - sleep 10
 
   - adb shell screencap -p /sdcard/screen.png
   - adb pull /sdcard/screen.png
   - ./im/imgur.sh screen.png
   - adb shell input keyevent 66
-  - sleep 20
+  - sleep 10
+  - adb shell input keyevent 66
+  - sleep 10
 
   - adb shell screencap -p /sdcard/screen.png
   - adb pull /sdcard/screen.png
