@@ -45,6 +45,7 @@ before_install:
   - sleep 20
 
   - adb shell screencap -p | sed 's/\r$//' > screen1.png
+  - ls -s
   - ./im/imgur.sh screen1.png
   - adb shell input keyevent 82
   - sleep 20
