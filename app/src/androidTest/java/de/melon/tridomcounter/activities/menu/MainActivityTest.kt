@@ -14,9 +14,9 @@ import de.melon.tridomcounter.activities.session.NewSessionActivity
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.Before
+import org.junit.runners.MethodSorters
 
-
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
