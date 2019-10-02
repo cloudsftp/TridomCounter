@@ -5,7 +5,10 @@
 
     <string name="title_activity_new_session">New Session</string>
 
-    <string name="select_number_of_players">Anzahl der Spieler:</string>
+    <string name="players">Spieler:</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="initial_num_of_players">2</string>
     <string name="input_name">Name:</string>
 
     <string name="session_title">Session</string>

@@ -13,24 +13,53 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorText"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/select_number_of_players"/>
-
-        <NumberPicker
-                android:id="@+id/numOfPlayersPicker"
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/colorText"
-                android:fadingEdge="horizontal|vertical|none"
-                android:solidColor="@color/colorBackground">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        </NumberPicker>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/players"
+                    android:textColor="@color/colorText" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                <Button
+                        android:id="@+id/numberOfPlayersMinus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorBackground"
+                        android:text="@string/minus"
+                        android:textColor="@color/colorText" />
+
+                <TextView
+                        android:id="@+id/numberOfPlayersText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/initial_num_of_players"
+                        android:textColor="@color/colorText" />
+
+                <Button
+                        android:id="@+id/numberOfPlayersPlus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorBackground"
+                        android:text="@string/plus"
+                        android:textColor="@color/colorText" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/newPlayerNamesRecyclerView"
