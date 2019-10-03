@@ -1,7 +1,7 @@
 package de.melon.tridomcounter.activities.session
 
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
@@ -47,7 +47,7 @@ class NewSessionActivityTest {
         val minimumNumberOfPlayers = 2
         val maximumNumberOfPlayers = 6
 
-        val clickIterations = maximumNumberOfPlayers - minimumNumberOfPlayers + 2
+        val clickIterations = maximumNumberOfPlayers - minimumNumberOfPlayers + 1
 
         val numberOfPlayersTextField = onView(withId(R.id.numberOfPlayersText))
         val numberOfPlayersMinusButton = onView(withId(R.id.numberOfPlayersMinus))
@@ -65,10 +65,22 @@ class NewSessionActivityTest {
     fun t04_changePlayerName() {
         val newPlayer = "Fabian"
 
-        val playerCard = onView(withRecycleView(R.id.newPlayerNamesRecyclerView).atPosition(1))
+        val playerCardEditText = onView(withNewPlayerRecycleView(R.id.newPlayerNamesRecyclerView).atPosition(1))
 
-        playerCard.perform(insertPlayerName(newPlayer))
-        playerCard.check(checkPlayerName(newPlayer))
+        playerCardEditText.perform(clearText()).perform(typeText(newPlayer))
+        playerCardEditText.check(matches(withText("Fabian")))
+
+    }
+
+    @Test
+    fun t05_preservePlayerNameOnNumberChange() {
+        val newPlayer = "Fabian"
+
+        val playerCardEditText = onView(withNewPlayerRecycleView(R.id.newPlayerNamesRecyclerView).atPosition(1))
+
+        playerCardEditText.perform(clearText()).perform(typeText(newPlayer))
+        onView(withId(R.id.numberOfPlayersPlus)).perform(click())
+        playerCardEditText.check(matches(withText(newPlayer)))
 
     }
 

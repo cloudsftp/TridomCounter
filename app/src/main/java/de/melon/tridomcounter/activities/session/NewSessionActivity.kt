@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.activity_new_session.*
 class NewSessionActivity : AppCompatActivity() {
 
     lateinit var newPlayerRecyclerView: RecyclerView
+    lateinit var newPlayerCardAdapter: NewPlayerCardAdapter
+
     lateinit var numberOfPlayersTextView: TextView
     lateinit var numberOfPlayersPlus: Button
     lateinit var numberOfPlayersMinus: Button
@@ -22,14 +24,14 @@ class NewSessionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_session)
         setSupportActionBar(toolbar)
 
-        setNumberPicker()
+        setUp()
 
         fab.setOnClickListener { view ->
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    fun setNumberPicker() {
+    fun setUp() {
         numberOfPlayersTextView = findViewById(R.id.numberOfPlayersText)
 
         numberOfPlayersMinus = findViewById(R.id.numberOfPlayersMinus)
@@ -40,27 +42,23 @@ class NewSessionActivity : AppCompatActivity() {
 
         newPlayerRecyclerView = findViewById(R.id.newPlayerNamesRecyclerView)
 
-        newPlayerRecyclerView.adapter = NewPlayerCardAdapter(numberOfPlayersTextView.text.toString().toInt())
+        newPlayerCardAdapter = NewPlayerCardAdapter()
+        newPlayerRecyclerView.adapter = newPlayerCardAdapter
         newPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
 
+        renderCards()
+
     }
 
-    val minValue = 2
-    val maxValue = 6
     fun changeNumberOfPlayers(delta: Int) {
-        val currentValue = numberOfPlayersTextView.text.toString().toInt()
-        var newValue = currentValue + delta
-
-        if (newValue > maxValue) newValue = maxValue
-        if (newValue < minValue) newValue = minValue
+        val newValue = newPlayerCardAdapter.changeNumberOfPlayers(delta)
 
         numberOfPlayersTextView.text = "$newValue"
-        displayPlayerInputCards(newValue)
+        renderCards()
 
     }
 
-    fun displayPlayerInputCards(num: Int) {
-        (newPlayerRecyclerView.adapter as NewPlayerCardAdapter).playerCount = num
+    fun renderCards() {
         newPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }

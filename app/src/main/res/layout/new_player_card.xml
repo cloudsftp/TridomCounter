@@ -30,7 +30,7 @@
                     android:text="@string/input_name"/>
 
             <EditText
-                    android:id="@+id/playerName"
+                    android:id="@+id/playerNameEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"

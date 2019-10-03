@@ -1,20 +1,46 @@
 package de.melon.tridomcounter.activities.session
 
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import de.melon.tridomcounter.R
 
-class NewPlayerCardAdapter(var playerCount: Int) : RecyclerView.Adapter<NewPlayerCardAdapter.NewPlayerCardViewHolder>() {
+class NewPlayerCardAdapter : RecyclerView.Adapter<NewPlayerCardAdapter.NewPlayerCardViewHolder>() {
+
+    val minNumberOfPlayers = 2
+    val maxNumberOfPlayers = 6
+
+    var numberOfPlayers = minNumberOfPlayers
+    val playerNames = ArrayList<Editable>(maxNumberOfPlayers)
+
+    fun changeNumberOfPlayers(delta: Int) : Int {
+        numberOfPlayers += delta
+
+        if (numberOfPlayers < minNumberOfPlayers) numberOfPlayers = minNumberOfPlayers
+        if (numberOfPlayers > maxNumberOfPlayers) numberOfPlayers = maxNumberOfPlayers
+
+        return numberOfPlayers
+
+    }
+
+    init {
+        for (i in 0 until maxNumberOfPlayers) {
+            val playerEditable = Editable.Factory.getInstance().newEditable("Spieler $i")
+            playerNames.add(playerEditable)
+
+        }
+
+    }
 
     class NewPlayerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val nameTextField: EditText
 
         init {
-            nameTextField = view.findViewById(R.id.playerName)
+            nameTextField = view.findViewById(R.id.playerNameEditText)
         }
 
     }
@@ -28,10 +54,14 @@ class NewPlayerCardAdapter(var playerCount: Int) : RecyclerView.Adapter<NewPlaye
     }
 
     override fun onBindViewHolder(viewHolder: NewPlayerCardViewHolder, position: Int) {
-        viewHolder.nameTextField.setText(String.format("Spieler %1d", position + 1))
-
+        viewHolder.nameTextField.text = playerNames[position]
+        viewHolder.nameTextField.setOnKeyListener(View.OnKeyListener {
+            view, _, _ ->
+            playerNames[position] = (view as EditText).text
+            return@OnKeyListener true
+        })
     }
 
-    override fun getItemCount() = playerCount
+    override fun getItemCount() = numberOfPlayers
 
 }
