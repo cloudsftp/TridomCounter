@@ -24,14 +24,14 @@ class NewSessionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_session)
         setSupportActionBar(toolbar)
 
-        setUp()
+        setUpPlayerControls()
 
         fab.setOnClickListener { view ->
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    fun setUp() {
+    fun setUpPlayerControls() {
         numberOfPlayersTextView = findViewById(R.id.numberOfPlayersText)
 
         numberOfPlayersMinus = findViewById(R.id.numberOfPlayersMinus)
