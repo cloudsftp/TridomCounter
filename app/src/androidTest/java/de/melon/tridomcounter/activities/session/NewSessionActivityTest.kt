@@ -28,17 +28,22 @@ class NewSessionActivityTest {
     fun t01_initial() {
         onView(withId(R.id.numberOfPlayersText)).check(matches(withText("$initialNumberOfPlayers")))
 
-        onView(withId(R.id.newPlayerNamesRecyclerView)).check(matches(hasChildCount(initialNumberOfPlayers)))
+        onView(withId(R.id.playersRecyclerView)).check(matches(hasChildCount(initialNumberOfPlayers)))
 
     }
+
+    val numberOfPlayersTextField = onView(withId(R.id.numberOfPlayersText))
+    val numberOfPlayersMinusButton = onView(withId(R.id.numberOfPlayersMinus))
+    val numberOfPlayersPlusButton = onView(withId(R.id.numberOfPlayersPlus))
+
+    val playersRecyclerView = onView(withId(R.id.playersRecyclerView))
 
     @Test
     fun t02_changeNumberOfPlayers() {
         val newNumberOfPlayers = 4
 
-        onView(withId(R.id.numberOfPlayersPlus)).perform(click()).perform(click())
-
-        onView(withId(R.id.newPlayerNamesRecyclerView)).check(matches(hasChildCount(newNumberOfPlayers)))
+        numberOfPlayersPlusButton.perform(click()).perform(click())
+        playersRecyclerView.check(matches(hasChildCount(newNumberOfPlayers)))
 
     }
 
@@ -49,10 +54,6 @@ class NewSessionActivityTest {
 
         val clickIterations = maximumNumberOfPlayers - minimumNumberOfPlayers + 1
 
-        val numberOfPlayersTextField = onView(withId(R.id.numberOfPlayersText))
-        val numberOfPlayersMinusButton = onView(withId(R.id.numberOfPlayersMinus))
-        val numberOfPlayersPlusButton = onView(withId(R.id.numberOfPlayersPlus))
-
         for (i in 0..clickIterations) numberOfPlayersPlusButton.perform(click())
         numberOfPlayersTextField.check(matches(withText("$maximumNumberOfPlayers")))
 
@@ -61,12 +62,11 @@ class NewSessionActivityTest {
 
     }
 
+    val newPlayer = "Fabian"
+    val playerCardEditText = onView(withPlayersRecyclerView(R.id.playersRecyclerView).atPosition(1))
+
     @Test
     fun t04_changePlayerName() {
-        val newPlayer = "Fabian"
-
-        val playerCardEditText = onView(withNewPlayerRecycleView(R.id.newPlayerNamesRecyclerView).atPosition(1))
-
         playerCardEditText.perform(clearText()).perform(typeText(newPlayer))
         playerCardEditText.check(matches(withText("Fabian")))
 
@@ -74,13 +74,24 @@ class NewSessionActivityTest {
 
     @Test
     fun t05_preservePlayerNameOnNumberChange() {
-        val newPlayer = "Fabian"
-
-        val playerCardEditText = onView(withNewPlayerRecycleView(R.id.newPlayerNamesRecyclerView).atPosition(1))
-
         playerCardEditText.perform(clearText()).perform(typeText(newPlayer))
-        onView(withId(R.id.numberOfPlayersPlus)).perform(click())
+        numberOfPlayersPlusButton.perform(click())
         playerCardEditText.check(matches(withText(newPlayer)))
+
+    }
+
+    val playerCardEditTextPosition2 = onView(withPlayersRecyclerView(R.id.playersRecyclerView).atPosition(2))
+
+    @Test
+    fun t06_preservePlayerNameWhenOutOfSight() {
+        numberOfPlayersPlusButton.perform(click())
+        playerCardEditTextPosition2.perform(clearText()).perform(typeText(newPlayer))
+
+        numberOfPlayersMinusButton.perform(click())
+        numberOfPlayersPlusButton.perform(click())
+
+        playerCardEditTextPosition2.check(matches(withText(newPlayer)))
+
 
     }
 

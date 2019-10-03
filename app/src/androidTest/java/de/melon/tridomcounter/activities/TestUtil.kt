@@ -11,7 +11,7 @@ import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 
 
-fun withNewPlayerRecycleView(id: Int) = NewPlayerRecyclerViewMatcher(id)
+fun withPlayersRecyclerView(id: Int) = NewPlayerRecyclerViewMatcher(id)
 class NewPlayerRecyclerViewMatcher(val id: Int) {
 
     fun atPosition(pos: Int) : Matcher<View> {

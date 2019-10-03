@@ -40,7 +40,7 @@ class NewSessionActivity : AppCompatActivity() {
         numberOfPlayersPlus = findViewById(R.id.numberOfPlayersPlus)
         numberOfPlayersPlus.setOnClickListener { changeNumberOfPlayers(1) }
 
-        newPlayerRecyclerView = findViewById(R.id.newPlayerNamesRecyclerView)
+        newPlayerRecyclerView = findViewById(R.id.playersRecyclerView)
 
         newPlayerCardAdapter = NewPlayerCardAdapter()
         newPlayerRecyclerView.adapter = newPlayerCardAdapter
