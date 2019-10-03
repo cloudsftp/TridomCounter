@@ -1,0 +1,99 @@
+package de.melon.tridomcounter.activities.session
+
+import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.ViewActions.*
+import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.test.rule.ActivityTestRule
+import android.support.test.runner.AndroidJUnit4
+import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.*
+import org.junit.FixMethodOrder
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@RunWith(AndroidJUnit4::class)
+class NewSessionActivityTest {
+
+    val initialNumberOfPlayers = 2
+
+    @JvmField
+    @Rule
+    var activityRule = ActivityTestRule(NewSessionActivity::class.java)
+
+    @Test
+    fun t01_initial() {
+        onView(withId(R.id.numberOfPlayersText)).check(matches(withText("$initialNumberOfPlayers")))
+
+        onView(withId(R.id.playersRecyclerView)).check(matches(hasChildCount(initialNumberOfPlayers)))
+
+    }
+
+    val numberOfPlayersTextField = onView(withId(R.id.numberOfPlayersText))
+    val numberOfPlayersMinusButton = onView(withId(R.id.numberOfPlayersMinus))
+    val numberOfPlayersPlusButton = onView(withId(R.id.numberOfPlayersPlus))
+
+    val playersRecyclerView = onView(withId(R.id.playersRecyclerView))
+
+    @Test
+    fun t02_changeNumberOfPlayers() {
+        val newNumberOfPlayers = 4
+
+        numberOfPlayersPlusButton.perform(click()).perform(click())
+        playersRecyclerView.check(matches(hasChildCount(newNumberOfPlayers)))
+
+    }
+
+    @Test
+    fun t03_constraintNumberOfPlayers() {
+        val minimumNumberOfPlayers = 2
+        val maximumNumberOfPlayers = 6
+
+        val clickIterations = maximumNumberOfPlayers - minimumNumberOfPlayers + 1
+
+        for (i in 0..clickIterations) numberOfPlayersPlusButton.perform(click())
+        numberOfPlayersTextField.check(matches(withText("$maximumNumberOfPlayers")))
+
+        for (i in 0..clickIterations) numberOfPlayersMinusButton.perform(click())
+        numberOfPlayersTextField.check(matches(withText("$minimumNumberOfPlayers")))
+
+    }
+
+    val newPlayer = "Fabian"
+    val playerCardEditText = onView(withPlayersRecyclerView(R.id.playersRecyclerView).atPosition(1))
+
+    @Test
+    fun t04_changePlayerName() {
+        playerCardEditText.perform(clearText()).perform(typeText(newPlayer))
+        playerCardEditText.check(matches(withText("Fabian")))
+
+    }
+
+    @Test
+    fun t05_preservePlayerNameOnNumberChange() {
+        playerCardEditText.perform(clearText()).perform(typeText(newPlayer))
+        numberOfPlayersPlusButton.perform(click())
+        playerCardEditText.check(matches(withText(newPlayer)))
+
+    }
+
+    val playerCardEditTextPosition2 = onView(withPlayersRecyclerView(R.id.playersRecyclerView).atPosition(2))
+
+    @Test
+    fun t06_preservePlayerNameWhenOutOfSight() {
+        numberOfPlayersPlusButton.perform(click())
+        playerCardEditTextPosition2.perform(clearText()).perform(typeText(newPlayer))
+
+        numberOfPlayersMinusButton.perform(click())
+        numberOfPlayersPlusButton.perform(click())
+
+        playerCardEditTextPosition2.check(matches(withText(newPlayer)))
+
+
+    }
+
+}
+
