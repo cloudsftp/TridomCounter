@@ -13,10 +13,12 @@ class RoundTests {
 
     }
 
+    val players = arrayOf("Fabian", "Paul", "Tim")
+
     @Test
     @Before
     fun t01_instantiate() {
-        val session = Session(0)
+        val session = Session(players)
         round = Round(session)
 
     }
