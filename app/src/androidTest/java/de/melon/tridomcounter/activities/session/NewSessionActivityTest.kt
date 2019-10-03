@@ -7,6 +7,7 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.*
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
@@ -48,12 +49,28 @@ class NewSessionActivityTest {
 
         val clickIterations = maximumNumberOfPlayers - minimumNumberOfPlayers + 2
 
-        for (i in 0..clickIterations) onView(withId(R.id.numberOfPlayersPlus)).perform(click())
-        onView(withId(R.id.numberOfPlayersText)).check(matches(withText("$maximumNumberOfPlayers")))
+        val numberOfPlayersTextField = onView(withId(R.id.numberOfPlayersText))
+        val numberOfPlayersMinusButton = onView(withId(R.id.numberOfPlayersMinus))
+        val numberOfPlayersPlusButton = onView(withId(R.id.numberOfPlayersPlus))
 
-        for (i in 0..clickIterations) onView(withId(R.id.numberOfPlayersMinus)).perform(click())
-        onView(withId(R.id.numberOfPlayersText)).check(matches(withText("$minimumNumberOfPlayers")))
+        for (i in 0..clickIterations) numberOfPlayersPlusButton.perform(click())
+        numberOfPlayersTextField.check(matches(withText("$maximumNumberOfPlayers")))
+
+        for (i in 0..clickIterations) numberOfPlayersMinusButton.perform(click())
+        numberOfPlayersTextField.check(matches(withText("$minimumNumberOfPlayers")))
+
+    }
+
+    @Test
+    fun t04_changePlayerName() {
+        val newPlayer = "Fabian"
+
+        val playerCard = onView(withRecycleView(R.id.newPlayerNamesRecyclerView).atPosition(1))
+
+        playerCard.perform(insertPlayerName(newPlayer))
+        playerCard.check(checkPlayerName(newPlayer))
 
     }
 
 }
+

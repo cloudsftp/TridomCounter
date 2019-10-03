@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.EditText
 import de.melon.tridomcounter.R
 
-class NewPlayerCardAdapter(var playerCount: Int) : RecyclerView.Adapter<NewPlayerCardAdapter.PickPlayerViewHolder>() {
+class NewPlayerCardAdapter(var playerCount: Int) : RecyclerView.Adapter<NewPlayerCardAdapter.NewPlayerCardViewHolder>() {
 
-    class PickPlayerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class NewPlayerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val nameTextField: EditText
 
@@ -19,15 +19,15 @@ class NewPlayerCardAdapter(var playerCount: Int) : RecyclerView.Adapter<NewPlaye
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : PickPlayerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : NewPlayerCardViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.new_player_card, parent, false) as View
 
-        return PickPlayerViewHolder(view)
+        return NewPlayerCardViewHolder(view)
 
     }
 
-    override fun onBindViewHolder(viewHolder: PickPlayerViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: NewPlayerCardViewHolder, position: Int) {
         viewHolder.nameTextField.setText(String.format("Spieler %1d", position + 1))
 
     }
