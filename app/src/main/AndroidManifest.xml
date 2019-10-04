@@ -10,6 +10,10 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".activities.session.SessionActivity"
+                android:label="@string/title_activity_session"
+                android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
                 android:name=".activities.session.NewSessionActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:label="@string/title_activity_new_session"

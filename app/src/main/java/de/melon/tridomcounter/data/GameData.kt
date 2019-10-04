@@ -6,6 +6,8 @@ object GameData {
 
     val sessions = MutableList<Session?>(0) {null}
 
-    fun addSession(session: Session) = sessions.add(session)
+    fun addSession(session: Session) = sessions.add(session).let { sessions.indexOf(session) }
+
+    fun clear() = sessions.clear()
 
 }

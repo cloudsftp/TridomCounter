@@ -1,5 +1,6 @@
 package de.melon.tridomcounter.activities.session
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -27,6 +28,8 @@ class NewSessionActivity : AppCompatActivity() {
         setUpPlayerControls()
 
         fab.setOnClickListener { view ->
+            val intent = Intent(this, SessionActivity::class.java)
+            startActivity(intent)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
