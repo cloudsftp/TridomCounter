@@ -2,19 +2,17 @@ version: 2
 
 jobs:
   build:
+    working_directory: ~/project
     docker:
         - image: circleci/android:api-26-alpha
     steps:
       - run:
-          name: LS
-          command: ls
-      - run:
           name: Build debug APK
-          command: ./gradlew :app:assembleDebug
+          command: ~/project/gradlew :app:assembleDebug
       - run:
           name: Run Unit Tests
-          command: ./gradlew :app:check
+          command: ~/project/gradlew :app:check
       - run:
           name: Run UI Tests
-          command: ./gradlew :app:packageDebugAndroidTest
+          command: ~/project/gradlew :app:packageDebugAndroidTest
           
