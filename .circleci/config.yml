@@ -6,6 +6,9 @@ jobs:
         - image: circleci/android:api-26-alpha
     steps:
       - run:
+          name: LS
+          command: ls
+      - run:
           name: Build debug APK
           command: ./gradlew :app:assembleDebug
       - run:
