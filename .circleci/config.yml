@@ -31,4 +31,12 @@ jobs:
       - run:
           name: Run UI Tests
           command: ./gradlew :app:connectedDebugAndroidTest
+      - run:
+          name: Take Screenshot
+          command: |
+            git clone https://github.com/tremby/imgur.sh im
+            chmod a+x im/imgur.sh
+            adb shell screencap -p /sdcard/screen.png
+            adb pull /sdcard/screen.png
+            ./im/imgur.sh screen.png
           
