@@ -2,6 +2,8 @@ package de.melon.tridomcounter.activities
 
 import android.content.res.Resources
 import android.os.SystemClock
+import android.support.test.espresso.ViewInteraction
+import android.support.test.espresso.action.ViewActions.*
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
@@ -47,5 +49,8 @@ class NewPlayerRecyclerViewMatcher(val id: Int) {
     }
 
 }
+
+fun ViewInteraction.performTypeTextSafe(text: String)
+    = this.perform(clearText()).perform(typeText(text)).perform(replaceText(text))
 
 fun sleep(millis: Long) = SystemClock.sleep(millis)

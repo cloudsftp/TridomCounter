@@ -67,14 +67,14 @@ class NewSessionActivityTest {
 
     @Test
     fun t04_changePlayerName() {
-        playerCardEditText.perform(clearText()).perform(typeText(newPlayer))
+        playerCardEditText.performTypeTextSafe(newPlayer)
         playerCardEditText.check(matches(withText("Fabian")))
 
     }
 
     @Test
     fun t05_preservePlayerNameOnNumberChange() {
-        playerCardEditText.perform(clearText()).perform(typeText(newPlayer))
+        playerCardEditText.performTypeTextSafe(newPlayer)
         numberOfPlayersPlusButton.perform(click())
         playerCardEditText.check(matches(withText(newPlayer)))
 
@@ -85,7 +85,7 @@ class NewSessionActivityTest {
     @Test
     fun t06_preservePlayerNameWhenOutOfSight() {
         numberOfPlayersPlusButton.perform(click())
-        playerCardEditTextPosition2.perform(clearText()).perform(typeText(newPlayer))
+        playerCardEditTextPosition2.performTypeTextSafe(newPlayer)
 
         numberOfPlayersMinusButton.perform(click())
         numberOfPlayersPlusButton.perform(click())
