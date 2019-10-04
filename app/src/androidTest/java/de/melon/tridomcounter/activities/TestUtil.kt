@@ -2,6 +2,9 @@ package de.melon.tridomcounter.activities
 
 import android.content.res.Resources
 import android.os.SystemClock
+import android.support.test.espresso.ViewInteraction
+import android.support.test.espresso.action.ViewActions.clearText
+import android.support.test.espresso.action.ViewActions.typeText
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
@@ -20,24 +23,19 @@ class NewPlayerRecyclerViewMatcher(val id: Int) {
     }
 
     class RecyclerChildSafeMatcher(val pos: Int, val recycleViewId: Int) : TypeSafeMatcher<View>() {
-        lateinit var resources: Resources
+        var resources: Resources? = null
 
         override fun describeTo(description: Description?) {
-            var idDescription: String
-            try {
-                idDescription = resources.getResourceName(recycleViewId)
-            } catch (e: Resources.NotFoundException) {
-                idDescription = "$recycleViewId (resource name not found)"
-            }
-
+            val idDescription = resources?.getResourceName(recycleViewId)
             description?.appendText(idDescription)
+
         }
 
         override fun matchesSafely(view: View?): Boolean {
-            resources = view!!.resources
+            resources = view?.resources
 
-            val recyclerView = view.rootView.findViewById<RecyclerView>(recycleViewId)
-            val childView = recyclerView.findViewHolderForAdapterPosition(pos)?.itemView
+            val recyclerView = view?.rootView?.findViewById<RecyclerView>(recycleViewId)
+            val childView = recyclerView?.findViewHolderForAdapterPosition(pos)?.itemView
             val editText = childView?.findViewById<EditText>(R.id.playerNameEditText)
 
             return view == editText
@@ -47,5 +45,8 @@ class NewPlayerRecyclerViewMatcher(val id: Int) {
     }
 
 }
+
+fun ViewInteraction.performTypeTextSafe(text: String)
+    = this.perform(clearText()).perform(typeText(text))
 
 fun sleep(millis: Long) = SystemClock.sleep(millis)
