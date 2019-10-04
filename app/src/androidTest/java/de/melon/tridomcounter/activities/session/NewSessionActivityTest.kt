@@ -1,13 +1,14 @@
 package de.melon.tridomcounter.activities.session
 
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions.*
+import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
-import de.melon.tridomcounter.activities.*
+import de.melon.tridomcounter.activities.performTypeTextSafe
+import de.melon.tridomcounter.activities.withPlayersRecyclerView
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
@@ -67,14 +68,14 @@ class NewSessionActivityTest {
 
     @Test
     fun t04_changePlayerName() {
-        playerCardEditText.perform(clearText()).perform(typeText(newPlayer))
+        playerCardEditText.performTypeTextSafe(newPlayer)
         playerCardEditText.check(matches(withText("Fabian")))
 
     }
 
     @Test
     fun t05_preservePlayerNameOnNumberChange() {
-        playerCardEditText.perform(clearText()).perform(typeText(newPlayer))
+        playerCardEditText.performTypeTextSafe(newPlayer)
         numberOfPlayersPlusButton.perform(click())
         playerCardEditText.check(matches(withText(newPlayer)))
 
@@ -85,7 +86,7 @@ class NewSessionActivityTest {
     @Test
     fun t06_preservePlayerNameWhenOutOfSight() {
         numberOfPlayersPlusButton.perform(click())
-        playerCardEditTextPosition2.perform(clearText()).perform(typeText(newPlayer))
+        playerCardEditTextPosition2.performTypeTextSafe(newPlayer)
 
         numberOfPlayersMinusButton.perform(click())
         numberOfPlayersPlusButton.perform(click())

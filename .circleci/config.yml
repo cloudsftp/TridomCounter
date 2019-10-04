@@ -1,0 +1,67 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+        - image: circleci/android:api-28-alpha
+    steps:
+      - checkout
+      - run:
+          name: Build debug APK
+          command: ./gradlew :app:assemble
+
+  testUnit:
+    docker:
+        - image: circleci/android:api-28-alpha
+    steps:
+      - checkout
+      - run:
+          name: Run Unit Tests
+          command: ./gradlew :app:check
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results
+      - store_artifacts:
+          path: ~/test-results/junit
+
+  testUI:
+    docker:
+        - image: circleci/android:api-28-alpha
+    steps:
+      - checkout
+      - run:
+          name: List available Emulator Images
+          command: sdkmanager --list --verbose | grep system-images
+      - run:
+          name: Setup Emulator
+          command: |
+            echo y | sdkmanager "system-images;android-22;default;armeabi-v7a"
+            echo n | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
+      - run:
+          name: Start Emulator
+          command: |
+            export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib
+            emulator -avd test -noaudio -no-window -accel on
+          background: true
+      - run:
+          name: Wait for Emulator
+          command: |
+            circle-android wait-for-boot
+            adb shell input keyevent 82
+      - run:
+          name: Run UI Tests
+          command: ./gradlew :app:connectedDebugAndroidTest
+      - store_test_results:
+          path: ./app/build/reports/androidTests/connected
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - testUnit
