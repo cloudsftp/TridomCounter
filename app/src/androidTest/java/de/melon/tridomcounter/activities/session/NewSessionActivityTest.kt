@@ -9,6 +9,7 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.intendedSafe
 import de.melon.tridomcounter.activities.performTypeTextSafe
 import de.melon.tridomcounter.activities.withPlayersRecyclerView
 import org.junit.*
@@ -64,7 +65,7 @@ class NewSessionActivityTest {
     }
 
     val newPlayer = "Fabian"
-    val playerCardEditText = onView(withPlayersRecyclerView(R.id.playersRecyclerView).atPosition(1))
+    val playerCardEditText = onView(withPlayersRecyclerView(R.id.playersRecyclerView).playerAtPosition(1))
 
     @Test
     fun t04_changePlayerName() {
@@ -81,7 +82,7 @@ class NewSessionActivityTest {
 
     }
 
-    val playerCardEditTextPosition2 = onView(withPlayersRecyclerView(R.id.playersRecyclerView).atPosition(2))
+    val playerCardEditTextPosition2 = onView(withPlayersRecyclerView(R.id.playersRecyclerView).playerAtPosition(2))
 
     @Test
     fun t06_preservePlayerNameWhenOutOfSight() {
@@ -106,10 +107,10 @@ class NewSessionActivityTest {
     }
 
     @Test
-    fun t07_confirmPlayers() {
+    fun t99_confirmPlayers() {
         onView(withId(R.id.fab)).perform(click())
 
-        Intents.intended(IntentMatchers.hasComponent(SessionActivity::class.java.name))
+        intendedSafe(IntentMatchers.hasComponent(SessionActivity::class.java.name))
 
     }
 

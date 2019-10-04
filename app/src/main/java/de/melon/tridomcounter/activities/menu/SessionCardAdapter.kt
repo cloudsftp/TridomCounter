@@ -4,20 +4,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.logic.Session
 
-class SessionCardAdapter(private val sessions: ArrayList<Session>) : RecyclerView.Adapter<SessionCardAdapter.ViewHolder>() {
+class SessionCardAdapter(var sessions: Array<Session?>) : RecyclerView.Adapter<SessionCardAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        val textHeading: TextView
-
-        init {
-            textHeading = view.findViewById(R.id.textHeading)
-        }
+        val sessionName = view.findViewById<TextView>(R.id.sessionNameTextView)!!
 
     }
 
@@ -30,7 +24,7 @@ class SessionCardAdapter(private val sessions: ArrayList<Session>) : RecyclerVie
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textHeading.text = position.toString()
+        viewHolder.sessionName.text = "Session $position"
 
     }
 

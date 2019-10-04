@@ -7,20 +7,38 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.OnItemClickListener
+import de.melon.tridomcounter.activities.addOnItemClickListener
 import de.melon.tridomcounter.activities.session.NewSessionActivity
-import de.melon.tridomcounter.logic.Session
-
+import de.melon.tridomcounter.activities.session.SessionActivity
+import de.melon.tridomcounter.data.GameData
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var sessionRecyclerView: RecyclerView
+    lateinit var sessionCardAdapter : SessionCardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        setSessionsList()
+        sessionRecyclerView = findViewById(R.id.sessionsRecyclerView)
+
+        val sessions = GameData.sessions
+        sessionCardAdapter = SessionCardAdapter(sessions.toTypedArray())
+        sessionRecyclerView.adapter = sessionCardAdapter
+
+        sessionRecyclerView.addOnItemClickListener(object: OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+                val intent = Intent(view.context, SessionActivity::class.java)
+                intent.putExtra("SessionId", position)
+                startActivity(intent)
+            }
+        })
 
         fab.setOnClickListener {
             val intent = Intent(this, NewSessionActivity::class.java)
@@ -28,17 +46,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setSessionsList() {
-        val recyclerView = findViewById<RecyclerView>(R.id.sessionsRecyclerView)
+    override fun onResume() {
+        updateSessionsList()
 
-        val sessions = ArrayList<Session>()
+        super.onResume()
+    }
 
-        for (i in 0..5)
-            sessions.add(Session(Array(1) {String()}))
-
-        recyclerView.adapter =
-            SessionCardAdapter(sessions)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+    fun updateSessionsList() {
+        sessionCardAdapter.sessions = GameData.sessions.toTypedArray()
+        sessionRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 
