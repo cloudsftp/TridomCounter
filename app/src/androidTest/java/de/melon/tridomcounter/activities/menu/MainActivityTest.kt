@@ -13,6 +13,7 @@ import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.session.NewSessionActivity
 import de.melon.tridomcounter.activities.session.SessionActivity
+import de.melon.tridomcounter.activities.sleep
 import de.melon.tridomcounter.activities.withSessionRecyclerView
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.Session
@@ -68,6 +69,7 @@ class MainActivityTest {
 
         onView(withSessionRecyclerView(R.id.sessionsRecyclerView).atPosition(1)).perform(click())
 
+        sleep(50)
         intended(hasComponent(SessionActivity::class.java.name))
 
         onView(withId(R.id.toolbar)).check(matches(isDisplayed()))
@@ -79,6 +81,7 @@ class MainActivityTest {
     fun t99_newSession() {
         onView(withId(R.id.fab)).perform(click())
 
+        sleep(50)
         intended(hasComponent(NewSessionActivity::class.java.name))
 
     }

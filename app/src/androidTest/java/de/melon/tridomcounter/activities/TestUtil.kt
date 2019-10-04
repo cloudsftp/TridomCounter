@@ -95,6 +95,6 @@ class PlayerRecyclerViewMatcher(id: Int) : RecyclerViewMatcher(id) {
 }
 
 fun ViewInteraction.performTypeTextSafe(text: String)
-    = this.perform(clearText()).perform(typeText(text))
+    = this.perform(clearText())?.perform(typeText(text))
 
 fun sleep(millis: Long) = SystemClock.sleep(millis)
