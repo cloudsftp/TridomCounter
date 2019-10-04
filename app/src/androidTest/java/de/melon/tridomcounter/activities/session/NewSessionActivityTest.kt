@@ -9,8 +9,8 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.intendedSafe
 import de.melon.tridomcounter.activities.performTypeTextSafe
-import de.melon.tridomcounter.activities.sleep
 import de.melon.tridomcounter.activities.withPlayersRecyclerView
 import org.junit.*
 import org.junit.runner.RunWith
@@ -110,8 +110,7 @@ class NewSessionActivityTest {
     fun t99_confirmPlayers() {
         onView(withId(R.id.fab)).perform(click())
 
-        sleep(50)
-        Intents.intended(IntentMatchers.hasComponent(SessionActivity::class.java.name))
+        intendedSafe(IntentMatchers.hasComponent(SessionActivity::class.java.name))
 
     }
 

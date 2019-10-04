@@ -1,16 +1,19 @@
 package de.melon.tridomcounter.activities
 
+import android.content.Intent
 import android.content.res.Resources
 import android.os.SystemClock
 import android.support.test.espresso.ViewInteraction
 import android.support.test.espresso.action.ViewActions.clearText
 import android.support.test.espresso.action.ViewActions.typeText
+import android.support.test.espresso.intent.Intents.intended
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import de.melon.tridomcounter.R
 import org.hamcrest.Description
+import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 
 abstract class RecyclerViewMatcher(val id: Int) {
@@ -98,3 +101,9 @@ fun ViewInteraction.performTypeTextSafe(text: String)
     = this.perform(clearText())?.perform(typeText(text))
 
 fun sleep(millis: Long) = SystemClock.sleep(millis)
+
+fun intendedSafe(matcher: Matcher<Intent>) {
+    sleep(1000)
+    intended(matcher)
+
+}
