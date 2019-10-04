@@ -7,8 +7,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.OnItemClickListener
+import de.melon.tridomcounter.activities.addOnItemClickListener
 import de.melon.tridomcounter.activities.session.NewSessionActivity
+import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.data.GameData
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -24,19 +28,22 @@ class MainActivity : AppCompatActivity() {
 
         sessionRecyclerView = findViewById(R.id.sessionsRecyclerView)
 
-        setSessionsList()
+        val sessions = GameData.sessions
+        sessionCardAdapter = SessionCardAdapter(sessions.toTypedArray())
+        sessionRecyclerView.adapter = sessionCardAdapter
+
+        sessionRecyclerView.addOnItemClickListener(object: OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+                val intent = Intent(view.context, SessionActivity::class.java)
+                intent.putExtra("SessionId", position)
+                startActivity(intent)
+            }
+        })
 
         fab.setOnClickListener {
             val intent = Intent(this, NewSessionActivity::class.java)
             startActivity(intent)
         }
-    }
-
-    fun setSessionsList() {
-        val sessions = GameData.sessions
-        sessionCardAdapter = SessionCardAdapter(sessions.toTypedArray())
-        sessionRecyclerView.adapter = sessionCardAdapter
-
     }
 
     override fun onResume() {

@@ -13,12 +13,36 @@ import de.melon.tridomcounter.R
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 
+abstract class RecyclerViewMatcher(val id: Int) {
+
+    fun atPosition(pos: Int) = RecyclerCardSafeMatcher(pos, id)
+    class RecyclerCardSafeMatcher(val pos: Int, val recyclerViewId: Int) : TypeSafeMatcher<View>() {
+        var resources: Resources? = null
+
+        override fun describeTo(description: Description?) {
+            val idDescription = resources?.getResourceName(recyclerViewId)
+            description?.appendText(idDescription)
+        }
+
+        override fun matchesSafely(view: View?): Boolean {
+            resources = view?.resources
+
+            val recyclerView = view?.rootView?.findViewById<RecyclerView>(recyclerViewId)
+            val childView = recyclerView?.findViewHolderForAdapterPosition(pos)?.itemView
+
+            return view == childView
+
+        }
+
+    }
+
+}
+
 fun withSessionRecyclerView(id: Int) = SessionRecyclerViewMatcher(id)
-class SessionRecyclerViewMatcher(val id: Int) {
+class SessionRecyclerViewMatcher(id: Int) : RecyclerViewMatcher(id) {
 
-    fun atPosition(pos: Int) = RecyclerChildSafeMatcher(pos, id)
-
-    class RecyclerChildSafeMatcher(val pos: Int, val recyclerViewId: Int) : TypeSafeMatcher<View>() {
+    fun titleAtPosition(pos: Int) = RecyclerTitleSafeMatcher(pos, id)
+    class RecyclerTitleSafeMatcher(val pos: Int, val recyclerViewId: Int) : TypeSafeMatcher<View>() {
         var resources: Resources? = null
 
         override fun describeTo(description: Description?) {
@@ -34,7 +58,7 @@ class SessionRecyclerViewMatcher(val id: Int) {
             val childView = recyclerView?.findViewHolderForAdapterPosition(pos)?.itemView
             val textField = childView?.findViewById<TextView>(R.id.sessionNameTextView)
 
-            return view == textField as View
+            return view == textField
 
         }
 
@@ -43,11 +67,10 @@ class SessionRecyclerViewMatcher(val id: Int) {
 }
 
 fun withPlayersRecyclerView(id: Int) = PlayerRecyclerViewMatcher(id)
-class PlayerRecyclerViewMatcher(val id: Int) {
+class PlayerRecyclerViewMatcher(id: Int) : RecyclerViewMatcher(id) {
 
-    fun atPosition(pos: Int) = RecyclerChildSafeMatcher(pos, id)
-
-    class RecyclerChildSafeMatcher(val pos: Int, val recyclerViewId: Int) : TypeSafeMatcher<View>() {
+    fun playerAtPosition(pos: Int) = RecyclerPlayerSafeMatcher(pos, id)
+    class RecyclerPlayerSafeMatcher(val pos: Int, val recyclerViewId: Int) : TypeSafeMatcher<View>() {
         var resources: Resources? = null
 
         override fun describeTo(description: Description?) {

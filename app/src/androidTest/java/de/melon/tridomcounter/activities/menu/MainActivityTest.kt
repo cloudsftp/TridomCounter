@@ -12,7 +12,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.session.NewSessionActivity
-import de.melon.tridomcounter.activities.sleep
+import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.activities.withSessionRecyclerView
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.Session
@@ -46,11 +46,9 @@ class MainActivityTest {
 
     @Test
     fun t02_displaySessionsQualitative() {
-        sleep(1000)
-
         val sessionRecyclerViewMatcher = withSessionRecyclerView(R.id.sessionsRecyclerView)
-        onView(sessionRecyclerViewMatcher.atPosition(0)).check(matches(withText("Session 0")))
-        onView(sessionRecyclerViewMatcher.atPosition(1)).check(matches(withText("Session 1")))
+        onView(sessionRecyclerViewMatcher.titleAtPosition(0)).check(matches(withText("Session 0")))
+        onView(sessionRecyclerViewMatcher.titleAtPosition(1)).check(matches(withText("Session 1")))
 
     }
 
@@ -60,8 +58,21 @@ class MainActivityTest {
     }
 
     @After
-    fun tearDownIntents()  {
+    fun tearDownIntents() {
         Intents.release()
+    }
+
+    @Test
+    fun t98_openSession() {
+        val sessionId = 1
+
+        onView(withSessionRecyclerView(R.id.sessionsRecyclerView).atPosition(1)).perform(click())
+
+        intended(hasComponent(SessionActivity::class.java.name))
+
+        onView(withId(R.id.toolbar)).check(matches(isDisplayed()))
+        onView(withText("Session $sessionId")).check(matches(withParent(withId(R.id.toolbar))))
+
     }
 
     @Test

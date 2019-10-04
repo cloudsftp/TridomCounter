@@ -64,7 +64,7 @@ class NewSessionActivityTest {
     }
 
     val newPlayer = "Fabian"
-    val playerCardEditText = onView(withPlayersRecyclerView(R.id.playersRecyclerView).atPosition(1))
+    val playerCardEditText = onView(withPlayersRecyclerView(R.id.playersRecyclerView).playerAtPosition(1))
 
     @Test
     fun t04_changePlayerName() {
@@ -81,7 +81,7 @@ class NewSessionActivityTest {
 
     }
 
-    val playerCardEditTextPosition2 = onView(withPlayersRecyclerView(R.id.playersRecyclerView).atPosition(2))
+    val playerCardEditTextPosition2 = onView(withPlayersRecyclerView(R.id.playersRecyclerView).playerAtPosition(2))
 
     @Test
     fun t06_preservePlayerNameWhenOutOfSight() {
