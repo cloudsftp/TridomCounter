@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val sessions = ArrayList<Session>()
 
         for (i in 0..5)
-            sessions.add(Session(0))
+            sessions.add(Session(Array(1) {String()}))
 
         recyclerView.adapter =
             SessionCardAdapter(sessions)

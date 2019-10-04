@@ -1,4 +1,4 @@
-package de.melon.tridomcounter.logic
+package de.melon.tridomcounter
 
 import java.lang.Exception
 

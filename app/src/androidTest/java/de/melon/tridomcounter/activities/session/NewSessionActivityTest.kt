@@ -3,15 +3,15 @@ package de.melon.tridomcounter.activities.session
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.intent.Intents
+import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.performTypeTextSafe
 import de.melon.tridomcounter.activities.withPlayersRecyclerView
-import org.junit.FixMethodOrder
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
 
@@ -93,6 +93,23 @@ class NewSessionActivityTest {
 
         playerCardEditTextPosition2.check(matches(withText(newPlayer)))
 
+    }
+
+    @Before
+    fun initIntents() {
+        Intents.init()
+    }
+
+    @After
+    fun tearDownIntents()  {
+        Intents.release()
+    }
+
+    @Test
+    fun t07_confirmPlayers() {
+        onView(withId(R.id.fab)).perform(click())
+
+        Intents.intended(IntentMatchers.hasComponent(SessionActivity::class.java.name))
 
     }
 

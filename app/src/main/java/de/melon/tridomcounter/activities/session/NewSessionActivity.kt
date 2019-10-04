@@ -1,5 +1,6 @@
 package de.melon.tridomcounter.activities.session
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -7,6 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.widget.Button
 import android.widget.TextView
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.data.GameData
+import de.melon.tridomcounter.logic.Session
 
 import kotlinx.android.synthetic.main.activity_new_session.*
 
@@ -27,6 +30,15 @@ class NewSessionActivity : AppCompatActivity() {
         setUpPlayerControls()
 
         fab.setOnClickListener { view ->
+            val intent = Intent(this, SessionActivity::class.java)
+
+            val players = newPlayerCardAdapter.playerNames.map { e -> e.toString() } .toTypedArray()
+            val session = Session(players)
+            val sessionId = GameData.addSession(session)
+
+            intent.putExtra("SessionId", sessionId)
+
+            startActivity(intent)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

@@ -16,6 +16,8 @@ class NewPlayerCardAdapter : RecyclerView.Adapter<NewPlayerCardAdapter.NewPlayer
     var numberOfPlayers = minNumberOfPlayers
     val playerNames = ArrayList<Editable>(maxNumberOfPlayers)
 
+    fun getPlayers() = playerNames.filterIndexed {i, _ ->  i < numberOfPlayers} .toTypedArray()
+
     fun changeNumberOfPlayers(delta: Int) : Int {
         numberOfPlayers += delta
 
