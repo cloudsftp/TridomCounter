@@ -21,3 +21,4 @@ jobs:
         name: Run UI Tests
         command: |
           ./gradlew :app:packageDebugAndroidTest
+          
