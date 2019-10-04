@@ -29,7 +29,7 @@ class NewSessionActivity : AppCompatActivity() {
 
         setUpPlayerControls()
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             val intent = Intent(this, SessionActivity::class.java)
 
             val players = newPlayerCardAdapter.playerNames.map { e -> e.toString() } .toTypedArray()

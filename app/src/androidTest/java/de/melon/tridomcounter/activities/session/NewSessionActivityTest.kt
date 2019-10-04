@@ -106,7 +106,7 @@ class NewSessionActivityTest {
     }
 
     @Test
-    fun t07_confirmPlayers() {
+    fun t99_confirmPlayers() {
         onView(withId(R.id.fab)).perform(click())
 
         Intents.intended(IntentMatchers.hasComponent(SessionActivity::class.java.name))

@@ -17,7 +17,7 @@ class SessionActivity : AppCompatActivity() {
         sessionId = intent?.extras?.get("SessionId") as Int
         title = "$title $sessionId"
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
 
         }
         

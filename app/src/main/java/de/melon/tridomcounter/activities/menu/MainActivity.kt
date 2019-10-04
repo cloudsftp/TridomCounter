@@ -9,16 +9,20 @@ import android.view.Menu
 import android.view.MenuItem
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.session.NewSessionActivity
-import de.melon.tridomcounter.logic.Session
-
+import de.melon.tridomcounter.data.GameData
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var sessionsRecyclerView: RecyclerView
+    lateinit var sessionsAdapter: SessionCardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        sessionsRecyclerView = findViewById(R.id.sessionsRecyclerView)
 
         setSessionsList()
 
@@ -29,16 +33,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setSessionsList() {
-        val recyclerView = findViewById<RecyclerView>(R.id.sessionsRecyclerView)
+        val sessions = GameData.sessions
+        sessionsAdapter = SessionCardAdapter(sessions.toTypedArray())
+        sessionsRecyclerView.adapter = sessionsAdapter
 
-        val sessions = ArrayList<Session>()
+    }
 
-        for (i in 0..5)
-            sessions.add(Session(Array(1) {String()}))
+    override fun onResume() {
+        updateSessionsList()
 
-        recyclerView.adapter =
-            SessionCardAdapter(sessions)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        super.onResume()
+    }
+
+    fun updateSessionsList() {
+        sessionsAdapter.sessions = GameData.sessions.toTypedArray()
+        sessionsRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 

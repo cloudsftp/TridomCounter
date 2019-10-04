@@ -4,12 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.logic.Session
 
-class SessionCardAdapter(private val sessions: ArrayList<Session>) : RecyclerView.Adapter<SessionCardAdapter.ViewHolder>() {
+class SessionCardAdapter(var sessions: Array<Session?>) : RecyclerView.Adapter<SessionCardAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
