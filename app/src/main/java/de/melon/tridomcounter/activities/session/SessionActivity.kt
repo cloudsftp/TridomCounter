@@ -7,15 +7,20 @@ import kotlinx.android.synthetic.main.activity_session.*
 
 class SessionActivity : AppCompatActivity() {
 
+    var sessionId = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_session)
         setSupportActionBar(toolbar)
 
+        sessionId = intent?.extras?.get("SessionId") as Int
+        title = "$title $sessionId"
 
         fab.setOnClickListener { view ->
 
         }
+        
     }
 
 }
