@@ -32,8 +32,8 @@ jobs:
       - run:
           name: Setup Emulator
           command: |
-            echo y | sdkmanager "system-images;android-28;default;armeabi-v7a"
-            echo n | avdmanager create avd -n test -k "system-images;android-28;default;armeabi-v7a"
+            echo y | sdkmanager "system-images;android-28;default;x86"
+            echo n | avdmanager create avd -n test -k "system-images;android-28;default;x86"
       - run:
           name: Start Emulator
           command: |
