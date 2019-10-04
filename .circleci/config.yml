@@ -39,4 +39,5 @@ jobs:
             adb shell screencap -p /sdcard/screen.png
             adb pull /sdcard/screen.png
             ./im/imgur.sh screen.png
-          
+      - store_test_results:
+          path: ./app/build/reports
