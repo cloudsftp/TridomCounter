@@ -13,37 +13,45 @@ jobs:
   testUnit:
     docker:
         - image: circleci/android:api-28-alpha
+    steps:
       - run:
           name: Run Unit Tests
           command: ./gradlew :app:check
+          
       - store_test_results:
         path: ./app/build/reports/testReleaseUnitTests
 
   testUI:
     docker:
         - image: circleci/android:api-28-alpha
+    steps:
       - run:
           name: List available Emulator Images
           command: sdkmanager --list --verbose | grep system-images
+
       - run:
           name: Setup Emulator
           command: |
             echo y | sdkmanager "system-images;android-28;default;armeabi-v7a"
             echo n | avdmanager create avd -n test -k "system-images;android-28;default;armeabi-v7a"
+
       - run:
           name: Start Emulator
           command: |
             export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib
             emulator -avd test -noaudio -no-window -accel on
           background: true
+
       - run:
           name: Wait for Emulator
           command: |
             circle-android wait-for-boot
             adb shell input keyevent 82
+
       - run:
           name: Run UI Tests
           command: ./gradlew :app:connectedDebugAndroidTest
+
       - run:
           name: Take Screenshot
           command: |
@@ -52,5 +60,6 @@ jobs:
             adb shell screencap -p /sdcard/screen.png
             adb pull /sdcard/screen.png
             ./im/imgur.sh screen.png
+
       - store_test_results:
           path: ./app/build/reports/androidTests/connected
