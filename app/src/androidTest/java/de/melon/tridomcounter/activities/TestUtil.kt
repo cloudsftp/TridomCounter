@@ -22,24 +22,19 @@ class NewPlayerRecyclerViewMatcher(val id: Int) {
     }
 
     class RecyclerChildSafeMatcher(val pos: Int, val recycleViewId: Int) : TypeSafeMatcher<View>() {
-        lateinit var resources: Resources
+        var resources: Resources? = null
 
         override fun describeTo(description: Description?) {
-            var idDescription: String
-            try {
-                idDescription = resources.getResourceName(recycleViewId)
-            } catch (e: Resources.NotFoundException) {
-                idDescription = "$recycleViewId (resource name not found)"
-            }
-
+            val idDescription = resources?.getResourceName(recycleViewId)
             description?.appendText(idDescription)
+            
         }
 
         override fun matchesSafely(view: View?): Boolean {
-            resources = view!!.resources
+            resources = view?.resources
 
-            val recyclerView = view.rootView.findViewById<RecyclerView>(recycleViewId)
-            val childView = recyclerView.findViewHolderForAdapterPosition(pos)?.itemView
+            val recyclerView = view?.rootView?.findViewById<RecyclerView>(recycleViewId)
+            val childView = recyclerView?.findViewHolderForAdapterPosition(pos)?.itemView
             val editText = childView?.findViewById<EditText>(R.id.playerNameEditText)
 
             return view == editText
