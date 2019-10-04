@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import de.melon.tridomcounter.R
 
-class NewPlayerCardAdapter : RecyclerView.Adapter<NewPlayerCardAdapter.NewPlayerCardViewHolder>() {
+class PlayerCardAdapter : RecyclerView.Adapter<PlayerCardAdapter.NewPlayerCardViewHolder>() {
 
     val minNumberOfPlayers = 2
     val maxNumberOfPlayers = 6
@@ -38,12 +38,7 @@ class NewPlayerCardAdapter : RecyclerView.Adapter<NewPlayerCardAdapter.NewPlayer
     }
 
     class NewPlayerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        val nameTextField: EditText
-
-        init {
-            nameTextField = view.findViewById(R.id.playerNameEditText)
-        }
+        val nameTextField = view.findViewById<EditText>(R.id.playerNameEditText)!!
 
     }
 

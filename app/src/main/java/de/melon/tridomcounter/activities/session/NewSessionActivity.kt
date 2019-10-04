@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.activity_new_session.*
 
 class NewSessionActivity : AppCompatActivity() {
 
-    lateinit var newPlayerRecyclerView: RecyclerView
-    lateinit var newPlayerCardAdapter: NewPlayerCardAdapter
+    lateinit var playerRecyclerView: RecyclerView
+    lateinit var playerCardAdapter: PlayerCardAdapter
 
     lateinit var numberOfPlayersTextView: TextView
     lateinit var numberOfPlayersPlus: Button
@@ -32,7 +32,7 @@ class NewSessionActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val intent = Intent(this, SessionActivity::class.java)
 
-            val players = newPlayerCardAdapter.playerNames.map { e -> e.toString() } .toTypedArray()
+            val players = playerCardAdapter.playerNames.map { e -> e.toString() } .toTypedArray()
             val session = Session(players)
             val sessionId = GameData.addSession(session)
 
@@ -52,18 +52,18 @@ class NewSessionActivity : AppCompatActivity() {
         numberOfPlayersPlus = findViewById(R.id.numberOfPlayersPlus)
         numberOfPlayersPlus.setOnClickListener { changeNumberOfPlayers(1) }
 
-        newPlayerRecyclerView = findViewById(R.id.playersRecyclerView)
+        playerRecyclerView = findViewById(R.id.playersRecyclerView)
 
-        newPlayerCardAdapter = NewPlayerCardAdapter()
-        newPlayerRecyclerView.adapter = newPlayerCardAdapter
-        newPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
+        playerCardAdapter = PlayerCardAdapter()
+        playerRecyclerView.adapter = playerCardAdapter
+        playerRecyclerView.layoutManager = LinearLayoutManager(this)
 
         renderCards()
 
     }
 
     fun changeNumberOfPlayers(delta: Int) {
-        val newValue = newPlayerCardAdapter.changeNumberOfPlayers(delta)
+        val newValue = playerCardAdapter.changeNumberOfPlayers(delta)
 
         numberOfPlayersTextView.text = "$newValue"
         renderCards()
@@ -71,7 +71,7 @@ class NewSessionActivity : AppCompatActivity() {
     }
 
     fun renderCards() {
-        newPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
+        playerRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 

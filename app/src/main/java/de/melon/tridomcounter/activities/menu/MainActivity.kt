@@ -14,15 +14,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var sessionsRecyclerView: RecyclerView
-    lateinit var sessionsAdapter: SessionCardAdapter
+    lateinit var sessionRecyclerView: RecyclerView
+    lateinit var sessionCardAdapter : SessionCardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        sessionsRecyclerView = findViewById(R.id.sessionsRecyclerView)
+        sessionRecyclerView = findViewById(R.id.sessionsRecyclerView)
 
         setSessionsList()
 
@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
 
     fun setSessionsList() {
         val sessions = GameData.sessions
-        sessionsAdapter = SessionCardAdapter(sessions.toTypedArray())
-        sessionsRecyclerView.adapter = sessionsAdapter
+        sessionCardAdapter = SessionCardAdapter(sessions.toTypedArray())
+        sessionRecyclerView.adapter = sessionCardAdapter
 
     }
 
@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateSessionsList() {
-        sessionsAdapter.sessions = GameData.sessions.toTypedArray()
-        sessionsRecyclerView.layoutManager = LinearLayoutManager(this)
+        sessionCardAdapter.sessions = GameData.sessions.toTypedArray()
+        sessionRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 

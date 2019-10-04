@@ -11,12 +11,7 @@ import de.melon.tridomcounter.logic.Session
 class SessionCardAdapter(var sessions: Array<Session?>) : RecyclerView.Adapter<SessionCardAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        val textHeading: TextView
-
-        init {
-            textHeading = view.findViewById(R.id.textHeading)
-        }
+        val sessionName = view.findViewById<TextView>(R.id.sessionNameTextView)!!
 
     }
 
@@ -29,7 +24,7 @@ class SessionCardAdapter(var sessions: Array<Session?>) : RecyclerView.Adapter<S
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textHeading.text = position.toString()
+        viewHolder.sessionName.text = "Session $position"
 
     }
 
