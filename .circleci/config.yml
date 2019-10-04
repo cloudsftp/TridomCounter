@@ -8,15 +8,28 @@ jobs:
       - checkout
       - run:
           name: Build debug APK
-          command: ./gradlew :app:assembleDebug
+          command: ./gradlew :app:assemble
+
+  testUnit:
+    docker:
+        - image: circleci/android:api-28-alpha
       - run:
           name: Run Unit Tests
           command: ./gradlew :app:check
+      - store_test_results:
+        path: ./app/build/reports/testReleaseUnitTests
+
+  testUI:
+    docker:
+        - image: circleci/android:api-28-alpha
+      - run:
+          name: List available Emulator Images
+          command: sdkmanager --list --verbose | grep system-images
       - run:
           name: Setup Emulator
           command: |
-            echo y | sdkmanager "system-images;android-22;default;armeabi-v7a"
-            echo n | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
+            echo y | sdkmanager "system-images;android-28;default;armeabi-v7a"
+            echo n | avdmanager create avd -n test -k "system-images;android-28;default;armeabi-v7a"
       - run:
           name: Start Emulator
           command: |
@@ -40,4 +53,4 @@ jobs:
             adb pull /sdcard/screen.png
             ./im/imgur.sh screen.png
       - store_test_results:
-          path: ./app/build/reports
+          path: ./app/build/reports/androidTests/connected
