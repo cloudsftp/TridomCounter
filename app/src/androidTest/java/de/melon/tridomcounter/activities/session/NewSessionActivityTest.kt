@@ -67,7 +67,7 @@ class NewSessionActivityTest {
 
     @Test
     fun t04_changePlayerName() {
-        playerCardEditText.perform(clearText()).perform(typeText(newPlayer)).perform(replaceText(newPlayer))
+        playerCardEditText.perform(clearText()).perform(typeText(newPlayer))
         playerCardEditText.check(matches(withText("Fabian")))
 
     }
