@@ -14,5 +14,5 @@ jobs:
           command: ./gradlew :app:check
       - run:
           name: Run UI Tests
-          command: ./gradlew :app:packageDebugAndroidTest
+          command: ./gradlew :app:connectedDebugAndroidTest
           
