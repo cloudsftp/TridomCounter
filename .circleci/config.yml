@@ -4,18 +4,15 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-26-alpha
+        - image: circleci/android:api-26-alpha
     steps:
       - run:
-        name: Build debug APK
-        command: |
-          ./gradlew :app:assembleDebug
+          name: Build debug APK
+          command: ./gradlew :app:assembleDebug
       - run:
-        name: Run Unit Tests
-        command: |
-          ./gradlew :app:check
+          name: Run Unit Tests
+          command: ./gradlew :app:check
       - run:
-        name: Run UI Tests
-        command: |
-          ./gradlew :app:packageDebugAndroidTest
+          name: Run UI Tests
+          command: ./gradlew :app:packageDebugAndroidTest
           
