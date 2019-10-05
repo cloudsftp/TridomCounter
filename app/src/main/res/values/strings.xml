@@ -13,4 +13,6 @@
 
     <string name="title_activity_session">Session</string>
 
+    <string name="show_all_sessions">Alle Sessions</string>
+
 </resources>

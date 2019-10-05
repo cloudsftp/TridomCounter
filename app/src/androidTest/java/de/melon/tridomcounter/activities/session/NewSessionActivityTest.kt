@@ -11,7 +11,7 @@ import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.intendedSafe
 import de.melon.tridomcounter.activities.performTypeTextSafe
-import de.melon.tridomcounter.activities.withPlayersRecyclerView
+import de.melon.tridomcounter.activities.withEditPlayerRecyclerView
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
@@ -30,7 +30,7 @@ class NewSessionActivityTest {
     fun t01_initial() {
         onView(withId(R.id.numberOfPlayersText)).check(matches(withText("$initialNumberOfPlayers")))
 
-        onView(withId(R.id.playersRecyclerView)).check(matches(hasChildCount(initialNumberOfPlayers)))
+        onView(withId(R.id.editPlayerRecyclerView)).check(matches(hasChildCount(initialNumberOfPlayers)))
 
     }
 
@@ -38,7 +38,7 @@ class NewSessionActivityTest {
     val numberOfPlayersMinusButton = onView(withId(R.id.numberOfPlayersMinus))
     val numberOfPlayersPlusButton = onView(withId(R.id.numberOfPlayersPlus))
 
-    val playersRecyclerView = onView(withId(R.id.playersRecyclerView))
+    val playersRecyclerView = onView(withId(R.id.editPlayerRecyclerView))
 
     @Test
     fun t02_changeNumberOfPlayers() {
@@ -65,7 +65,7 @@ class NewSessionActivityTest {
     }
 
     val newPlayer = "Fabian"
-    val playerCardEditText = onView(withPlayersRecyclerView(R.id.playersRecyclerView).playerAtPosition(1))
+    val playerCardEditText = onView(withEditPlayerRecyclerView(R.id.editPlayerRecyclerView).playerAtPosition(1))
 
     @Test
     fun t04_changePlayerName() {
@@ -82,7 +82,7 @@ class NewSessionActivityTest {
 
     }
 
-    val playerCardEditTextPosition2 = onView(withPlayersRecyclerView(R.id.playersRecyclerView).playerAtPosition(2))
+    val playerCardEditTextPosition2 = onView(withEditPlayerRecyclerView(R.id.editPlayerRecyclerView).playerAtPosition(2))
 
     @Test
     fun t06_preservePlayerNameWhenOutOfSight() {

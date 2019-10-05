@@ -69,8 +69,8 @@ class SessionRecyclerViewMatcher(id: Int) : RecyclerViewMatcher(id) {
 
 }
 
-fun withPlayersRecyclerView(id: Int) = PlayerRecyclerViewMatcher(id)
-class PlayerRecyclerViewMatcher(id: Int) : RecyclerViewMatcher(id) {
+fun withEditPlayerRecyclerView(id: Int) = EditPlayerRecyclerViewMatcher(id)
+class EditPlayerRecyclerViewMatcher(id: Int) : RecyclerViewMatcher(id) {
 
     fun playerAtPosition(pos: Int) = RecyclerPlayerSafeMatcher(pos, id)
     class RecyclerPlayerSafeMatcher(val pos: Int, val recyclerViewId: Int) : TypeSafeMatcher<View>() {

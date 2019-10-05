@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.activity_new_session.*
 
 class NewSessionActivity : AppCompatActivity() {
 
-    lateinit var playerRecyclerView: RecyclerView
-    lateinit var playerCardAdapter: PlayerCardAdapter
+    lateinit var editPlayerRecyclerView: RecyclerView
+    lateinit var editPlayerCardAdapter: PlayerCardAdapter
 
     lateinit var numberOfPlayersTextView: TextView
     lateinit var numberOfPlayersPlus: Button
@@ -32,7 +32,7 @@ class NewSessionActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val intent = Intent(this, SessionActivity::class.java)
 
-            val players = playerCardAdapter.playerNames.map { e -> e.toString() } .toTypedArray()
+            val players = editPlayerCardAdapter.playerNames.map { e -> e.toString() } .toTypedArray()
             val session = Session(players)
             val sessionId = GameData.addSession(session)
 
@@ -41,6 +41,7 @@ class NewSessionActivity : AppCompatActivity() {
             startActivity(intent)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
 
     fun setUpPlayerControls() {
@@ -52,18 +53,18 @@ class NewSessionActivity : AppCompatActivity() {
         numberOfPlayersPlus = findViewById(R.id.numberOfPlayersPlus)
         numberOfPlayersPlus.setOnClickListener { changeNumberOfPlayers(1) }
 
-        playerRecyclerView = findViewById(R.id.playersRecyclerView)
+        editPlayerRecyclerView = findViewById(R.id.editPlayerRecyclerView)
 
-        playerCardAdapter = PlayerCardAdapter()
-        playerRecyclerView.adapter = playerCardAdapter
-        playerRecyclerView.layoutManager = LinearLayoutManager(this)
+        editPlayerCardAdapter = PlayerCardAdapter()
+        editPlayerRecyclerView.adapter = editPlayerCardAdapter
+        editPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
 
         renderCards()
 
     }
 
     fun changeNumberOfPlayers(delta: Int) {
-        val newValue = playerCardAdapter.changeNumberOfPlayers(delta)
+        val newValue = editPlayerCardAdapter.changeNumberOfPlayers(delta)
 
         numberOfPlayersTextView.text = "$newValue"
         renderCards()
@@ -71,7 +72,7 @@ class NewSessionActivity : AppCompatActivity() {
     }
 
     fun renderCards() {
-        playerRecyclerView.layoutManager = LinearLayoutManager(this)
+        editPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 
