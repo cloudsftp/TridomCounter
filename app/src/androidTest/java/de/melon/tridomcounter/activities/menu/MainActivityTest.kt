@@ -9,9 +9,10 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
-import de.melon.tridomcounter.activities.intendedActivity
 import de.melon.tridomcounter.activities.session.NewSessionActivity
 import de.melon.tridomcounter.activities.session.SessionActivity
+import de.melon.tridomcounter.activities.util.intendedActivity
+import de.melon.tridomcounter.activities.util.withSessionRecyclerView
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.Session
 import org.junit.*
@@ -45,8 +46,8 @@ class MainActivityTest {
     @Test
     fun t02_displaySessionsQualitative() {
         val sessionRecyclerViewMatcher = withSessionRecyclerView(R.id.sessionsRecyclerView)
-        onView(sessionRecyclerViewMatcher.titleAtPosition(0)).check(matches(withText("Session 0")))
-        onView(sessionRecyclerViewMatcher.titleAtPosition(1)).check(matches(withText("Session 1")))
+        onView(sessionRecyclerViewMatcher.atPosition(0)).check(matches(withText("Session 0")))
+        onView(sessionRecyclerViewMatcher.atPosition(1)).check(matches(withText("Session 1")))
 
     }
 

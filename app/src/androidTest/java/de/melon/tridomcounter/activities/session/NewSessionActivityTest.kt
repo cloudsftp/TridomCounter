@@ -8,8 +8,9 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
-import de.melon.tridomcounter.activities.intendedActivity
-import de.melon.tridomcounter.activities.performTypeTextSafe
+import de.melon.tridomcounter.activities.util.intendedActivity
+import de.melon.tridomcounter.activities.util.performTypeTextSafe
+import de.melon.tridomcounter.activities.util.withEditPlayerRecyclerView
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
@@ -63,7 +64,7 @@ class NewSessionActivityTest {
     }
 
     val newPlayer = "Fabian"
-    val playerCardEditText = onView(withEditPlayerRecyclerView(R.id.editPlayerRecyclerView).playerAtPosition(1))
+    val playerCardEditText = onView(withEditPlayerRecyclerView(R.id.editPlayerRecyclerView).atPosition(1))
 
     @Test
     fun t04_changePlayerName() {
@@ -80,7 +81,7 @@ class NewSessionActivityTest {
 
     }
 
-    val playerCardEditTextPosition2 = onView(withEditPlayerRecyclerView(R.id.editPlayerRecyclerView).playerAtPosition(2))
+    val playerCardEditTextPosition2 = onView(withEditPlayerRecyclerView(R.id.editPlayerRecyclerView).atPosition(2))
 
     @Test
     fun t06_preservePlayerNameWhenOutOfSight() {

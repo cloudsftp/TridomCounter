@@ -11,8 +11,9 @@ import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
-import de.melon.tridomcounter.activities.intendedActivity
 import de.melon.tridomcounter.activities.menu.MainActivity
+import de.melon.tridomcounter.activities.util.intendedActivity
+import de.melon.tridomcounter.activities.util.withPlayerRecyclerView
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.Session
 import org.junit.*
@@ -61,7 +62,7 @@ class SessionActivityTest {
 
     @Test
     fun t00_displayPlayers() {
-        onView(withPlayerRecyclerView(R.id.playerRecyclerView).playerAtPosition(0))
+        onView(withPlayerRecyclerView(R.id.playerRecyclerView).atPosition(0))
             .check(matches(withText(players[0])))
 
     }

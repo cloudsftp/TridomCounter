@@ -1,4 +1,4 @@
-package de.melon.tridomcounter.activities
+package de.melon.tridomcounter.activities.util
 
 import android.content.res.Resources
 import android.os.SystemClock
@@ -10,28 +10,36 @@ import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import de.melon.tridomcounter.R
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 
-abstract class RecyclerViewMatcher(val id: Int) {
+fun withSessionRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.sessionNameTextView)
+fun withEditPlayerRecyclerView(id: Int) = RecyclerChildViewMatcher<EditText>(id, R.id.playerNameEditText)
+fun withPlayerRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.playerNameTextView)
+class RecyclerChildViewMatcher<T : View>(val recyclerViewId: Int, val childViewId: Int) {
 
-    fun atPosition(pos: Int) = RecyclerCardSafeMatcher(pos, id)
-    class RecyclerCardSafeMatcher(val pos: Int, val recyclerViewId: Int) : TypeSafeMatcher<View>() {
+    fun atPosition(position: Int) = RecyclerChildSafeMatcher<T>(position, recyclerViewId, childViewId)
+    class RecyclerChildSafeMatcher<T : View>(val position: Int, val recyclerViewId: Int, val childViewId: Int)
+        : TypeSafeMatcher<View>() {
+
         var resources: Resources? = null
 
         override fun describeTo(description: Description?) {
             val idDescription = resources?.getResourceName(recyclerViewId)
             description?.appendText(idDescription)
+
         }
 
         override fun matchesSafely(view: View?): Boolean {
             resources = view?.resources
 
             val recyclerView = view?.rootView?.findViewById<RecyclerView>(recyclerViewId)
-            val childView = recyclerView?.findViewHolderForAdapterPosition(pos)?.itemView
+            val viewHolder = recyclerView?.findViewHolderForAdapterPosition(position)?.itemView
+            val childView = viewHolder?.findViewById<T>(childViewId)
 
-            return view == childView
+            return view == childView as View
 
         }
 
