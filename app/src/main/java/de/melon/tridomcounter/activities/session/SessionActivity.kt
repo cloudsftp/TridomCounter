@@ -32,7 +32,7 @@ class SessionActivity : AppCompatActivity() {
 
         val playerRecyclerView = findViewById<RecyclerView>(R.id.playerRecyclerView)
         playerRecyclerView.adapter = PlayerCardAdapter(players)
-        playerRecyclerView.layoutManager = LinearLayoutManager(this)
+        playerRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         allSessionsButton = findViewById(R.id.allSessionsButton)
         allSessionsButton.setOnClickListener {

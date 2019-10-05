@@ -13,11 +13,11 @@
         <activity
                 android:name=".activities.round.RoundActivity"
                 android:label="@string/title_activity_round"
-                android:parentActivityName=".activities.round.NewRoundActivity"
+                android:parentActivityName=".activities.session.SessionActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="de.melon.tridomcounter.activities.round.NewRoundActivity" />
+                    android:value="de.melon.tridomcounter.activities.session.SessionActivity" />
         </activity>
         <activity
                 android:name=".activities.round.NewRoundActivity"

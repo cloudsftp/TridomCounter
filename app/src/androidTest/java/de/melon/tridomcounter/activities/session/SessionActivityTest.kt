@@ -72,6 +72,12 @@ class SessionActivityTest {
     }
 
     @Test
+    fun t02_displayRounds() {
+
+
+    }
+
+    @Test
     fun t99_openAllSessions() {
         onView(withId(R.id.allSessionsButton)).perform(click())
 

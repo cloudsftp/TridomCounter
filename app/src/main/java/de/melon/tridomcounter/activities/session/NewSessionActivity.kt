@@ -32,7 +32,7 @@ class NewSessionActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val intent = Intent(this, SessionActivity::class.java)
 
-            val players = editPlayerCardAdapter.playerNames.map { e -> e.toString() } .toTypedArray()
+            val players = editPlayerCardAdapter.getPlayers().map { e -> e.toString() } .toTypedArray()
             val session = Session(players)
             val sessionId = GameData.addSession(session)
 
