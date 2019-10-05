@@ -3,14 +3,18 @@ package de.melon.tridomcounter.activities.session
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.intendedActivity
 import de.melon.tridomcounter.activities.menu.MainActivity
+import de.melon.tridomcounter.data.GameData
+import de.melon.tridomcounter.logic.Session
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
@@ -31,21 +35,35 @@ class SessionActivityTest {
     fun initIntents() {
         Intents.init()
 
+        createSession()
         startActivity()
 
     }
 
+    var sessionId = 0
+
+    val players = arrayOf("Fabian", "Tim", "Paul")
+
+    fun createSession() {
+        GameData.clear()
+
+        val session = Session(players)
+        sessionId = GameData.addSession(session)
+
+    }
+
     fun startActivity() {
-        val sessionId = 1
         val intent = Intent()
         intent.putExtra("SessionId", sessionId)
         activityRule.launchActivity(intent)
 
     }
 
-    @After
-    fun tearDownIntents() {
-        Intents.release()
+    @Test
+    fun t00_displayPlayers() {
+        onView(withPlayerRecyclerView(R.id.playerRecyclerView).playerAtPosition(0))
+            .check(matches(withText(players[0])))
+
     }
 
     @Test
@@ -54,6 +72,11 @@ class SessionActivityTest {
 
         intendedActivity(MainActivity::class.java.name)
 
+    }
+
+    @After
+    fun tearDownIntents() {
+        Intents.release()
     }
 
 }

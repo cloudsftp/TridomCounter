@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_new_session.*
 class NewSessionActivity : AppCompatActivity() {
 
     lateinit var editPlayerRecyclerView: RecyclerView
-    lateinit var editPlayerCardAdapter: PlayerCardAdapter
+    lateinit var editPlayerCardAdapter: EditPlayerCardAdapter
 
     lateinit var numberOfPlayersTextView: TextView
     lateinit var numberOfPlayersPlus: Button
@@ -55,7 +55,7 @@ class NewSessionActivity : AppCompatActivity() {
 
         editPlayerRecyclerView = findViewById(R.id.editPlayerRecyclerView)
 
-        editPlayerCardAdapter = PlayerCardAdapter()
+        editPlayerCardAdapter = EditPlayerCardAdapter()
         editPlayerRecyclerView.adapter = editPlayerCardAdapter
         editPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
 

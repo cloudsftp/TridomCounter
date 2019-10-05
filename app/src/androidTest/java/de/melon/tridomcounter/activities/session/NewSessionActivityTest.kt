@@ -10,7 +10,6 @@ import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.intendedActivity
 import de.melon.tridomcounter.activities.performTypeTextSafe
-import de.melon.tridomcounter.activities.withEditPlayerRecyclerView
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters

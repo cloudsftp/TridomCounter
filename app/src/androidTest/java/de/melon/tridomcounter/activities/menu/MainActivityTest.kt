@@ -12,7 +12,6 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.intendedActivity
 import de.melon.tridomcounter.activities.session.NewSessionActivity
 import de.melon.tridomcounter.activities.session.SessionActivity
-import de.melon.tridomcounter.activities.withSessionRecyclerView
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.Session
 import org.junit.*
@@ -56,11 +55,6 @@ class MainActivityTest {
         Intents.init()
     }
 
-    @After
-    fun tearDownIntents() {
-        Intents.release()
-    }
-
     @Test
     fun t98_openSession() {
         val sessionId = 1
@@ -80,6 +74,11 @@ class MainActivityTest {
 
         intendedActivity(NewSessionActivity::class.java.name)
 
+    }
+
+    @After
+    fun tearDownIntents() {
+        Intents.release()
     }
 
 }
