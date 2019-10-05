@@ -1,5 +1,6 @@
 package de.melon.tridomcounter.activities.session
 
+import android.content.Intent
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.intent.Intents
@@ -20,7 +21,16 @@ class SessionActivityTest {
 
     @JvmField
     @Rule
-    var activityRule = ActivityTestRule(SessionActivity::class.java)
+    var activityRule = ActivityTestRule(SessionActivity::class.java, false, false)
+
+    @Before
+    fun startActivity() {
+        val sessionId = 1
+        val intent = Intent()
+        intent.putExtra("SessionId", sessionId)
+        activityRule.launchActivity(intent)
+
+    }
 
     @Before
     fun initIntents() {
