@@ -32,8 +32,6 @@ class MainActivityTest {
 
     }
 
-    val sessionRecyclerView = onView(withId(R.id.sessionRecyclerView))
-
     val numberOfSessions = 2
     val sessions = Array(numberOfSessions) {Session(Array(0) { String()})}
 
@@ -48,6 +46,8 @@ class MainActivityTest {
     val activityRule = ActivityTestRule(MainActivity::class.java)
 
     fun startActivity() = activityRule.launchActivity(Intent())
+
+    val sessionRecyclerView = onView(withId(R.id.sessionRecyclerView))
 
     @Test
     fun t01_displaySessionsQuantitative() {

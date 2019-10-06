@@ -33,7 +33,7 @@ class SessionActivity : AppCompatActivity() {
 
         title = "$title $sessionId"
 
-        session = GameData.sessions[sessionId]!!
+        session = GameData.sessions[sessionId]
         val players = session.players
 
         val playerRecyclerView = findViewById<RecyclerView>(R.id.playerRecyclerView)
