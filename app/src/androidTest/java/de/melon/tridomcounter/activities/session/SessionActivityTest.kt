@@ -2,6 +2,7 @@ package de.melon.tridomcounter.activities.session
 
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
@@ -37,13 +38,11 @@ class SessionActivityTest {
 
     }
 
-    var sessionId = 0
     val players = arrayOf("Fabian", "Tim", "Paul")
 
     fun createSession() {
         val session = Session(players)
-        sessionId = GameData.addSession(session)
-        current.sessionId = sessionId
+        current.sessionId = GameData.addSession(session)
 
     }
 
@@ -65,16 +64,24 @@ class SessionActivityTest {
     }
 
     @Test
-    fun t01_startRound() {
-        onView(withId(R.id.fab)).perform(click())
+    fun t02_displayRounds() {
+        val numberOfRounds = 4
 
-        intendedActivity(NewRoundActivity::class.java.name)
+        for (i in 0 until numberOfRounds)
+            GameData.sessions[current.sessionId]!!.newRound()
+
+        onView(withId(R.id.fab)).perform(click())
+        pressBack()
+
+        onView(withId(R.id.roundRecyclerView)).check(matches(hasChildCount(numberOfRounds)))
 
     }
 
     @Test
-    fun t02_displayRounds() {
+    fun t98_startRound() {
+        onView(withId(R.id.fab)).perform(click())
 
+        intendedActivity(NewRoundActivity::class.java.name)
 
     }
 
