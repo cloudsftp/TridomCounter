@@ -12,6 +12,8 @@ class NewRoundActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_round)
         setSupportActionBar(toolbar)
 
+
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

@@ -26,7 +26,7 @@ class RoundCardAdapter(val rounds: MutableList<Round>)
 
     override fun onBindViewHolder(viewHolder: RoundCardViewHolder, position: Int) {
         val originalText = viewHolder.nameTextView.text
-        viewHolder.nameTextView.text = String.format("$originalText %2d", position)
+        viewHolder.nameTextView.text = String.format("$originalText %d", position)
 
     }
 

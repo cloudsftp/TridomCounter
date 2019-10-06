@@ -2,7 +2,6 @@ package de.melon.tridomcounter.activities.session
 
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
@@ -15,6 +14,7 @@ import de.melon.tridomcounter.activities.menu.MainActivity
 import de.melon.tridomcounter.activities.round.NewRoundActivity
 import de.melon.tridomcounter.activities.util.intendedActivity
 import de.melon.tridomcounter.activities.util.withPlayerRecyclerView
+import de.melon.tridomcounter.activities.util.withRoundRecyclerView
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.Session
 import org.junit.*
@@ -25,12 +25,8 @@ import org.junit.runners.MethodSorters
 @RunWith(AndroidJUnit4::class)
 class SessionActivityTest {
 
-    @JvmField
-    @Rule
-    val activityRule = ActivityTestRule(SessionActivity::class.java, false, false)
-
     @Before
-    fun initIntents() {
+    fun setUp() {
         Intents.init()
 
         createSession()
@@ -39,18 +35,22 @@ class SessionActivityTest {
     }
 
     val players = arrayOf("Fabian", "Tim", "Paul")
+    val numberOfRounds = 4
 
     fun createSession() {
         val session = Session(players)
         current.sessionId = GameData.addSession(session)
 
-    }
-
-    fun startActivity() {
-        val intent = Intent()
-        activityRule.launchActivity(intent)
+        for (i in 0 until numberOfRounds)
+            GameData.sessions[current.sessionId]!!.newRound()
 
     }
+
+    @JvmField
+    @Rule
+    val activityRule = ActivityTestRule(SessionActivity::class.java, false, false)
+
+    fun startActivity() = activityRule.launchActivity(Intent())
 
     val playerRecyclerViewMatcher = withPlayerRecyclerView(R.id.playerRecyclerView)
 
@@ -64,16 +64,17 @@ class SessionActivityTest {
     }
 
     @Test
-    fun t02_displayRounds() {
-        val numberOfRounds = 4
-
-        for (i in 0 until numberOfRounds)
-            GameData.sessions[current.sessionId]!!.newRound()
-
-        onView(withId(R.id.fab)).perform(click())
-        pressBack()
-
+    fun t01_displayRoundsQuantitative() {
         onView(withId(R.id.roundRecyclerView)).check(matches(hasChildCount(numberOfRounds)))
+
+    }
+
+    val roundRecyclerViewChild = withRoundRecyclerView(R.id.roundRecyclerView)
+
+    @Test
+    fun t02_displayRoundsQualitative() {
+        for (i in 0 until numberOfRounds)
+            onView(roundRecyclerViewChild.atPosition(i)).check(matches(withText("Runde $i")))
 
     }
 
