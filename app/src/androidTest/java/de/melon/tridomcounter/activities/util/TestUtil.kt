@@ -15,6 +15,8 @@ import de.melon.tridomcounter.R
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 
+fun withChoosePlayerRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.playerNameTextView)
+fun withRoundRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.roundNameTextView)
 fun withSessionRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.sessionNameTextView)
 fun withEditPlayerRecyclerView(id: Int) = RecyclerChildViewMatcher<EditText>(id, R.id.playerNameEditText)
 fun withPlayerRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.playerNameTextView)

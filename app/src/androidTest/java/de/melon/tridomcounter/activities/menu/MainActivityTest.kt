@@ -1,7 +1,7 @@
 package de.melon.tridomcounter.activities.menu
 
+import android.content.Intent
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
@@ -23,33 +23,44 @@ import org.junit.runners.MethodSorters
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
-    @Before fun initIntents() = Intents.init()
+    @Before
+    fun setUp() {
+        Intents.init()
 
-    @JvmField
-    @Rule
-    var activityRule = ActivityTestRule(MainActivity::class.java)
+        createSessions()
+        startActivity()
 
-    val sessionRecyclerView = onView(withId(R.id.sessionRecyclerView))
+    }
 
     val numberOfSessions = 2
     val sessions = Array(numberOfSessions) {Session(Array(0) { String()})}
 
+    fun createSessions() {
+        for (session in sessions)
+            GameData.addSession(session)
+
+    }
+
+    @JvmField
+    @Rule
+    val activityRule = ActivityTestRule(MainActivity::class.java)
+
+    fun startActivity() = activityRule.launchActivity(Intent())
+
+    val sessionRecyclerView = onView(withId(R.id.sessionRecyclerView))
+
     @Test
     fun t01_displaySessionsQuantitative() {
-        GameData.sessions.addAll(sessions)
-
-        onView(withId(R.id.fab)).perform(click())
-        pressBack()
-
         sessionRecyclerView.check(matches(hasChildCount(numberOfSessions)))
 
     }
 
+    val sessionRecyclerViewChild = withSessionRecyclerView(R.id.sessionRecyclerView)
+
     @Test
     fun t02_displaySessionsQualitative() {
-        val sessionRecyclerViewMatcher = withSessionRecyclerView(R.id.sessionRecyclerView)
-        onView(sessionRecyclerViewMatcher.atPosition(0)).check(matches(withText("Session 0")))
-        onView(sessionRecyclerViewMatcher.atPosition(1)).check(matches(withText("Session 1")))
+        onView(sessionRecyclerViewChild.atPosition(0)).check(matches(withText("Session 0")))
+        onView(sessionRecyclerViewChild.atPosition(1)).check(matches(withText("Session 1")))
 
     }
 

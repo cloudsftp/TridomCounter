@@ -16,7 +16,7 @@ class RoundCardAdapter(val rounds: MutableList<Round>)
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, position: Int): RoundCardViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, position: Int) : RoundCardViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.round_card, parent, false) as View
 
@@ -26,7 +26,7 @@ class RoundCardAdapter(val rounds: MutableList<Round>)
 
     override fun onBindViewHolder(viewHolder: RoundCardViewHolder, position: Int) {
         val originalText = viewHolder.nameTextView.text
-        viewHolder.nameTextView.text = String.format("$originalText %2d", position)
+        viewHolder.nameTextView.text = String.format("$originalText %d", position)
 
     }
 
