@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import de.melon.tridomcounter.R
 
-class EditPlayerCardAdapter : RecyclerView.Adapter<EditPlayerCardAdapter.EditPlayerCardViewHolder>() {
+class EditPlayerCardAdapter
+    : RecyclerView.Adapter<EditPlayerCardAdapter.EditPlayerCardViewHolder>() {
 
     val minNumberOfPlayers = 2
     val maxNumberOfPlayers = 6

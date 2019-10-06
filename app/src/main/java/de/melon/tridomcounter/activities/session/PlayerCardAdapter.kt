@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import de.melon.tridomcounter.R
 
-class PlayerCardAdapter(val players: Array<String>) : RecyclerView.Adapter<PlayerCardAdapter.PlayerCardViewHolder>() {
+class PlayerCardAdapter(val players: Array<String>)
+    : RecyclerView.Adapter<PlayerCardAdapter.PlayerCardViewHolder>() {
 
     class PlayerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameTextView = view.findViewById<TextView>(R.id.playerNameTextView)!!
