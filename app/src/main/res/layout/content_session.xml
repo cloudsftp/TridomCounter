@@ -8,4 +8,35 @@
         tools:context=".activities.session.SessionActivity"
         tools:showIn="@layout/activity_session">
 
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/playerRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/roundRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/playerRecyclerView" />
+
+    <Button
+            android:id="@+id/allSessionsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorText"
+            android:textAllCaps="false"
+            android:text="@string/show_all_sessions"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

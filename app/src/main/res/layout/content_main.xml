@@ -10,7 +10,7 @@
         tools:context=".activities.menu.MainActivity">
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/sessionsRecyclerView"
+            android:id="@+id/sessionRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="8dp" />

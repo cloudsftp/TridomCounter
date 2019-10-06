@@ -5,60 +5,30 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.TextView
 import de.melon.tridomcounter.R
 
-class PlayerCardAdapter : RecyclerView.Adapter<PlayerCardAdapter.NewPlayerCardViewHolder>() {
+class PlayerCardAdapter(val players: Array<String>)
+    : RecyclerView.Adapter<PlayerCardAdapter.PlayerCardViewHolder>() {
 
-    val minNumberOfPlayers = 2
-    val maxNumberOfPlayers = 6
-
-    var numberOfPlayers = minNumberOfPlayers
-    val playerNames = ArrayList<Editable>(maxNumberOfPlayers)
-
-    fun getPlayers() = playerNames.filterIndexed {i, _ ->  i < numberOfPlayers} .toTypedArray()
-
-    fun changeNumberOfPlayers(delta: Int) : Int {
-        numberOfPlayers += delta
-
-        if (numberOfPlayers < minNumberOfPlayers) numberOfPlayers = minNumberOfPlayers
-        if (numberOfPlayers > maxNumberOfPlayers) numberOfPlayers = maxNumberOfPlayers
-
-        return numberOfPlayers
+    class PlayerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val nameTextView = view.findViewById<TextView>(R.id.playerNameTextView)!!
 
     }
 
-    init {
-        for (i in 0 until maxNumberOfPlayers) {
-            val playerEditable = Editable.Factory.getInstance().newEditable("Spieler $i")
-            playerNames.add(playerEditable)
-
-        }
-
-    }
-
-    class NewPlayerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val nameTextField = view.findViewById<EditText>(R.id.playerNameEditText)!!
-
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : NewPlayerCardViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : PlayerCardViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.new_player_card, parent, false) as View
+            .inflate(R.layout.player_card, parent, false) as View
 
-        return NewPlayerCardViewHolder(view)
+        return PlayerCardViewHolder(view)
 
     }
 
-    override fun onBindViewHolder(viewHolder: NewPlayerCardViewHolder, position: Int) {
-        viewHolder.nameTextField.text = playerNames[position]
-        viewHolder.nameTextField.setOnKeyListener(View.OnKeyListener {
-            view, _, _ ->
-            playerNames[position] = (view as EditText).text
-            return@OnKeyListener true
-        })
+    override fun onBindViewHolder(viewHolder: PlayerCardViewHolder, position: Int) {
+        viewHolder.nameTextView.text = Editable.Factory.getInstance().newEditable(players[position])
+
     }
 
-    override fun getItemCount() = numberOfPlayers
+    override fun getItemCount() = players.size
 
 }

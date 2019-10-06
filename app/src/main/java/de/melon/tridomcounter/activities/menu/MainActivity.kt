@@ -11,6 +11,7 @@ import android.view.View
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.OnItemClickListener
 import de.melon.tridomcounter.activities.addOnItemClickListener
+import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.session.NewSessionActivity
 import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.data.GameData
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        sessionRecyclerView = findViewById(R.id.sessionsRecyclerView)
+        sessionRecyclerView = findViewById(R.id.sessionRecyclerView)
 
         val sessions = GameData.sessions
         sessionCardAdapter = SessionCardAdapter(sessions.toTypedArray())
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         sessionRecyclerView.addOnItemClickListener(object: OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
                 val intent = Intent(view.context, SessionActivity::class.java)
-                intent.putExtra("SessionId", position)
+                current.sessionId = position
                 startActivity(intent)
             }
         })
@@ -47,12 +48,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        updateSessionsList()
+        updateSessionRecyclerView()
 
         super.onResume()
     }
 
-    fun updateSessionsList() {
+    fun updateSessionRecyclerView() {
         sessionCardAdapter.sessions = GameData.sessions.toTypedArray()
         sessionRecyclerView.layoutManager = LinearLayoutManager(this)
 

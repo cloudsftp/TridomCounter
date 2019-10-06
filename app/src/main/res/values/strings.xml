@@ -13,4 +13,10 @@
 
     <string name="title_activity_session">Session</string>
 
+    <string name="show_all_sessions">Alle Sessions</string>
+    <string name="title_activity_round">Runde</string>
+    <string name="title_activity_new_round">Neue Runde</string>
+
+    <string name="round">Runde</string>
+
 </resources>
