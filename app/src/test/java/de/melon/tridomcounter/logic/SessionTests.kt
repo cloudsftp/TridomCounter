@@ -29,7 +29,8 @@ class SessionTests {
 
     @Test
     fun t02_addRound() {
-        val round = session.newRound()
+        val roundId = session.newRound()
+        val round = session.rounds[roundId]
 
         assert(round.session == session)
 
