@@ -2,6 +2,7 @@ package de.melon.tridomcounter.activities.round
 
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.matcher.ViewMatchers.*
@@ -9,6 +10,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
+import de.melon.tridomcounter.activities.util.intendedActivity
 import de.melon.tridomcounter.activities.util.withChoosePlayerRecyclerView
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.Session
@@ -59,7 +61,10 @@ class NewRoundActivityTest {
     }
 
     @Test
-    fun t99_startRound() {
+    fun t99_choosePlayer() {
+        onView(choosePlayerRecyclerViewChild.atPosition(0)).perform(click())
+
+        intendedActivity(RoundActivity::class.java.name)
 
     }
 
