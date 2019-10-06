@@ -39,7 +39,7 @@ class RecyclerChildViewMatcher<T : View>(val recyclerViewId: Int, val childViewI
             val viewHolder = recyclerView?.findViewHolderForAdapterPosition(position)?.itemView
             val childView = viewHolder?.findViewById<T>(childViewId)
 
-            return view == childView as View
+            return view == childView
 
         }
 

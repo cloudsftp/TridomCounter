@@ -9,6 +9,7 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.menu.MainActivity
 import de.melon.tridomcounter.activities.round.NewRoundActivity
 import de.melon.tridomcounter.activities.util.intendedActivity
@@ -42,12 +43,12 @@ class SessionActivityTest {
     fun createSession() {
         val session = Session(players)
         sessionId = GameData.addSession(session)
+        current.sessionId = sessionId
 
     }
 
     fun startActivity() {
         val intent = Intent()
-        intent.putExtra("SessionId", sessionId)
         activityRule.launchActivity(intent)
 
     }

@@ -11,6 +11,7 @@ import android.view.View
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.OnItemClickListener
 import de.melon.tridomcounter.activities.addOnItemClickListener
+import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.session.NewSessionActivity
 import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.data.GameData
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         sessionRecyclerView.addOnItemClickListener(object: OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
                 val intent = Intent(view.context, SessionActivity::class.java)
-                intent.putExtra("SessionId", position)
+                current.sessionId = position
                 startActivity(intent)
             }
         })

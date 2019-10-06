@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.widget.Button
 import android.widget.TextView
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.Session
 
@@ -34,9 +35,7 @@ class NewSessionActivity : AppCompatActivity() {
 
             val players = editPlayerCardAdapter.getPlayers().map { e -> e.toString() } .toTypedArray()
             val session = Session(players)
-            val sessionId = GameData.addSession(session)
-
-            intent.putExtra("SessionId", sessionId)
+            current.sessionId = GameData.addSession(session)
 
             startActivity(intent)
         }

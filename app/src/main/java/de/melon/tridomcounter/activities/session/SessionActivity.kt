@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Button
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.menu.MainActivity
 import de.melon.tridomcounter.activities.round.NewRoundActivity
 import de.melon.tridomcounter.data.GameData
@@ -28,7 +29,8 @@ class SessionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_session)
         setSupportActionBar(toolbar)
 
-        sessionId = intent?.extras?.get("SessionId") as Int
+        sessionId = current.sessionId
+
         title = "$title $sessionId"
 
         session = GameData.sessions[sessionId]!!
@@ -52,12 +54,8 @@ class SessionActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
             val intent = Intent(this, NewRoundActivity::class.java)
-
-            val roundId = session.newRound()
-            intent.putExtra("SessionId", sessionId)
-            //intent.putExtra("RoundId", roundId)
-
             startActivity(intent)
+
         }
         
     }

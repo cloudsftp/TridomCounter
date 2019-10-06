@@ -6,11 +6,11 @@ class Session(val players: Array<String>) {
 
     internal val rounds = MutableList(0) {Round(this)}
 
-    fun newRound(): Round {
+    fun newRound(): Int {
         val round = Round(this)
         rounds.add(round)
 
-        return round
+        return rounds.indexOf(round)
 
     }
 
