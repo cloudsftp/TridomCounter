@@ -86,9 +86,6 @@ class SessionActivityTest {
 
     }
 
-    @After
-    fun tearDownIntents() {
-        Intents.release()
-    }
+    @After fun tearDownIntents() = Intents.release()
 
 }

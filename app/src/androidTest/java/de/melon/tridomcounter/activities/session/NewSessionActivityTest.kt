@@ -19,6 +19,8 @@ import org.junit.runners.MethodSorters
 @RunWith(AndroidJUnit4::class)
 class NewSessionActivityTest {
 
+    @Before fun initIntents() = Intents.init()
+
     val initialNumberOfPlayers = 2
 
     @JvmField
@@ -95,16 +97,6 @@ class NewSessionActivityTest {
 
     }
 
-    @Before
-    fun initIntents() {
-        Intents.init()
-    }
-
-    @After
-    fun tearDownIntents()  {
-        Intents.release()
-    }
-
     @Test
     fun t99_confirmPlayers() {
         onView(withId(R.id.fab)).perform(click())
@@ -112,6 +104,8 @@ class NewSessionActivityTest {
         intendedActivity(SessionActivity::class.java.name)
 
     }
+
+    @After fun tearDownIntents() = Intents.release()
 
 }
 

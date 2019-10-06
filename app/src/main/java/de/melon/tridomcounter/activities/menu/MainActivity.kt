@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        sessionRecyclerView = findViewById(R.id.sessionsRecyclerView)
+        sessionRecyclerView = findViewById(R.id.sessionRecyclerView)
 
         val sessions = GameData.sessions
         sessionCardAdapter = SessionCardAdapter(sessions.toTypedArray())
@@ -48,12 +48,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        updateSessionsList()
+        updateSessionRecyclerView()
 
         super.onResume()
     }
 
-    fun updateSessionsList() {
+    fun updateSessionRecyclerView() {
         sessionCardAdapter.sessions = GameData.sessions.toTypedArray()
         sessionRecyclerView.layoutManager = LinearLayoutManager(this)
 

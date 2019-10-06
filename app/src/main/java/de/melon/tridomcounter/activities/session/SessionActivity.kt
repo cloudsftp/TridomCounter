@@ -72,4 +72,6 @@ class SessionActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {}
+
 }

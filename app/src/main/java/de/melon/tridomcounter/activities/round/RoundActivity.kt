@@ -21,4 +21,6 @@ class RoundActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onBackPressed() {}
+
 }

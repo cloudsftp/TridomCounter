@@ -23,11 +23,13 @@ import org.junit.runners.MethodSorters
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
+    @Before fun initIntents() = Intents.init()
+
     @JvmField
     @Rule
     var activityRule = ActivityTestRule(MainActivity::class.java)
 
-    val sessionsRecyclerView = onView(withId(R.id.sessionsRecyclerView))
+    val sessionRecyclerView = onView(withId(R.id.sessionRecyclerView))
 
     val numberOfSessions = 2
     val sessions = Array(numberOfSessions) {Session(Array(0) { String()})}
@@ -39,28 +41,23 @@ class MainActivityTest {
         onView(withId(R.id.fab)).perform(click())
         pressBack()
 
-        sessionsRecyclerView.check(matches(hasChildCount(numberOfSessions)))
+        sessionRecyclerView.check(matches(hasChildCount(numberOfSessions)))
 
     }
 
     @Test
     fun t02_displaySessionsQualitative() {
-        val sessionRecyclerViewMatcher = withSessionRecyclerView(R.id.sessionsRecyclerView)
+        val sessionRecyclerViewMatcher = withSessionRecyclerView(R.id.sessionRecyclerView)
         onView(sessionRecyclerViewMatcher.atPosition(0)).check(matches(withText("Session 0")))
         onView(sessionRecyclerViewMatcher.atPosition(1)).check(matches(withText("Session 1")))
 
-    }
-
-    @Before
-    fun initIntents() {
-        Intents.init()
     }
 
     @Test
     fun t98_openSession() {
         val sessionId = 1
 
-        onView(withSessionRecyclerView(R.id.sessionsRecyclerView).atPosition(1)).perform(click())
+        onView(withSessionRecyclerView(R.id.sessionRecyclerView).atPosition(1)).perform(click())
 
         intendedActivity(SessionActivity::class.java.name)
 
@@ -77,9 +74,6 @@ class MainActivityTest {
 
     }
 
-    @After
-    fun tearDownIntents() {
-        Intents.release()
-    }
+    @After fun tearDownIntents() = Intents.release()
 
 }
