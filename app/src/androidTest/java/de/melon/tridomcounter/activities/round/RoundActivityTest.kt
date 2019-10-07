@@ -31,7 +31,7 @@ class RoundActivityTest {
     fun createSession() {
         current.sessionId = GameData.newSession(players)
         val session = GameData.sessions[current.sessionId]
-        current.roundId = session.newRound()
+        current.roundId = session.newRound(0)
 
     }
 

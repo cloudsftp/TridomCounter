@@ -40,7 +40,7 @@ class SessionActivityTest {
         current.sessionId = GameData.newSession(players)
 
         for (i in 0 until numberOfRounds)
-            GameData.sessions[current.sessionId].newRound()
+            GameData.sessions[current.sessionId].newRound(0)
 
     }
 
