@@ -22,6 +22,7 @@ class SessionActivity : AppCompatActivity() {
     lateinit var rounds: MutableList<Round>
 
     lateinit var roundRecyclerView: RecyclerView
+    lateinit var roundCardAdapter: RoundCardAdapter
     lateinit var allSessionsButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +44,9 @@ class SessionActivity : AppCompatActivity() {
         rounds = session.rounds
 
         roundRecyclerView = findViewById(R.id.roundRecyclerView)
-
-        updateRoundRecyclerView()
+        roundCardAdapter = RoundCardAdapter(rounds)
+        roundRecyclerView.adapter = roundCardAdapter
+        roundRecyclerView.layoutManager = LinearLayoutManager(this)
 
         allSessionsButton = findViewById(R.id.allSessionsButton)
         allSessionsButton.setOnClickListener {
@@ -66,11 +68,7 @@ class SessionActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    fun updateRoundRecyclerView() {
-        roundRecyclerView.adapter = RoundCardAdapter(rounds)
-        roundRecyclerView.layoutManager = LinearLayoutManager(this)
-
-    }
+    fun updateRoundRecyclerView() = roundCardAdapter.notifyDataSetChanged()
 
     override fun onBackPressed() {}
 

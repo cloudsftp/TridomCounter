@@ -30,8 +30,9 @@ class MainActivity : AppCompatActivity() {
         sessionRecyclerView = findViewById(R.id.sessionRecyclerView)
 
         val sessions = GameData.sessions
-        sessionCardAdapter = SessionCardAdapter(sessions.toTypedArray())
+        sessionCardAdapter = SessionCardAdapter(sessions)
         sessionRecyclerView.adapter = sessionCardAdapter
+        sessionRecyclerView.layoutManager = LinearLayoutManager(this)
 
         sessionRecyclerView.addOnItemClickListener(object: OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
@@ -53,11 +54,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    fun updateSessionRecyclerView() {
-        sessionCardAdapter.sessions = GameData.sessions.toTypedArray()
-        sessionRecyclerView.layoutManager = LinearLayoutManager(this)
-
-    }
+    fun updateSessionRecyclerView() = sessionCardAdapter.notifyDataSetChanged()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -67,9 +67,6 @@ class NewSessionActivity : AppCompatActivity() {
 
     }
 
-    fun renderCards() {
-        editPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
-
-    }
+    fun renderCards() = editPlayerCardAdapter.notifyDataSetChanged()
 
 }

@@ -21,4 +21,6 @@
 
     <string name="choose_first_player">Ersten Spieler wählen:</string>
 
+    <string name="pause_round">Runde Pausieren</string>
+
 </resources>

@@ -8,7 +8,7 @@ import android.widget.TextView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.logic.Session
 
-class SessionCardAdapter(var sessions: Array<Session?>) : RecyclerView.Adapter<SessionCardAdapter.ViewHolder>() {
+class SessionCardAdapter(var sessions: MutableList<Session>) : RecyclerView.Adapter<SessionCardAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val sessionName = view.findViewById<TextView>(R.id.sessionNameTextView)!!
