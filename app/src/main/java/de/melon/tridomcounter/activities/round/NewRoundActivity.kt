@@ -32,7 +32,7 @@ class NewRoundActivity : AppCompatActivity() {
             override fun onItemClicked(position: Int, view: View) {
                 val intent = Intent(view.context, RoundActivity::class.java)
 
-                val roundId = session.newRound()
+                val roundId = session.newRound(position)
                 current.roundId = roundId
 
                 startActivity(intent)

@@ -10,8 +10,6 @@ import android.widget.TextView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.data.GameData
-import de.melon.tridomcounter.logic.Session
-
 import kotlinx.android.synthetic.main.activity_new_session.*
 
 class NewSessionActivity : AppCompatActivity() {
@@ -34,8 +32,7 @@ class NewSessionActivity : AppCompatActivity() {
             val intent = Intent(this, SessionActivity::class.java)
 
             val players = editPlayerCardAdapter.getPlayers().map { e -> e.toString() } .toTypedArray()
-            val session = Session(players)
-            current.sessionId = GameData.addSession(session)
+            current.sessionId = GameData.newSession(players)
 
             startActivity(intent)
         }

@@ -8,18 +8,14 @@ import org.junit.runners.MethodSorters
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class RoundTests {
 
-    companion object {
-        lateinit var round: Round
-
-    }
-
     val players = arrayOf("Fabian", "Paul", "Tim")
 
     @Test
     @Before
     fun t01_instantiate() {
         val session = Session(players)
-        round = Round(session)
+        val firstPlayer = 0
+        val round = Round(session, firstPlayer)
 
     }
 
