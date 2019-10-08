@@ -23,4 +23,6 @@
 
     <string name="pause_round">Runde Pausieren</string>
 
+    <string name="place_holder">Some Text.</string>
+
 </resources>

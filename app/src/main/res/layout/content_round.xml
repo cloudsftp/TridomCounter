@@ -12,7 +12,7 @@
             android:id="@+id/activePlayerNameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="42dp"
             android:layout_marginStart="0dp"
             android:gravity="center"
             android:text="@string/players"
@@ -34,7 +34,7 @@
             android:id="@+id/actionRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
 

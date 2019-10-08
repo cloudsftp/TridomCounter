@@ -38,6 +38,7 @@ class RoundActivity : AppCompatActivity() {
         playerActionsRecyclerView.layoutManager = LinearLayoutManager(this)
 
         actionsRecyclerView = findViewById(R.id.actionRecyclerView)
+        actionsRecyclerView.adapter = ActionCardAdapter(round)
         actionsRecyclerView.layoutManager = LinearLayoutManager(this)
 
         updateActivePlayer()
@@ -53,7 +54,7 @@ class RoundActivity : AppCompatActivity() {
     }
 
     fun updateActions() {
-        val pauseCard = LayoutInflater.from(this).inflate(R.layout.pause_card, null)
+        val pauseCard = LayoutInflater.from(this).inflate(R.layout.action_card, null)
 
         actionsRecyclerView.layoutManager = LinearLayoutManager(this)
 
