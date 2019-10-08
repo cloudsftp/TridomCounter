@@ -2,14 +2,19 @@ package de.melon.tridomcounter.activities.round
 
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
+import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
+import de.melon.tridomcounter.activities.session.SessionActivity
+import de.melon.tridomcounter.activities.util.intendedActivity
+import de.melon.tridomcounter.activities.util.withActionRecyclerView
 import de.melon.tridomcounter.data.GameData
 import org.junit.*
 import org.junit.runner.RunWith
@@ -47,6 +52,29 @@ class RoundActivityTest {
     @Test
     fun t00_activePlayerDisplayed() {
         onView(withId(R.id.activePlayerNameTextView)).check(matches(withText(players[firstPlayerId])))
+
+    }
+
+    @Test
+    fun t01_roundNumberDisplayed() {
+        onView(withId(R.id.toolbar)).check(matches(ViewMatchers.isDisplayed()))
+        onView(withText("Runde ${current.roundId}")).check(matches(ViewMatchers.withParent(withId(R.id.toolbar))))
+
+    }
+
+    val pauseRoundCard = onView(withActionRecyclerView(R.id.actionRecyclerView).atPosition(0))
+
+    @Test
+    fun t02_pauseRoundCardDisplayed() {
+        pauseRoundCard.check(matches(withText("Runde Pausieren")))
+
+    }
+
+    @Test
+    fun t03_pauseRoundCardWorks() {
+        pauseRoundCard.perform(click())
+
+        intendedActivity(SessionActivity::class.java.name)
 
     }
 

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.widget.TextView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
@@ -43,23 +42,7 @@ class RoundActivity : AppCompatActivity() {
 
         updateActivePlayer()
 
-        updatePlayerActions()
-        updateActions()
-
     }
-
-    fun updatePlayerActions() {
-
-
-    }
-
-    fun updateActions() {
-        val pauseCard = LayoutInflater.from(this).inflate(R.layout.action_card, null)
-
-        actionsRecyclerView.layoutManager = LinearLayoutManager(this)
-
-    }
-
 
     fun updateActivePlayer() {
         activePlayerNameTextView.text = session.players[round.playerId]
