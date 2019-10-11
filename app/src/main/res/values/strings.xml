@@ -24,5 +24,10 @@
     <string name="pause_round">Runde Pausieren</string>
 
     <string name="place_holder">Some Text.</string>
+    <string name="make_move">Legen</string>
+
+    <string name="number_of_points">Augenzahl:</string>
+
+    <string name="confirm">Weiter</string>
 
 </resources>

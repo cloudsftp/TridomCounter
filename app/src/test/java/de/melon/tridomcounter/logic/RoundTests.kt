@@ -12,10 +12,16 @@ class RoundTests {
 
     @Test
     @Before
-    fun t01_instantiate() {
+    fun t00_instantiate() {
         val session = Session(players)
         val firstPlayer = 0
         val round = Round(session, firstPlayer)
+
+    }
+
+    @Test
+    fun t01_makeSimpleMove() {
+
 
     }
 

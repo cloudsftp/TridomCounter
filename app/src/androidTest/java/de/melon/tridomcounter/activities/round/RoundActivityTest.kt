@@ -5,9 +5,9 @@ import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
+import android.support.test.espresso.matcher.RootMatchers.isDialog
 import android.support.test.espresso.matcher.ViewMatchers
-import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.espresso.matcher.ViewMatchers.withText
+import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
@@ -62,7 +62,8 @@ class RoundActivityTest {
 
     }
 
-    val pauseRoundCard = onView(withActionRecyclerView(R.id.actionRecyclerView).atPosition(0))
+    val pauseRoundCard = onView(withActionRecyclerView(R.id.actionRecyclerView)
+        .atPosition(0))
 
     @Test
     fun t02_pauseRoundCardDisplayed() {
@@ -75,6 +76,27 @@ class RoundActivityTest {
         pauseRoundCard.perform(click())
 
         intendedActivity(SessionActivity::class.java.name)
+
+    }
+
+    val makeMoveCard = onView(withActionRecyclerView(R.id.playerActionRecyclerView)
+        .atPosition(0))
+
+    @Test
+    fun t04_makeMoveCardDisplayed() {
+        makeMoveCard.check(matches(withText("Legen")))
+
+    }
+
+    @Test
+    fun t05_makeMoveCardWorks() {
+        makeMoveCard.perform(click())
+
+        onView(withId(R.id.placeDialogHeading))
+            .inRoot(isDialog()).check(matches(isDisplayed()))
+
+        onView(withId(R.id.numberOfPointsEditText))
+            .inRoot(isDialog()).check(matches(isDisplayed()))
 
     }
 

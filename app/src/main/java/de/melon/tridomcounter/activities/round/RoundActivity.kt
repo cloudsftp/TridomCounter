@@ -34,6 +34,7 @@ class RoundActivity : AppCompatActivity() {
         activePlayerNameTextView = findViewById(R.id.activePlayerNameTextView)
 
         playerActionsRecyclerView = findViewById(R.id.playerActionRecyclerView)
+        playerActionsRecyclerView.adapter = PlayerActionCardAdapter(round, this)
         playerActionsRecyclerView.layoutManager = LinearLayoutManager(this)
 
         actionsRecyclerView = findViewById(R.id.actionRecyclerView)
@@ -41,6 +42,12 @@ class RoundActivity : AppCompatActivity() {
         actionsRecyclerView.layoutManager = LinearLayoutManager(this)
 
         updateActivePlayer()
+
+    }
+
+    fun place() {
+        val placeFragment = PlaceDialogFragment()
+        placeFragment.show(supportFragmentManager, getString(R.string.make_move))
 
     }
 
