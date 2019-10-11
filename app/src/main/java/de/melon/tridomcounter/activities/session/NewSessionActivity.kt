@@ -31,7 +31,8 @@ class NewSessionActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val intent = Intent(this, SessionActivity::class.java)
 
-            val players = editPlayerCardAdapter.getPlayers()
+            editPlayerCardAdapter.savePlayerNames()
+            val players = editPlayerCardAdapter.getNeededPlayerNames()
             current.sessionId = GameData.newSession(players)
 
             startActivity(intent)

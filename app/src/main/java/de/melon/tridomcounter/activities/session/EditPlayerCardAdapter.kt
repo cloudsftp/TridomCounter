@@ -15,35 +15,35 @@ class EditPlayerCardAdapter
     val maxNumberOfPlayers = 6
 
     var numberOfPlayers = minNumberOfPlayers
-    val defaultPlayerNames = ArrayList<Editable>(maxNumberOfPlayers)
-    val viewHolders = ArrayList<EditPlayerCardViewHolder>(maxNumberOfPlayers)
+    val playerNames = Array(maxNumberOfPlayers) {String()}
+    val viewHolders = Array<EditPlayerCardViewHolder?>(maxNumberOfPlayers) {null}
 
-    fun getPlayers() : Array<String> {
-        val playerNames = Array(numberOfPlayers) {String()}
+    init {
+        for (i in 0 until maxNumberOfPlayers)
+            playerNames[i] = "Spieler $i"
+    }
 
-        for (i in playerNames.indices)
-            playerNames[i] = viewHolders[i].nameTextField.text.toString()
+    val editableFactory = Editable.Factory.getInstance()
 
-        return playerNames
+    fun savePlayerNames() {
+        for (i in 0 until numberOfPlayers)
+            playerNames[i] = viewHolders[i]?.nameTextField?.text.toString()
 
     }
 
+    fun getNeededPlayerNames() = playerNames
+        .filterIndexed {i, _ -> i < numberOfPlayers}
+        .toTypedArray()
+
     fun changeNumberOfPlayers(delta: Int) : Int {
+        savePlayerNames()
+
         numberOfPlayers += delta
 
         if (numberOfPlayers < minNumberOfPlayers) numberOfPlayers = minNumberOfPlayers
         if (numberOfPlayers > maxNumberOfPlayers) numberOfPlayers = maxNumberOfPlayers
 
         return numberOfPlayers
-
-    }
-
-    init {
-        for (i in 0 until maxNumberOfPlayers) {
-            val playerEditable = Editable.Factory.getInstance().newEditable("Spieler $i")
-            defaultPlayerNames.add(playerEditable)
-
-        }
 
     }
 
@@ -61,8 +61,9 @@ class EditPlayerCardAdapter
     }
 
     override fun onBindViewHolder(viewHolder: EditPlayerCardViewHolder, position: Int) {
-        viewHolders.add(viewHolder)
-        viewHolder.nameTextField.text = defaultPlayerNames[position]
+        viewHolder.nameTextField.text = editableFactory.newEditable(playerNames[position])
+        viewHolders[position] = viewHolder
+
     }
 
     override fun getItemCount() = numberOfPlayers
