@@ -12,6 +12,7 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.util.intendedActivity
 import de.melon.tridomcounter.activities.util.performTypeTextSafe
 import de.melon.tridomcounter.activities.util.withEditPlayerRecyclerView
+import de.melon.tridomcounter.activities.util.withPlayerRecyclerView
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
@@ -75,7 +76,8 @@ class NewSessionActivityTest {
     }
 
     val newPlayer = "Fabian"
-    val playerCardEditText = onView(withEditPlayerRecyclerView(R.id.editPlayerRecyclerView).atPosition(1))
+    val editPlayerRecyclerViewChildMatcher = withEditPlayerRecyclerView(R.id.editPlayerRecyclerView)
+    val playerCardEditText = onView(editPlayerRecyclerViewChildMatcher.atPosition(1))
 
     @Test
     fun t04_changePlayerName() {
@@ -92,7 +94,7 @@ class NewSessionActivityTest {
 
     }
 
-    val playerCardEditTextPosition2 = onView(withEditPlayerRecyclerView(R.id.editPlayerRecyclerView).atPosition(2))
+    val playerCardEditTextPosition2 = onView(editPlayerRecyclerViewChildMatcher.atPosition(2))
 
     @Test
     fun t06_preservePlayerNameWhenOutOfSight() {
@@ -107,10 +109,30 @@ class NewSessionActivityTest {
     }
 
     @Test
-    fun t99_confirmPlayers() {
+    fun t98_confirmPlayers() {
         onView(withId(R.id.fab)).perform(click())
 
         intendedActivity(SessionActivity::class.java.name)
+
+    }
+
+    val players = arrayOf("Fabian", "Finn", "Kenji", "Paul")
+    val playerRecyclerViewChildMatcher = withPlayerRecyclerView(R.id.playerRecyclerView)
+
+    @Test
+    fun t99_confirmPlayersExtended() {
+        numberOfPlayersPlusButton.perform(click()).perform(click())
+
+        for (i in players.indices)
+            onView(editPlayerRecyclerViewChildMatcher.atPosition(i))
+                .performTypeTextSafe(players[i])
+
+        onView(withId(R.id.fab)).perform(click())
+        intendedActivity(SessionActivity::class.java.name)
+
+        for (i in players.indices)
+            onView(playerRecyclerViewChildMatcher.atPosition(i))
+                .check(matches(withText(players[i])))
 
     }
 
