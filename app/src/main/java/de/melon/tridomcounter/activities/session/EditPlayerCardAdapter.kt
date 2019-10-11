@@ -15,9 +15,18 @@ class EditPlayerCardAdapter
     val maxNumberOfPlayers = 6
 
     var numberOfPlayers = minNumberOfPlayers
-    val playerNames = ArrayList<Editable>(maxNumberOfPlayers)
+    val defaultPlayerNames = ArrayList<Editable>(maxNumberOfPlayers)
+    val viewHolders = ArrayList<EditPlayerCardViewHolder>(maxNumberOfPlayers)
 
-    fun getPlayers() = playerNames.filterIndexed {i, _ ->  i < numberOfPlayers} .toTypedArray()
+    fun getPlayers() : Array<String> {
+        val playerNames = Array(numberOfPlayers) {String()}
+
+        for (i in playerNames.indices)
+            playerNames[i] = viewHolders[i].nameTextField.text.toString()
+
+        return playerNames
+
+    }
 
     fun changeNumberOfPlayers(delta: Int) : Int {
         numberOfPlayers += delta
@@ -32,7 +41,7 @@ class EditPlayerCardAdapter
     init {
         for (i in 0 until maxNumberOfPlayers) {
             val playerEditable = Editable.Factory.getInstance().newEditable("Spieler $i")
-            playerNames.add(playerEditable)
+            defaultPlayerNames.add(playerEditable)
 
         }
 
@@ -52,12 +61,8 @@ class EditPlayerCardAdapter
     }
 
     override fun onBindViewHolder(viewHolder: EditPlayerCardViewHolder, position: Int) {
-        viewHolder.nameTextField.text = playerNames[position]
-        viewHolder.nameTextField.setOnKeyListener(View.OnKeyListener {
-            view, _, _ ->
-            playerNames[position] = (view as EditText).text
-            return@OnKeyListener true
-        })
+        viewHolders.add(viewHolder)
+        viewHolder.nameTextField.text = defaultPlayerNames[position]
     }
 
     override fun getItemCount() = numberOfPlayers
