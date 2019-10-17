@@ -6,7 +6,6 @@ import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.matcher.RootMatchers.isDialog
-import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
@@ -14,6 +13,7 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.activities.util.intendedActivity
+import de.melon.tridomcounter.activities.util.performTypeTextSafe
 import de.melon.tridomcounter.activities.util.withActionRecyclerView
 import de.melon.tridomcounter.data.GameData
 import org.junit.*
@@ -57,8 +57,8 @@ class RoundActivityTest {
 
     @Test
     fun t01_roundNumberDisplayed() {
-        onView(withId(R.id.toolbar)).check(matches(ViewMatchers.isDisplayed()))
-        onView(withText("Runde ${current.roundId}")).check(matches(ViewMatchers.withParent(withId(R.id.toolbar))))
+        onView(withId(R.id.toolbar)).check(matches(isDisplayed()))
+        onView(withText("Runde ${current.roundId}")).check(matches(withParent(withId(R.id.toolbar))))
 
     }
 
@@ -91,12 +91,65 @@ class RoundActivityTest {
     @Test
     fun t05_makeMoveCardWorks() {
         makeMoveCard.perform(click())
+        checkPopupIsDisplayed()
 
+    }
+
+    @Test
+    fun t06_makeMoveChangeDisplayedPlayer() {
+        checkActivePlayer(0)
+
+        makeMoveCard.perform(click())
+        checkPopupIsDisplayed()
+
+        insertNumberOfPoints(60)
+
+        checkActivePlayer(1)
+
+    }
+
+    @Test
+    fun t07_makeThreeMovesChangeDisplayedPlayer() {
+        checkActivePlayer(0)
+
+        makeMoveCard.perform(click())
+        checkPopupIsDisplayed()
+
+        insertNumberOfPoints(0)
+
+        checkActivePlayer(1)
+
+        makeMoveCard.perform(click())
+        checkPopupIsDisplayed()
+
+        insertNumberOfPoints(0)
+
+        checkActivePlayer(2)
+
+        makeMoveCard.perform(click())
+        checkPopupIsDisplayed()
+
+        insertNumberOfPoints(0)
+
+        checkActivePlayer(0)
+
+    }
+
+    fun checkPopupIsDisplayed() {
         onView(withId(R.id.placeDialogHeading))
             .inRoot(isDialog()).check(matches(isDisplayed()))
 
         onView(withId(R.id.numberOfPointsEditText))
             .inRoot(isDialog()).check(matches(isDisplayed()))
+
+    }
+
+    fun checkActivePlayer(playerId: Int)
+            = onView(withId(R.id.activePlayerNameTextView)).check(matches(withText(players[playerId])))
+
+    fun insertNumberOfPoints(points: Int) {
+        onView(withId(R.id.numberOfPointsEditText)).performTypeTextSafe("$points")
+        onView(withId(R.id.acceptButton)).perform(click())
 
     }
 

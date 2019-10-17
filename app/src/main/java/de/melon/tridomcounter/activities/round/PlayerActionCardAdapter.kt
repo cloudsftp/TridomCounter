@@ -29,7 +29,7 @@ class PlayerActionCardAdapter(val round: Round, val activity: RoundActivity)
         actionNameTextView.text = context.getString(R.string.make_move)
 
         cardView.setOnClickListener {
-            activity.place()
+            activity.displayPlacementDialog()
         }
 
     }
