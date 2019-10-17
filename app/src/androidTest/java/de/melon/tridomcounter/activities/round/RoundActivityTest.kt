@@ -99,10 +99,7 @@ class RoundActivityTest {
     fun t06_makeMoveChangeDisplayedPlayer() {
         checkActivePlayer(0)
 
-        makeMoveCard.perform(click())
-        checkPopupIsDisplayed()
-
-        insertNumberOfPoints(60)
+        makeMove(0)
 
         checkActivePlayer(1)
 
@@ -112,26 +109,45 @@ class RoundActivityTest {
     fun t07_makeThreeMovesChangeDisplayedPlayer() {
         checkActivePlayer(0)
 
-        makeMoveCard.perform(click())
-        checkPopupIsDisplayed()
-
-        insertNumberOfPoints(0)
-
+        makeMove(0)
         checkActivePlayer(1)
 
-        makeMoveCard.perform(click())
-        checkPopupIsDisplayed()
-
-        insertNumberOfPoints(0)
-
+        makeMove(0)
         checkActivePlayer(2)
 
-        makeMoveCard.perform(click())
-        checkPopupIsDisplayed()
-
-        insertNumberOfPoints(0)
-
+        makeMove(0)
         checkActivePlayer(0)
+
+    }
+
+    @Test
+    fun t08_makeMovesCheckPoints() {
+        checkActivePlayerWithPoints(0, 0)
+
+        makeMove(60)
+        checkActivePlayerWithPoints(1, 0)
+
+        makeMove(10)
+        checkActivePlayerWithPoints(2, 0)
+
+        makeMove(-5)
+        checkActivePlayerWithPoints(0, 60)
+
+        makeMove(8)
+        checkActivePlayerWithPoints(1, 10)
+
+        makeMove(0)
+        checkActivePlayerWithPoints(2, -5)
+
+        makeMove(15)
+        checkActivePlayerWithPoints(0, 68)
+
+        makeMove(0)
+        checkActivePlayerWithPoints(1, 10)
+
+        makeMove(0)
+        checkActivePlayerWithPoints(2, 10)
+
 
     }
 
@@ -146,6 +162,21 @@ class RoundActivityTest {
 
     fun checkActivePlayer(playerId: Int)
             = onView(withId(R.id.activePlayerNameTextView)).check(matches(withText(players[playerId])))
+
+    fun checkActivePlayerWithPoints(playerId: Int, points: Int) {
+        checkActivePlayer(playerId)
+
+        onView(withId(R.id.pointsTextView)).check(matches(withText("$points")))
+
+    }
+
+    fun makeMove(points: Int) {
+        makeMoveCard.perform(click())
+        checkPopupIsDisplayed()
+
+        insertNumberOfPoints(points)
+
+    }
 
     fun insertNumberOfPoints(points: Int) {
         onView(withId(R.id.numberOfPointsEditText)).performTypeTextSafe("$points")

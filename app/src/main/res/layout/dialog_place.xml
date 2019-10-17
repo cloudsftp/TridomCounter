@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:ems="12"
-            android:inputType="number"
+            android:inputType="numberSigned"
             app:layout_constraintStart_toEndOf="@id/placeDialogHeading"
             app:layout_constraintTop_toTopOf="parent" />
 

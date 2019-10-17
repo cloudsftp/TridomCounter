@@ -5,10 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.data.GameData
@@ -17,15 +15,12 @@ import de.melon.tridomcounter.logic.PlaceMove
 import de.melon.tridomcounter.logic.Round
 import de.melon.tridomcounter.logic.Session
 import kotlinx.android.synthetic.main.activity_round.*
+import kotlinx.android.synthetic.main.content_round.*
 
 class RoundActivity : AppCompatActivity() {
 
     lateinit var session: Session
     lateinit var round: Round
-
-    lateinit var activePlayerNameTextView: TextView
-    lateinit var playerActionsRecyclerView: RecyclerView
-    lateinit var actionsRecyclerView: RecyclerView
 
     var currentMove = BaseMove
 
@@ -39,17 +34,14 @@ class RoundActivity : AppCompatActivity() {
         session = GameData.sessions[current.sessionId]
         round = session.rounds[current.roundId]
 
-        activePlayerNameTextView = findViewById(R.id.activePlayerNameTextView)
+        playerActionRecyclerView.adapter = PlayerActionCardAdapter(round, this)
+        playerActionRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        playerActionsRecyclerView = findViewById(R.id.playerActionRecyclerView)
-        playerActionsRecyclerView.adapter = PlayerActionCardAdapter(round, this)
-        playerActionsRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        actionsRecyclerView = findViewById(R.id.actionRecyclerView)
-        actionsRecyclerView.adapter = ActionCardAdapter(round)
-        actionsRecyclerView.layoutManager = LinearLayoutManager(this)
+        actionRecyclerView.adapter = ActionCardAdapter(round)
+        actionRecyclerView.layoutManager = LinearLayoutManager(this)
 
         activePlayerNameTextView.text = session.players[round.currentPlayerId]
+        pointsTextView.text = round.getPoints(round.currentPlayerId).toString()
 
     }
 
