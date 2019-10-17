@@ -17,7 +17,7 @@ class SessionCardAdapter(var sessions: MutableList<Session>) : RecyclerView.Adap
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.session_card, parent, false) as View
+            .inflate(R.layout.card_session, parent, false) as View
 
         return ViewHolder(view)
 

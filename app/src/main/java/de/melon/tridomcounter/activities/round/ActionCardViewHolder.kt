@@ -14,7 +14,7 @@ class ActionCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
 fun inflateActionCard(parent: ViewGroup) : ActionCardViewHolder {
     val view = LayoutInflater.from(parent.context)
-        .inflate(R.layout.action_card, parent, false) as View
+        .inflate(R.layout.card_action, parent, false) as View
 
     return ActionCardViewHolder(view)
 

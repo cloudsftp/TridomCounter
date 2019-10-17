@@ -18,7 +18,7 @@ class RoundCardAdapter(val rounds: MutableList<Round>)
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int) : RoundCardViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.round_card, parent, false) as View
+            .inflate(R.layout.card_round, parent, false) as View
 
         return RoundCardViewHolder(view)
 
