@@ -4,22 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.widget.Button
-import android.widget.TextView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.data.GameData
 import kotlinx.android.synthetic.main.activity_new_session.*
+import kotlinx.android.synthetic.main.content_new_session.*
 
 class NewSessionActivity : AppCompatActivity() {
 
-    lateinit var editPlayerRecyclerView: RecyclerView
     lateinit var editPlayerCardAdapter: EditPlayerCardAdapter
-
-    lateinit var numberOfPlayersTextView: TextView
-    lateinit var numberOfPlayersPlus: Button
-    lateinit var numberOfPlayersMinus: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,15 +35,8 @@ class NewSessionActivity : AppCompatActivity() {
     }
 
     fun setUpPlayerControls() {
-        numberOfPlayersTextView = findViewById(R.id.numberOfPlayersText)
-
-        numberOfPlayersMinus = findViewById(R.id.numberOfPlayersMinus)
         numberOfPlayersMinus.setOnClickListener { changeNumberOfPlayers(-1) }
-
-        numberOfPlayersPlus = findViewById(R.id.numberOfPlayersPlus)
         numberOfPlayersPlus.setOnClickListener { changeNumberOfPlayers(1) }
-
-        editPlayerRecyclerView = findViewById(R.id.editPlayerRecyclerView)
 
         editPlayerCardAdapter = EditPlayerCardAdapter()
         editPlayerRecyclerView.adapter = editPlayerCardAdapter

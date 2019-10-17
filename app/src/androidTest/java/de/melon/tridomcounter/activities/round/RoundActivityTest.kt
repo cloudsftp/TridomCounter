@@ -71,14 +71,6 @@ class RoundActivityTest {
 
     }
 
-    @Test
-    fun t03_pauseRoundCardWorks() {
-        pauseRoundCard.perform(click())
-
-        intendedActivity(SessionActivity::class.java.name)
-
-    }
-
     val makeMoveCard = onView(withActionRecyclerView(R.id.playerActionRecyclerView)
         .atPosition(0))
 
@@ -181,6 +173,14 @@ class RoundActivityTest {
     fun insertNumberOfPoints(points: Int) {
         onView(withId(R.id.numberOfPointsEditText)).performTypeTextSafe("$points")
         onView(withId(R.id.acceptButton)).perform(click())
+
+    }
+
+    @Test
+    fun t99_pauseRoundCardWorks() {
+        pauseRoundCard.perform(click())
+
+        intendedActivity(SessionActivity::class.java.name)
 
     }
 

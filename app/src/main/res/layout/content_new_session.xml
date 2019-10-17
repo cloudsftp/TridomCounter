@@ -43,7 +43,7 @@
                         android:textColor="@color/colorText" />
 
                 <TextView
-                        android:id="@+id/numberOfPlayersText"
+                        android:id="@+id/numberOfPlayersTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/initial_num_of_players"

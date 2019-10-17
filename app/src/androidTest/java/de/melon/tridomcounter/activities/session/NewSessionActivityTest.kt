@@ -39,13 +39,13 @@ class NewSessionActivityTest {
 
     @Test
     fun t01_initial() {
-        onView(withId(R.id.numberOfPlayersText)).check(matches(withText("$initialNumberOfPlayers")))
+        onView(withId(R.id.numberOfPlayersTextView)).check(matches(withText("$initialNumberOfPlayers")))
 
         onView(withId(R.id.editPlayerRecyclerView)).check(matches(hasChildCount(initialNumberOfPlayers)))
 
     }
 
-    val numberOfPlayersTextField = onView(withId(R.id.numberOfPlayersText))
+    val numberOfPlayersTextField = onView(withId(R.id.numberOfPlayersTextView))
     val numberOfPlayersMinusButton = onView(withId(R.id.numberOfPlayersMinus))
     val numberOfPlayersPlusButton = onView(withId(R.id.numberOfPlayersPlus))
 
