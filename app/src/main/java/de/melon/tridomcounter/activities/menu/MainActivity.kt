@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,10 +15,10 @@ import de.melon.tridomcounter.activities.session.NewSessionActivity
 import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.data.GameData
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var sessionRecyclerView: RecyclerView
     lateinit var sessionCardAdapter : SessionCardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +26,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        sessionRecyclerView = findViewById(R.id.sessionRecyclerView)
-
         val sessions = GameData.sessions
-        sessionCardAdapter = SessionCardAdapter(sessions.toTypedArray())
+        sessionCardAdapter = SessionCardAdapter(sessions)
         sessionRecyclerView.adapter = sessionCardAdapter
+        sessionRecyclerView.layoutManager = LinearLayoutManager(this)
 
         sessionRecyclerView.addOnItemClickListener(object: OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
@@ -53,11 +51,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    fun updateSessionRecyclerView() {
-        sessionCardAdapter.sessions = GameData.sessions.toTypedArray()
-        sessionRecyclerView.layoutManager = LinearLayoutManager(this)
-
-    }
+    fun updateSessionRecyclerView() = sessionCardAdapter.notifyDataSetChanged()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

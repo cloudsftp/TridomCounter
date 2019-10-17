@@ -8,7 +8,7 @@ import android.widget.TextView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.logic.Session
 
-class SessionCardAdapter(var sessions: Array<Session?>) : RecyclerView.Adapter<SessionCardAdapter.ViewHolder>() {
+class SessionCardAdapter(var sessions: MutableList<Session>) : RecyclerView.Adapter<SessionCardAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val sessionName = view.findViewById<TextView>(R.id.sessionNameTextView)!!
@@ -17,7 +17,7 @@ class SessionCardAdapter(var sessions: Array<Session?>) : RecyclerView.Adapter<S
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.session_card, parent, false) as View
+            .inflate(R.layout.card_session, parent, false) as View
 
         return ViewHolder(view)
 

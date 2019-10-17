@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.widget.Button
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.menu.MainActivity
@@ -14,6 +12,7 @@ import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.Round
 import de.melon.tridomcounter.logic.Session
 import kotlinx.android.synthetic.main.activity_session.*
+import kotlinx.android.synthetic.main.content_session.*
 
 class SessionActivity : AppCompatActivity() {
 
@@ -21,8 +20,7 @@ class SessionActivity : AppCompatActivity() {
     lateinit var session: Session
     lateinit var rounds: MutableList<Round>
 
-    lateinit var roundRecyclerView: RecyclerView
-    lateinit var allSessionsButton: Button
+    lateinit var roundCardAdapter: RoundCardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,17 +34,15 @@ class SessionActivity : AppCompatActivity() {
         session = GameData.sessions[sessionId]
         val players = session.players
 
-        val playerRecyclerView = findViewById<RecyclerView>(R.id.playerRecyclerView)
         playerRecyclerView.adapter = PlayerCardAdapter(players)
         playerRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         rounds = session.rounds
 
-        roundRecyclerView = findViewById(R.id.roundRecyclerView)
+        roundCardAdapter = RoundCardAdapter(rounds)
+        roundRecyclerView.adapter = roundCardAdapter
+        roundRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        updateRoundRecyclerView()
-
-        allSessionsButton = findViewById(R.id.allSessionsButton)
         allSessionsButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -66,11 +62,7 @@ class SessionActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    fun updateRoundRecyclerView() {
-        roundRecyclerView.adapter = RoundCardAdapter(rounds)
-        roundRecyclerView.layoutManager = LinearLayoutManager(this)
-
-    }
+    fun updateRoundRecyclerView() = roundCardAdapter.notifyDataSetChanged()
 
     override fun onBackPressed() {}
 

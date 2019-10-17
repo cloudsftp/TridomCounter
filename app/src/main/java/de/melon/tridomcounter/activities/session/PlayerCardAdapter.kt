@@ -18,7 +18,7 @@ class PlayerCardAdapter(val players: Array<String>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : PlayerCardViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.player_card, parent, false) as View
+            .inflate(R.layout.card_player, parent, false) as View
 
         return PlayerCardViewHolder(view)
 

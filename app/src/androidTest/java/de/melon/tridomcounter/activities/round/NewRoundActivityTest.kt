@@ -13,7 +13,6 @@ import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.util.intendedActivity
 import de.melon.tridomcounter.activities.util.withChoosePlayerRecyclerView
 import de.melon.tridomcounter.data.GameData
-import de.melon.tridomcounter.logic.Session
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
@@ -34,8 +33,7 @@ class NewRoundActivityTest {
     val players = arrayOf("Fabian", "Tim", "Paul")
 
     fun createSession() {
-        val session = Session(players)
-        current.sessionId = GameData.addSession(session)
+        current.sessionId = GameData.newSession(players)
 
     }
 

@@ -15,26 +15,35 @@ class EditPlayerCardAdapter
     val maxNumberOfPlayers = 6
 
     var numberOfPlayers = minNumberOfPlayers
-    val playerNames = ArrayList<Editable>(maxNumberOfPlayers)
+    val playerNames = Array(maxNumberOfPlayers) {String()}
+    val viewHolders = Array<EditPlayerCardViewHolder?>(maxNumberOfPlayers) {null}
 
-    fun getPlayers() = playerNames.filterIndexed {i, _ ->  i < numberOfPlayers} .toTypedArray()
+    init {
+        for (i in 0 until maxNumberOfPlayers)
+            playerNames[i] = "Spieler $i"
+    }
+
+    val editableFactory = Editable.Factory.getInstance()
+
+    fun savePlayerNames() {
+        for (i in 0 until numberOfPlayers)
+            playerNames[i] = viewHolders[i]?.nameTextField?.text.toString()
+
+    }
+
+    fun getNeededPlayerNames() = playerNames
+        .filterIndexed {i, _ -> i < numberOfPlayers}
+        .toTypedArray()
 
     fun changeNumberOfPlayers(delta: Int) : Int {
+        savePlayerNames()
+
         numberOfPlayers += delta
 
         if (numberOfPlayers < minNumberOfPlayers) numberOfPlayers = minNumberOfPlayers
         if (numberOfPlayers > maxNumberOfPlayers) numberOfPlayers = maxNumberOfPlayers
 
         return numberOfPlayers
-
-    }
-
-    init {
-        for (i in 0 until maxNumberOfPlayers) {
-            val playerEditable = Editable.Factory.getInstance().newEditable("Spieler $i")
-            playerNames.add(playerEditable)
-
-        }
 
     }
 
@@ -45,19 +54,16 @@ class EditPlayerCardAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : EditPlayerCardViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.edit_player_card, parent, false) as View
+            .inflate(R.layout.card_edit_player, parent, false) as View
 
         return EditPlayerCardViewHolder(view)
 
     }
 
     override fun onBindViewHolder(viewHolder: EditPlayerCardViewHolder, position: Int) {
-        viewHolder.nameTextField.text = playerNames[position]
-        viewHolder.nameTextField.setOnKeyListener(View.OnKeyListener {
-            view, _, _ ->
-            playerNames[position] = (view as EditText).text
-            return@OnKeyListener true
-        })
+        viewHolder.nameTextField.text = editableFactory.newEditable(playerNames[position])
+        viewHolders[position] = viewHolder
+
     }
 
     override fun getItemCount() = numberOfPlayers
