@@ -13,9 +13,12 @@ import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.menu.MainActivity
 import de.melon.tridomcounter.activities.round.NewRoundActivity
 import de.melon.tridomcounter.activities.util.intendedActivity
-import de.melon.tridomcounter.activities.util.withPlayerRecyclerView
+import de.melon.tridomcounter.activities.util.withPlayerRecyclerViewName
+import de.melon.tridomcounter.activities.util.withPlayerRecyclerViewPoints
 import de.melon.tridomcounter.activities.util.withRoundRecyclerView
 import de.melon.tridomcounter.data.GameData
+import de.melon.tridomcounter.logic.BaseMove
+import de.melon.tridomcounter.logic.PlaceMove
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
@@ -49,15 +52,16 @@ class SessionActivityTest {
     val activityRule = ActivityTestRule(SessionActivity::class.java, false, false)
 
     fun startActivity() = activityRule.launchActivity(Intent())
+    fun stopActivity() = activityRule.finishActivity()
 
-    val playerRecyclerViewMatcher = withPlayerRecyclerView(R.id.playerRecyclerView)
+    val playerNameRecyclerViewMatcher = withPlayerRecyclerViewName(R.id.playerRecyclerView)
 
     @Test
     fun t00_displayPlayers() {
         onView(withId(R.id.playerRecyclerView)).check(matches(hasChildCount(players.size)))
 
         for (i in players.indices)
-            onView(playerRecyclerViewMatcher.atPosition(i)).check(matches(withText(players[i])))
+            onView(playerNameRecyclerViewMatcher.atPosition(i)).check(matches(withText(players[i])))
 
     }
 
@@ -74,6 +78,45 @@ class SessionActivityTest {
         for (i in 0 until numberOfRounds)
             onView(roundRecyclerViewChild.atPosition(i)).check(matches(withText("Runde $i")))
 
+    }
+
+    val playerPointsRecyclerViewChild = withPlayerRecyclerViewPoints(R.id.playerRecyclerView)
+
+    @Test
+    fun t03_displayPointsInitial() {
+        for (i in players.indices)
+            onView(playerPointsRecyclerViewChild.atPosition(i))
+                .check(matches(withText("0")))
+
+    }
+
+    @Test
+    fun t04_displayPoints() {
+        current.roundId = 0
+
+        addPointsToPlayer(0, 60)
+        addPointsToPlayer(1, 15)
+        addPointsToPlayer(2, -25)
+
+        addPointsToPlayer(0, 2)
+        addPointsToPlayer(1, 10)
+        addPointsToPlayer(2, 14)
+
+        stopActivity()
+        startActivity()
+
+        onView(playerPointsRecyclerViewChild.atPosition(0))
+            .check(matches(withText("62")))
+        onView(playerPointsRecyclerViewChild.atPosition(1))
+            .check(matches(withText("25")))
+        onView(playerPointsRecyclerViewChild.atPosition(2))
+            .check(matches(withText("-11")))
+
+    }
+
+    fun addPointsToPlayer(id: Int, points: Int) {
+        val round = GameData.sessions[current.sessionId].rounds[current.roundId]
+        round.moves[id].add(PlaceMove(BaseMove, points))
     }
 
     @Test

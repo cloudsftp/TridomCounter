@@ -12,7 +12,7 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.util.intendedActivity
 import de.melon.tridomcounter.activities.util.performTypeTextSafe
 import de.melon.tridomcounter.activities.util.withEditPlayerRecyclerView
-import de.melon.tridomcounter.activities.util.withPlayerRecyclerView
+import de.melon.tridomcounter.activities.util.withPlayerRecyclerViewName
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
@@ -117,7 +117,7 @@ class NewSessionActivityTest {
     }
 
     val players = arrayOf("Fabian", "Finn", "Kenji", "Paul")
-    val playerRecyclerViewChildMatcher = withPlayerRecyclerView(R.id.playerRecyclerView)
+    val playerRecyclerViewChildMatcher = withPlayerRecyclerViewName(R.id.playerRecyclerView)
 
     @Test
     fun t99_confirmPlayersExtended() {

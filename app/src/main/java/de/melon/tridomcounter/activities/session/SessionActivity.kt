@@ -34,7 +34,7 @@ class SessionActivity : AppCompatActivity() {
         session = GameData.sessions[sessionId]
         val players = session.players
 
-        playerRecyclerView.adapter = PlayerCardAdapter(players)
+        playerRecyclerView.adapter = PlayerCardAdapter(players, session)
         playerRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         rounds = session.rounds

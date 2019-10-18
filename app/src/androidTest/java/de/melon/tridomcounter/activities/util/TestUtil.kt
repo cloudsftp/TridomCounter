@@ -1,7 +1,6 @@
 package de.melon.tridomcounter.activities.util
 
 import android.content.res.Resources
-import android.os.SystemClock
 import android.support.test.espresso.ViewInteraction
 import android.support.test.espresso.action.ViewActions.clearText
 import android.support.test.espresso.action.ViewActions.typeText
@@ -20,7 +19,8 @@ fun withChoosePlayerRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(i
 fun withRoundRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.roundNameTextView)
 fun withSessionRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.sessionNameTextView)
 fun withEditPlayerRecyclerView(id: Int) = RecyclerChildViewMatcher<EditText>(id, R.id.playerNameEditText)
-fun withPlayerRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.playerNameTextView)
+fun withPlayerRecyclerViewName(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.playerNameTextView)
+fun withPlayerRecyclerViewPoints(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.playerPointsTextView)
 class RecyclerChildViewMatcher<T : View>(val recyclerViewId: Int, val childViewId: Int) {
 
     fun atPosition(position: Int) = RecyclerChildSafeMatcher<T>(position, recyclerViewId, childViewId)
@@ -52,8 +52,6 @@ class RecyclerChildViewMatcher<T : View>(val recyclerViewId: Int, val childViewI
 
 fun ViewInteraction.performTypeTextSafe(text: String)
     = this.perform(clearText())?.perform(typeText(text))
-
-fun sleep(millis: Long) = SystemClock.sleep(millis)
 
 fun intendedActivity(className: String) {
     intended(hasComponent(className))

@@ -1,9 +1,9 @@
 package de.melon.tridomcounter.logic
 
-class Round(val session: Session, var currentPlayerId: Int) {
+class Round(val session: Session, var currentPlayerId: Int) : PointInterface {
     val moves = Array(session.numberOfPlayers) {MutableList<Move>(0) {BaseMove}}
 
-    fun getPoints(playerId: Int) = moves[playerId].sumBy { m -> m.points }
+    override fun getPoints(id: Int) = moves[id].sumBy { m -> m.points }
 
     fun makeMove(move: Move) {
         moves[currentPlayerId].add(move)

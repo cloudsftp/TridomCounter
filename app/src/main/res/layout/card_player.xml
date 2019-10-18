@@ -13,15 +13,34 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/colorCard"
             app:cardCornerRadius="8dp"
-            app:contentPadding="10dp">
+            app:contentPaddingLeft="12dp"
+            app:contentPaddingRight="12dp"
+            app:contentPaddingTop="6dp"
+            app:contentPaddingBottom="6dp">
 
-        <TextView
-                android:id="@+id/playerNameTextView"
+        <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:textColor="@color/colorText" />
+                android:gravity="center"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/playerNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/place_holder"
+                    android:textColor="@color/colorText" />
+
+            <TextView
+                    android:id="@+id/playerPointsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/place_holder"
+                    android:textColor="@color/colorText" />
+
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
