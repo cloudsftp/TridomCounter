@@ -23,7 +23,6 @@ import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
 class SessionActivityTest {
 
@@ -57,7 +56,7 @@ class SessionActivityTest {
     val playerNameRecyclerViewMatcher = withPlayerRecyclerViewName(R.id.playerRecyclerView)
 
     @Test
-    fun t00_displayPlayers() {
+    fun displayPlayers() {
         onView(withId(R.id.playerRecyclerView)).check(matches(hasChildCount(players.size)))
 
         for (i in players.indices)
@@ -66,7 +65,7 @@ class SessionActivityTest {
     }
 
     @Test
-    fun t01_displayRoundsQuantitative() {
+    fun displayRoundsQuantitative() {
         onView(withId(R.id.roundRecyclerView)).check(matches(hasChildCount(numberOfRounds)))
 
     }
@@ -74,7 +73,7 @@ class SessionActivityTest {
     val roundRecyclerViewChild = withRoundRecyclerView(R.id.roundRecyclerView)
 
     @Test
-    fun t02_displayRoundsQualitative() {
+    fun displayRoundsQualitative() {
         for (i in 0 until numberOfRounds)
             onView(roundRecyclerViewChild.atPosition(i)).check(matches(withText("Runde $i")))
 
@@ -83,7 +82,7 @@ class SessionActivityTest {
     val playerPointsRecyclerViewChild = withPlayerRecyclerViewPoints(R.id.playerRecyclerView)
 
     @Test
-    fun t03_displayPointsInitial() {
+    fun displayPointsInitial() {
         for (i in players.indices)
             onView(playerPointsRecyclerViewChild.atPosition(i))
                 .check(matches(withText("0")))
@@ -91,7 +90,7 @@ class SessionActivityTest {
     }
 
     @Test
-    fun t04_displayPoints() {
+    fun displayPoints() {
         current.roundId = 0
 
         addPointsToPlayer(0, 60)
@@ -120,7 +119,7 @@ class SessionActivityTest {
     }
 
     @Test
-    fun t98_startRound() {
+    fun startRound() {
         onView(withId(R.id.fab)).perform(click())
 
         intendedActivity(NewRoundActivity::class.java.name)
@@ -128,7 +127,7 @@ class SessionActivityTest {
     }
 
     @Test
-    fun t99_openAllSessions() {
+    fun openAllSessions() {
         onView(withId(R.id.allSessionsButton)).perform(click())
 
         intendedActivity(MainActivity::class.java.name)

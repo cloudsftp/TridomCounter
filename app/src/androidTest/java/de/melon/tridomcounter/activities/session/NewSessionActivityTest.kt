@@ -17,7 +17,6 @@ import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
 class NewSessionActivityTest {
 
@@ -38,7 +37,7 @@ class NewSessionActivityTest {
     val initialNumberOfPlayers = 2
 
     @Test
-    fun t01_initial() {
+    fun initial() {
         onView(withId(R.id.numberOfPlayersTextView)).check(matches(withText("$initialNumberOfPlayers")))
 
         onView(withId(R.id.editPlayerRecyclerView)).check(matches(hasChildCount(initialNumberOfPlayers)))
@@ -52,7 +51,7 @@ class NewSessionActivityTest {
     val playersRecyclerView = onView(withId(R.id.editPlayerRecyclerView))
 
     @Test
-    fun t02_changeNumberOfPlayers() {
+    fun changeNumberOfPlayers() {
         val newNumberOfPlayers = 4
 
         numberOfPlayersPlusButton.perform(click()).perform(click())
@@ -61,7 +60,7 @@ class NewSessionActivityTest {
     }
 
     @Test
-    fun t03_constraintNumberOfPlayers() {
+    fun constraintNumberOfPlayers() {
         val minimumNumberOfPlayers = 2
         val maximumNumberOfPlayers = 6
 
@@ -80,14 +79,14 @@ class NewSessionActivityTest {
     val playerCardEditText = onView(editPlayerRecyclerViewChildMatcher.atPosition(1))
 
     @Test
-    fun t04_changePlayerName() {
+    fun changePlayerName() {
         playerCardEditText.performTypeTextSafe(newPlayer)
         playerCardEditText.check(matches(withText("Fabian")))
 
     }
 
     @Test
-    fun t05_preservePlayerNameOnNumberChange() {
+    fun preservePlayerNameOnNumberChange() {
         playerCardEditText.performTypeTextSafe(newPlayer)
         numberOfPlayersPlusButton.perform(click())
         playerCardEditText.check(matches(withText(newPlayer)))
@@ -97,7 +96,7 @@ class NewSessionActivityTest {
     val playerCardEditTextPosition2 = onView(editPlayerRecyclerViewChildMatcher.atPosition(2))
 
     @Test
-    fun t06_preservePlayerNameWhenOutOfSight() {
+    fun preservePlayerNameWhenOutOfSight() {
         numberOfPlayersPlusButton.perform(click())
         playerCardEditTextPosition2.performTypeTextSafe(newPlayer)
 
@@ -109,7 +108,7 @@ class NewSessionActivityTest {
     }
 
     @Test
-    fun t98_confirmPlayers() {
+    fun confirmPlayers() {
         onView(withId(R.id.fab)).perform(click())
 
         intendedActivity(SessionActivity::class.java.name)
@@ -120,7 +119,7 @@ class NewSessionActivityTest {
     val playerRecyclerViewChildMatcher = withPlayerRecyclerViewName(R.id.playerRecyclerView)
 
     @Test
-    fun t99_confirmPlayersExtended() {
+    fun confirmPlayersExtended() {
         numberOfPlayersPlusButton.perform(click()).perform(click())
 
         for (i in players.indices)

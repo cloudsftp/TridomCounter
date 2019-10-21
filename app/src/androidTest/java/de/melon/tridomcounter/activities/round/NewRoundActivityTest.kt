@@ -13,11 +13,12 @@ import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.util.intendedActivity
 import de.melon.tridomcounter.activities.util.withChoosePlayerRecyclerView
 import de.melon.tridomcounter.data.GameData
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
 class NewRoundActivityTest {
 
@@ -46,20 +47,20 @@ class NewRoundActivityTest {
     val choosePlayerRecyclerViewChild = withChoosePlayerRecyclerView(R.id.choosePlayerRecyclerView)
 
     @Test
-    fun t00_displayPlayersQuantitative() {
+    fun displayPlayersQuantitative() {
         onView(withId(R.id.choosePlayerRecyclerView)).check(matches(hasChildCount(players.size)))
 
     }
 
     @Test
-    fun t01_displayPlayersQualitative() {
+    fun displayPlayersQualitative() {
         for (i in players.indices)
             onView(choosePlayerRecyclerViewChild.atPosition(i)).check(matches(withText(players[i])))
 
     }
 
     @Test
-    fun t99_choosePlayer() {
+    fun choosePlayer() {
         onView(choosePlayerRecyclerViewChild.atPosition(0)).perform(click())
 
         intendedActivity(RoundActivity::class.java.name)

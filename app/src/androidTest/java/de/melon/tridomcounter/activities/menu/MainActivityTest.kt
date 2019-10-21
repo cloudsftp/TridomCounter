@@ -18,7 +18,6 @@ import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
@@ -48,7 +47,7 @@ class MainActivityTest {
     val sessionRecyclerView = onView(withId(R.id.sessionRecyclerView))
 
     @Test
-    fun t01_displaySessionsQuantitative() {
+    fun displaySessionsQuantitative() {
         sessionRecyclerView.check(matches(hasChildCount(numberOfSessions)))
 
     }
@@ -56,14 +55,14 @@ class MainActivityTest {
     val sessionRecyclerViewChild = withSessionRecyclerView(R.id.sessionRecyclerView)
 
     @Test
-    fun t02_displaySessionsQualitative() {
+    fun displaySessionsQualitative() {
         onView(sessionRecyclerViewChild.atPosition(0)).check(matches(withText("Session 0")))
         onView(sessionRecyclerViewChild.atPosition(1)).check(matches(withText("Session 1")))
 
     }
 
     @Test
-    fun t98_openSession() {
+    fun openSession() {
         val sessionId = 1
 
         onView(withSessionRecyclerView(R.id.sessionRecyclerView).atPosition(1)).perform(click())
@@ -76,7 +75,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun t99_newSession() {
+    fun newSession() {
         onView(withId(R.id.fab)).perform(click())
 
         intendedActivity(NewSessionActivity::class.java.name)

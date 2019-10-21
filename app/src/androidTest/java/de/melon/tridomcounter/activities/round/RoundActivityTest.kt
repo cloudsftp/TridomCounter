@@ -16,11 +16,12 @@ import de.melon.tridomcounter.activities.util.intendedActivity
 import de.melon.tridomcounter.activities.util.performTypeTextSafe
 import de.melon.tridomcounter.activities.util.withActionRecyclerView
 import de.melon.tridomcounter.data.GameData
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
 class RoundActivityTest {
 
@@ -50,13 +51,13 @@ class RoundActivityTest {
     fun startActivity() = activityRule.launchActivity(Intent())
 
     @Test
-    fun t00_activePlayerDisplayed() {
+    fun activePlayerDisplayed() {
         onView(withId(R.id.activePlayerNameTextView)).check(matches(withText(players[firstPlayerId])))
 
     }
 
     @Test
-    fun t01_roundNumberDisplayed() {
+    fun roundNumberDisplayed() {
         onView(withId(R.id.toolbar)).check(matches(isDisplayed()))
         onView(withText("Runde ${current.roundId}")).check(matches(withParent(withId(R.id.toolbar))))
 
@@ -66,7 +67,7 @@ class RoundActivityTest {
         .atPosition(0))
 
     @Test
-    fun t02_pauseRoundCardDisplayed() {
+    fun pauseRoundCardDisplayed() {
         pauseRoundCard.check(matches(withText("Runde Pausieren")))
 
     }
@@ -75,20 +76,20 @@ class RoundActivityTest {
         .atPosition(0))
 
     @Test
-    fun t04_makeMoveCardDisplayed() {
+    fun makeMoveCardDisplayed() {
         makeMoveCard.check(matches(withText("Legen")))
 
     }
 
     @Test
-    fun t05_makeMoveCardWorks() {
+    fun makeMoveCardWorks() {
         makeMoveCard.perform(click())
         checkPopupIsDisplayed()
 
     }
 
     @Test
-    fun t06_makeMoveChangeDisplayedPlayer() {
+    fun makeMoveChangeDisplayedPlayer() {
         checkActivePlayer(0)
 
         makeMove(0)
@@ -98,7 +99,7 @@ class RoundActivityTest {
     }
 
     @Test
-    fun t07_makeThreeMovesChangeDisplayedPlayer() {
+    fun makeThreeMovesChangeDisplayedPlayer() {
         checkActivePlayer(0)
 
         makeMove(0)
@@ -113,7 +114,7 @@ class RoundActivityTest {
     }
 
     @Test
-    fun t08_makeMovesCheckPoints() {
+    fun makeMovesCheckPoints() {
         checkActivePlayerWithPoints(0, 0)
 
         makeMove(60)
@@ -177,7 +178,7 @@ class RoundActivityTest {
     }
 
     @Test
-    fun t99_pauseRoundCardWorks() {
+    fun pauseRoundCardWorks() {
         pauseRoundCard.perform(click())
 
         intendedActivity(SessionActivity::class.java.name)
