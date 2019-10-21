@@ -24,27 +24,57 @@ fun withPlayerRecyclerViewPoints(id: Int) = RecyclerChildViewMatcher<TextView>(i
 class RecyclerChildViewMatcher<T : View>(val recyclerViewId: Int, val childViewId: Int) {
 
     fun atPosition(position: Int) = RecyclerChildSafeMatcher<T>(position, recyclerViewId, childViewId)
-    class RecyclerChildSafeMatcher<T : View>(val position: Int, val recyclerViewId: Int, val childViewId: Int)
-        : TypeSafeMatcher<View>() {
-
-        var resources: Resources? = null
-
-        override fun describeTo(description: Description?) {
-            val idDescription = resources?.getResourceName(recyclerViewId)
-            description?.appendText(idDescription)
-
-        }
+    class RecyclerChildSafeMatcher<T : View>(val position: Int, recyclerViewId: Int, val childViewId: Int)
+            : RecyclerViewChildSafeMatcherAbstract(recyclerViewId) {
 
         override fun matchesSafely(view: View?): Boolean {
             resources = view?.resources
 
             val recyclerView = view?.rootView?.findViewById<RecyclerView>(recyclerViewId)
-            val viewHolder = recyclerView?.findViewHolderForAdapterPosition(position)?.itemView
-            val childView = viewHolder?.findViewById<T>(childViewId)
+            val viewHolder = recyclerView?.findViewHolderForAdapterPosition(position)
+            val childView = viewHolder?.itemView?.findViewById<T>(childViewId)
 
             return view == childView
 
         }
+
+    }
+
+}
+
+fun withRoundRecyclerViewAndPlayerRecyclerView(id: Int, nestedId: Int) = NestedRecyclerChildViewMatcher<TextView>(id, nestedId, R.id.playerPointsTextView)
+class NestedRecyclerChildViewMatcher<T : View>(val recyclerViewId: Int, val nestedRecyclerViewId: Int, val childViewId: Int) {
+
+    fun atPosition(positionRecyclerView: Int, position: Int)
+            = NestedRecyclerViewChildSafeMatcher<T>(positionRecyclerView, position, recyclerViewId, nestedRecyclerViewId, childViewId)
+    class NestedRecyclerViewChildSafeMatcher<T : View>(val positionRecyclerView: Int, val position: Int,
+                                                       recyclerViewId: Int, val nestedRecyclerViewId: Int, val childViewId: Int)
+        : RecyclerViewChildSafeMatcherAbstract(recyclerViewId) {
+
+        override fun matchesSafely(view: View?): Boolean {
+            resources = view?.resources
+
+            val recyclerView = view?.rootView?.findViewById<RecyclerView>(recyclerViewId)
+            val nestedRecyclerViewHolder = recyclerView?.findViewHolderForAdapterPosition(positionRecyclerView)
+            val nestedRecyclerView = nestedRecyclerViewHolder?.itemView?.findViewById<RecyclerView>(nestedRecyclerViewId)
+            val viewHolder = nestedRecyclerView?.findViewHolderForAdapterPosition(position)
+            val childView = viewHolder?.itemView?.findViewById<T>(childViewId)
+
+            return view == childView
+
+        }
+
+    }
+
+}
+
+abstract class RecyclerViewChildSafeMatcherAbstract(val recyclerViewId: Int) : TypeSafeMatcher<View>() {
+
+    var resources: Resources? = null
+
+    override fun describeTo(description: Description?) {
+        val idDescription = resources?.getResourceName(recyclerViewId)
+        description?.appendText(idDescription)
 
     }
 
