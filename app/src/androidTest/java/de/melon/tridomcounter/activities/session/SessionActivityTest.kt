@@ -112,7 +112,7 @@ class SessionActivityTest {
 
     }
 
-    val playerPointsNestedRecyclerViewChild = withRoundRecyclerViewAndPlayerRecyclerView(R.id.roundRecyclerView)
+    val playerPointsNestedRecyclerViewChild = withRoundRecyclerViewAndPlayerRecyclerView(R.id.roundRecyclerView, R.id.nestedPlayerRecyclerView)
 
     @Test
     fun displayPointsRound() {
