@@ -8,7 +8,7 @@ import android.widget.TextView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.logic.PointInterface
 
-class PlayerCardAdapter(val players: Array<String>, val pointSource: PointInterface)
+class PlayerCardAdapter(val players: Array<String>, val pointSource: PointInterface, val small: Boolean = false)
     : RecyclerView.Adapter<PlayerCardAdapter.PlayerCardViewHolder>() {
 
     class PlayerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -28,6 +28,12 @@ class PlayerCardAdapter(val players: Array<String>, val pointSource: PointInterf
     override fun onBindViewHolder(viewHolder: PlayerCardViewHolder, position: Int) {
         viewHolder.nameTextView.text = players[position]
         viewHolder.pointsTextView.text = "${pointSource.getPoints(position)}"
+
+        if (small) {
+            viewHolder.nameTextView.textSize = 14f
+            viewHolder.pointsTextView.textSize = 12f
+
+        }
 
     }
 

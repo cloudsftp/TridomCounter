@@ -32,8 +32,8 @@ class RoundCardAdapter(val rounds: MutableList<Round>)
         viewHolder.nameTextView.text = String.format("%s %d", viewHolder.itemView.context.getString(R.string.round), position)
 
         val session = GameData.sessions[current.sessionId]
-        viewHolder.playerRecyclerView.adapter = PlayerCardAdapter(session.players, session.rounds[position])
-        viewHolder.playerRecyclerView.layoutManager = LinearLayoutManager(viewHolder.itemView.context)
+        viewHolder.playerRecyclerView.adapter = PlayerCardAdapter(session.players, session.rounds[position], true)
+        viewHolder.playerRecyclerView.layoutManager = LinearLayoutManager(viewHolder.itemView.context, LinearLayoutManager.HORIZONTAL, false)
 
     }
 
