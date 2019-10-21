@@ -12,16 +12,15 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.menu.MainActivity
 import de.melon.tridomcounter.activities.round.NewRoundActivity
-import de.melon.tridomcounter.activities.util.intendedActivity
-import de.melon.tridomcounter.activities.util.withPlayerRecyclerViewName
-import de.melon.tridomcounter.activities.util.withPlayerRecyclerViewPoints
-import de.melon.tridomcounter.activities.util.withRoundRecyclerView
+import de.melon.tridomcounter.activities.util.*
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.BaseMove
 import de.melon.tridomcounter.logic.PlaceMove
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 
 @RunWith(AndroidJUnit4::class)
 class SessionActivityTest {
@@ -36,7 +35,7 @@ class SessionActivityTest {
     }
 
     val players = arrayOf("Fabian", "Tim", "Paul")
-    val numberOfRounds = 4
+    val numberOfRounds = 2
 
     fun createSession() {
         current.sessionId = GameData.newSession(players)
@@ -44,6 +43,27 @@ class SessionActivityTest {
         for (i in 0 until numberOfRounds)
             GameData.sessions[current.sessionId].newRound(0)
 
+        current.roundId = 0
+
+        addPointsToPlayer(0, 60)
+        addPointsToPlayer(1, 15)
+        addPointsToPlayer(2, -25)
+
+        addPointsToPlayer(0, 2)
+        addPointsToPlayer(1, 10)
+        addPointsToPlayer(2, 14)
+
+        current.roundId = 1
+
+        addPointsToPlayer(0, 23)
+        addPointsToPlayer(1, 2)
+        addPointsToPlayer(2, 0)
+
+    }
+
+    fun addPointsToPlayer(id: Int, points: Int) {
+        val round = GameData.sessions[current.sessionId].rounds[current.roundId]
+        round.moves[id].add(PlaceMove(BaseMove, points))
     }
 
     @JvmField
@@ -82,40 +102,34 @@ class SessionActivityTest {
     val playerPointsRecyclerViewChild = withPlayerRecyclerViewPoints(R.id.playerRecyclerView)
 
     @Test
-    fun displayPointsInitial() {
-        for (i in players.indices)
-            onView(playerPointsRecyclerViewChild.atPosition(i))
-                .check(matches(withText("0")))
-
-    }
-
-    @Test
     fun displayPoints() {
-        current.roundId = 0
-
-        addPointsToPlayer(0, 60)
-        addPointsToPlayer(1, 15)
-        addPointsToPlayer(2, -25)
-
-        addPointsToPlayer(0, 2)
-        addPointsToPlayer(1, 10)
-        addPointsToPlayer(2, 14)
-
-        stopActivity()
-        startActivity()
-
         onView(playerPointsRecyclerViewChild.atPosition(0))
-            .check(matches(withText("62")))
+            .check(matches(withText("85")))
         onView(playerPointsRecyclerViewChild.atPosition(1))
-            .check(matches(withText("25")))
+            .check(matches(withText("27")))
         onView(playerPointsRecyclerViewChild.atPosition(2))
             .check(matches(withText("-11")))
 
     }
 
-    fun addPointsToPlayer(id: Int, points: Int) {
-        val round = GameData.sessions[current.sessionId].rounds[current.roundId]
-        round.moves[id].add(PlaceMove(BaseMove, points))
+    val playerPointsNestedRecyclerViewChild = withRoundRecyclerViewAndPlayerRecyclerView(R.id.roundRecyclerView)
+
+    @Test
+    fun displayPointsRound() {
+        onView(playerPointsNestedRecyclerViewChild.atPosition(0, 0))
+            .check(matches(withText("62")))
+        onView(playerPointsNestedRecyclerViewChild.atPosition(0, 1))
+            .check(matches(withText("25")))
+        onView(playerPointsNestedRecyclerViewChild.atPosition(0, 2))
+            .check(matches(withText("-11")))
+
+        onView(playerPointsNestedRecyclerViewChild.atPosition(1, 0))
+            .check(matches(withText("23")))
+        onView(playerPointsNestedRecyclerViewChild.atPosition(1, 1))
+            .check(matches(withText("2")))
+        onView(playerPointsNestedRecyclerViewChild.atPosition(1, 2))
+            .check(matches(withText("0")))
+
     }
 
     @Test

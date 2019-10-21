@@ -21,6 +21,7 @@ fun withSessionRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.
 fun withEditPlayerRecyclerView(id: Int) = RecyclerChildViewMatcher<EditText>(id, R.id.playerNameEditText)
 fun withPlayerRecyclerViewName(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.playerNameTextView)
 fun withPlayerRecyclerViewPoints(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.playerPointsTextView)
+fun withRoundRecyclerViewAndPlayerRecyclerView(id: Int) = RecyclerChildViewMatcher<TextView>(id, R.id.playerPointsTextView)
 class RecyclerChildViewMatcher<T : View>(val recyclerViewId: Int, val childViewId: Int) {
 
     fun atPosition(position: Int) = RecyclerChildSafeMatcher<T>(position, recyclerViewId, childViewId)
