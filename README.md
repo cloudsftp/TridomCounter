@@ -1,5 +1,8 @@
 # Android App to count your Tridom score
 
+CircleCi build
+[![CircleCI](https://circleci.com/gh/cloudsftp/TridomCounter/tree/develop.svg?style=svg)](https://circleci.com/gh/cloudsftp/TridomCounter/tree/develop)
+
 This app is written in **Kotlin** using **Android Studio**.\
 Source control is managed by **Gitflow**.
 
