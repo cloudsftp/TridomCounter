@@ -14,9 +14,11 @@ import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.activities.util.intendedActivity
 import de.melon.tridomcounter.activities.util.withSessionRecyclerView
 import de.melon.tridomcounter.data.GameData
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
@@ -33,6 +35,8 @@ class MainActivityTest {
     val numberOfSessions = 2
 
     fun createSessions() {
+        GameData.clear()
+
         for (i in 0 until numberOfSessions)
             GameData.newSession(arrayOf(String()))
 
