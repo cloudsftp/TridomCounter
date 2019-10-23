@@ -1,7 +1,6 @@
 package de.melon.tridomcounter.activities.round
 
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -31,6 +30,11 @@ class RoundActivity : AppCompatActivity() {
 
         title = "$title ${current.roundId}"
 
+        buildActivity()
+
+    }
+
+    fun buildActivity() {
         session = GameData.sessions[current.sessionId]
         round = session.rounds[current.roundId]
 
@@ -69,8 +73,7 @@ class RoundActivity : AppCompatActivity() {
         val move = PlaceMove(currentMove, numberOfPointsPlaced)
         round.makeMove(move)
 
-        val intent = Intent(this, RoundActivity::class.java)
-        startActivity(intent)
+        buildActivity()
 
     }
 
