@@ -4,10 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.OnItemClickListener
+import de.melon.tridomcounter.activities.addOnItemClickListener
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.menu.MainActivity
 import de.melon.tridomcounter.activities.round.NewRoundActivity
+import de.melon.tridomcounter.activities.round.RoundActivity
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.Round
 import de.melon.tridomcounter.logic.Session
@@ -42,6 +46,14 @@ class SessionActivity : AppCompatActivity() {
         roundCardAdapter = RoundCardAdapter(rounds)
         roundRecyclerView.adapter = roundCardAdapter
         roundRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        roundRecyclerView.addOnItemClickListener(object: OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+                val intent = Intent(view.context, RoundActivity::class.java)
+                current.roundId = position
+                startActivity(intent)
+            }
+        })
 
         allSessionsButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
