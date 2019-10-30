@@ -36,6 +36,8 @@ class MainActivityTest {
     val numberOfSessions = 2
 
     fun createSessions() {
+        GameData.clear()
+
         for (i in 0 until numberOfSessions)
             GameData.newSession(arrayOf(String()))
 
