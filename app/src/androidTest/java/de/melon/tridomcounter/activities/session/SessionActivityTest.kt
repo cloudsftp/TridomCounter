@@ -12,6 +12,7 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.menu.MainActivity
 import de.melon.tridomcounter.activities.round.NewRoundActivity
+import de.melon.tridomcounter.activities.round.RoundActivity
 import de.melon.tridomcounter.activities.util.*
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.BaseMove
@@ -137,6 +138,16 @@ class SessionActivityTest {
         onView(withId(R.id.fab)).perform(click())
 
         intendedActivity(NewRoundActivity::class.java.name)
+
+    }
+
+    @Test
+    fun resumeRound() {
+        onView(roundRecyclerViewChild.atPosition(1)).perform(click())
+
+        intendedActivity(RoundActivity::class.java.name)
+
+        checkTitle("Runde 1")
 
     }
 

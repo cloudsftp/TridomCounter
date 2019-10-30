@@ -11,12 +11,15 @@ import android.support.test.runner.AndroidJUnit4
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.session.NewSessionActivity
 import de.melon.tridomcounter.activities.session.SessionActivity
+import de.melon.tridomcounter.activities.util.checkTitle
 import de.melon.tridomcounter.activities.util.intendedActivity
 import de.melon.tridomcounter.activities.util.withSessionRecyclerView
 import de.melon.tridomcounter.data.GameData
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
@@ -69,8 +72,7 @@ class MainActivityTest {
 
         intendedActivity(SessionActivity::class.java.name)
 
-        onView(withId(R.id.toolbar)).check(matches(isDisplayed()))
-        onView(withText("Session $sessionId")).check(matches(withParent(withId(R.id.toolbar))))
+        checkTitle("Session $sessionId")
 
     }
 
