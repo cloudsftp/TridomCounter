@@ -1,11 +1,14 @@
 package de.melon.tridomcounter.activities.util
 
 import android.content.res.Resources
+import android.support.test.espresso.Espresso
 import android.support.test.espresso.ViewInteraction
 import android.support.test.espresso.action.ViewActions.clearText
 import android.support.test.espresso.action.ViewActions.typeText
+import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.intent.Intents.intended
 import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import android.support.test.espresso.matcher.ViewMatchers
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
@@ -77,6 +80,14 @@ abstract class RecyclerViewChildSafeMatcherAbstract(val recyclerViewId: Int) : T
         description?.appendText(idDescription)
 
     }
+
+}
+
+fun checkTitle(text: String) {
+    Espresso.onView(ViewMatchers.withId(R.id.toolbar))
+        .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    Espresso.onView(ViewMatchers.withText(text))
+        .check(ViewAssertions.matches(ViewMatchers.withParent(ViewMatchers.withId(R.id.toolbar))))
 
 }
 
