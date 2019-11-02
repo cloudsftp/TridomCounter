@@ -1,9 +1,11 @@
 package de.melon.tridomcounter.activities.round
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import de.melon.tridomcounter.R
@@ -57,6 +59,7 @@ class RoundActivity : AppCompatActivity() {
         dialog.setContentView(R.layout.dialog_place)
 
         numberOfPointsEditText = dialog.findViewById(R.id.numberOfPointsEditText)
+
         val acceptButton = dialog.findViewById<Button>(R.id.acceptButton)
         acceptButton.setOnClickListener {
             val numberOfPointsPlaced = numberOfPointsEditText.text.toString().toInt()
@@ -66,6 +69,12 @@ class RoundActivity : AppCompatActivity() {
         }
 
         dialog.show()
+
+        if (numberOfPointsEditText.requestFocus()) {
+            val inuputManager = numberOfPointsEditText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            inuputManager?.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+
+        }
 
     }
 
