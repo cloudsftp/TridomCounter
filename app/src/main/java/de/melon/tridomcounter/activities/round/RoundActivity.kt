@@ -38,11 +38,11 @@ class RoundActivity : AppCompatActivity() {
         session = GameData.sessions[current.sessionId]
         round = session.rounds[current.roundId]
 
-        playerActionRecyclerView.adapter = PlayerActionCardAdapter(round, this)
-        playerActionRecyclerView.layoutManager = LinearLayoutManager(this)
+        customActionRecyclerView.adapter = CustomActionCardAdapter(round, this)
+        customActionRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        actionRecyclerView.adapter = ActionCardAdapter(round)
-        actionRecyclerView.layoutManager = LinearLayoutManager(this)
+        commonActionRecyclerView.adapter = CommonActionCardAdapter(round)
+        commonActionRecyclerView.layoutManager = LinearLayoutManager(this)
 
         activePlayerNameTextView.text = session.players[round.currentPlayerId]
         pointsTextView.text = round.getPoints(round.currentPlayerId).toString()
