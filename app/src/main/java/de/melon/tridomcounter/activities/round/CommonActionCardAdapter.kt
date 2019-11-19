@@ -1,17 +1,14 @@
 package de.melon.tridomcounter.activities.round
 
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import de.melon.tridomcounter.R
-import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.logic.Round
 
-class CommonActionCardAdapter(val round: Round)
+class CommonActionCardAdapter(val round: Round, val activity: RoundActivity)
     : RecyclerView.Adapter<CommonActionCardAdapter.CommonActionCardViewHolder>() {
 
     class CommonActionCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -28,21 +25,21 @@ class CommonActionCardAdapter(val round: Round)
     }
 
     override fun onBindViewHolder(viewHolder: CommonActionCardViewHolder, position: Int) {
-        val context = viewHolder.itemView.context
-        val actionNameTextView = viewHolder.actionNameTextView
 
-        if (position == 0) {
-            actionNameTextView.gravity = Gravity.CENTER
-            actionNameTextView.text = context.getString(R.string.pause_round)
+        val move = round.commonMoveList[position]
+        val function = move.first
+        val moveName = move.second
 
-            viewHolder.itemView.setOnClickListener {
-                context.startActivity(Intent(context, SessionActivity::class.java))
-            }
+        viewHolder.actionNameTextView.text = moveName
 
+        viewHolder.itemView.setOnClickListener {
+            function.invoke()
+
+            activity.buildActivity()
         }
 
     }
 
-    override fun getItemCount() = 1
+    override fun getItemCount() = round.commonMoveList.size
 
 }

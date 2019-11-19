@@ -9,7 +9,7 @@ class MoveTests {
 
     @Test
     fun t00_drawThreeTimes() {
-        var move: Move = BaseMove
+        var move: AbstractMove = BaseMove
 
         for (i in 0 until 3)
             move = DrawMove(move)
@@ -22,7 +22,7 @@ class MoveTests {
 
     @Test
     fun t01_place() {
-        var move: Move = BaseMove
+        var move: AbstractMove = BaseMove
 
         move = PlaceMove(move, 10)
 
@@ -32,7 +32,7 @@ class MoveTests {
 
     @Test
     fun t02_drawAndPlace() {
-        var move: Move = BaseMove
+        var move: AbstractMove = BaseMove
 
         move = DrawMove(move)
         move = PlaceMove(move, 10)

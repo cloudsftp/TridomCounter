@@ -1,16 +1,13 @@
 package de.melon.tridomcounter.activities.round
 
-import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.Button
-import android.widget.EditText
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
+import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.data.GameData
-import de.melon.tridomcounter.logic.BaseMove
-import de.melon.tridomcounter.logic.PlaceMove
 import de.melon.tridomcounter.logic.Round
 import de.melon.tridomcounter.logic.Session
 import kotlinx.android.synthetic.main.activity_round.*
@@ -20,8 +17,6 @@ class RoundActivity : AppCompatActivity() {
 
     lateinit var session: Session
     lateinit var round: Round
-
-    var currentMove = BaseMove
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +36,7 @@ class RoundActivity : AppCompatActivity() {
         customActionRecyclerView.adapter = CustomActionCardAdapter(round, this)
         customActionRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        commonActionRecyclerView.adapter = CommonActionCardAdapter(round)
+        commonActionRecyclerView.adapter = CommonActionCardAdapter(round, this)
         commonActionRecyclerView.layoutManager = LinearLayoutManager(this)
 
         activePlayerNameTextView.text = session.players[round.currentPlayerId]
@@ -49,34 +44,9 @@ class RoundActivity : AppCompatActivity() {
 
     }
 
-    lateinit var numberOfPointsEditText: EditText
-
-    fun displayPlacementDialog() {
-        val dialog = Dialog(this)
-
-        dialog.setContentView(R.layout.dialog_place)
-
-        numberOfPointsEditText = dialog.findViewById(R.id.numberOfPointsEditText)
-        val acceptButton = dialog.findViewById<Button>(R.id.acceptButton)
-        acceptButton.setOnClickListener {
-            val numberOfPointsPlaced = numberOfPointsEditText.text.toString().toInt()
-            dialog.dismiss()
-            completeMove(numberOfPointsPlaced)
-
-        }
-
-        dialog.show()
-
+    override fun onBackPressed() {
+        val intent = Intent(this, SessionActivity::class.java)
+        startActivity(intent)
     }
-
-    fun completeMove(numberOfPointsPlaced: Int) {
-        val move = PlaceMove(currentMove, numberOfPointsPlaced)
-        round.makeMove(move)
-
-        buildActivity()
-
-    }
-
-    override fun onBackPressed() {}
 
 }

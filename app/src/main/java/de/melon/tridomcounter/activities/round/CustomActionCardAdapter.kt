@@ -28,13 +28,20 @@ class CustomActionCardAdapter(val round: Round, val activity: RoundActivity)
     }
 
     override fun onBindViewHolder(viewHolder: CommonActionCardViewHolder, position: Int) {
-        val cardView = viewHolder.itemView
-        val context = cardView.context
-        val actionNameTextView = viewHolder.actionNameTextView
+        val move = round.customMoveList[position]
+        val function = move.first
+        val moveName = move.second
 
-        when (position) {
-            0 -> simpleMoveCard(context, cardView, actionNameTextView)
+        viewHolder.actionNameTextView.text = moveName
 
+        viewHolder.itemView.setOnClickListener {
+            val pointsString = viewHolder.inputEditText.text.toString()
+            if (!pointsString.isEmpty()) {
+                val points = pointsString.toInt()
+                function.invoke(points)
+            }
+
+            activity.buildActivity()
         }
 
     }
@@ -42,12 +49,8 @@ class CustomActionCardAdapter(val round: Round, val activity: RoundActivity)
     fun simpleMoveCard(context: Context, cardView: View, actionNameTextView: TextView) {
         actionNameTextView.text = context.getString(R.string.make_move)
 
-        cardView.setOnClickListener {
-            activity.displayPlacementDialog()
-        }
-
     }
 
-    override fun getItemCount() = 1
+    override fun getItemCount() = round.customMoveList.size
 
 }
