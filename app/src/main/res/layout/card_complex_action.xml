@@ -35,7 +35,6 @@
                     android:id="@+id/actionInputEditText"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:paddingStart="32dp"
                     android:inputType="numberSigned" />
 
         </LinearLayout>

@@ -5,7 +5,7 @@ import kotlin.properties.Delegates
 class Round(val session: Session, var currentPlayerId: Int) : PointInterface {
     private var currentMove : AbstractMove by Delegates.observable(BaseMove) {
             _, _ : AbstractMove, _: AbstractMove ->
-            updateActionLists()
+            updateActions()
     }
 
     val moves = Array(session.numberOfPlayers) {MutableList<AbstractMove>(0) {BaseMove}}
@@ -35,24 +35,25 @@ class Round(val session: Session, var currentPlayerId: Int) : PointInterface {
 
     }
 
-    val customMoveList = MutableList(0) {Pair<(Int) -> Unit, String>(::placeMove, "")}
-
-    val commonMoveList = MutableList(0) {Pair<() -> Unit, String>(::drawMove, "")}
-
-    init {
-        updateActionLists()
-    }
-
     private fun drawMove() = draw()
     private fun passMove() = placeMove(-10)
 
-    private fun updateActionLists() {
-        customMoveList.clear()
-        customMoveList.add(Pair(::placeMove, "Legen"))
+    val roundActions = RoundActions()
 
-        commonMoveList.clear()
-        commonMoveList.add(Pair(::drawMove, "Ziehen"))
-        commonMoveList.add(Pair(::passMove, "Zo oft gezogen"))
+    init {
+        updateActions()
+    }
+
+    private fun updateActions() {
+        roundActions.clear()
+
+        roundActions.addComplexMove(::placeMove, "Legen")
+
+        if (currentMove.isFinished())
+            roundActions.addSimpleMove(::passMove, "Weiter")
+
+        else
+            roundActions.addSimpleMove(::drawMove, "Ziehen")
 
     }
 

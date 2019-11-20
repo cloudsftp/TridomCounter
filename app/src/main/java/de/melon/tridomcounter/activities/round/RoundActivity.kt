@@ -33,20 +33,20 @@ class RoundActivity : AppCompatActivity() {
         session = GameData.sessions[current.sessionId]
         round = session.rounds[current.roundId]
 
-        customActionRecyclerView.adapter = CustomActionCardAdapter(round, this)
+        customActionRecyclerView.adapter = ActionCardAdapter(round, this)
         customActionRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        commonActionRecyclerView.adapter = CommonActionCardAdapter(round, this)
-        commonActionRecyclerView.layoutManager = LinearLayoutManager(this)
 
         activePlayerNameTextView.text = session.players[round.currentPlayerId]
         pointsTextView.text = round.getPoints(round.currentPlayerId).toString()
 
     }
 
-    override fun onBackPressed() {
+    private fun backToSession() {
         val intent = Intent(this, SessionActivity::class.java)
         startActivity(intent)
+
     }
+
+    override fun onBackPressed() = backToSession()
 
 }
