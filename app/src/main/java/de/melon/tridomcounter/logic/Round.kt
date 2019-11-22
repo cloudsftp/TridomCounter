@@ -49,7 +49,7 @@ class Round(val session: Session, var currentPlayerId: Int) : PointInterface {
 
         roundActions.addComplexMove(::placeMove, "Legen")
 
-        if (currentMove.isFinished())
+        if (currentMove.isOver())
             roundActions.addSimpleMove(::passMove, "Weiter")
 
         else
