@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.logic.ActionCardComplex
+import de.melon.tridomcounter.logic.ActionCardSimple
+import de.melon.tridomcounter.logic.DisplayCard
 import de.melon.tridomcounter.logic.Round
+import java.lang.Exception
 
 class ActionCardAdapter(val round: Round, val activity: RoundActivity)
     : RecyclerView.Adapter<ActionCardAdapter.AbstractActionCardViewHolder>() {
@@ -20,70 +24,101 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
 
     }
 
-    class SimpleActionCardViewHolder(view: View) : AbstractActionCardViewHolder(view) {
+    open class SimpleActionCardViewHolder(view: View) : AbstractActionCardViewHolder(view) {
         val actionNameTextView = view.findViewById<TextView>(R.id.actionNameTextView)
 
     }
 
-    override fun getItemViewType(position: Int) = if (position < round.roundActions.sizeOfComplexActions()) 0
-        else 1
+    class DisplayCardViewHolder(view: View) : SimpleActionCardViewHolder(view)
 
-    override fun onCreateViewHolder(parent: ViewGroup, type: Int) : AbstractActionCardViewHolder {
-        if (type == 0) {
+    enum class ViewType {
+        DisplayCard,
+        SimpleActionCard,
+        ComplexActionCard,
+        Undefined
+    }
+
+    override fun getItemViewType(position: Int) = when (round.cards[position]) {
+        is DisplayCard -> ViewType.DisplayCard.ordinal
+        is ActionCardSimple -> ViewType.SimpleActionCard.ordinal
+        is ActionCardComplex -> ViewType.ComplexActionCard.ordinal
+        else -> ViewType.Undefined.ordinal
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, type: Int): AbstractActionCardViewHolder {
+        if (type == ViewType.ComplexActionCard.ordinal) {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.card_complex_action, parent, false) as View
 
             return ComplexActionCardViewHolder(view)
 
-        } else {
+        } else if (type == ViewType.SimpleActionCard.ordinal) {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.card_action, parent, false) as View
 
             return SimpleActionCardViewHolder(view)
+
+        } else if (type == ViewType.DisplayCard.ordinal) {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.card_action, parent, false) as View
+
+            return DisplayCardViewHolder(view)
+
+        } else {
+            throw Exception("Card Type not defined.")
 
         }
 
     }
 
     override fun onBindViewHolder(viewHolder: AbstractActionCardViewHolder, position: Int) {
-        if (position < round.roundActions.sizeOfComplexActions()) {
-            viewHolder as ComplexActionCardViewHolder
+        val card = round.cards[position]
 
-            val move = round.roundActions.complexActions[position]
-            val function = move.first
-            val moveName = move.second
+        when (getItemViewType(position)) {
+            ViewType.ComplexActionCard.ordinal -> {
+                viewHolder as ComplexActionCardViewHolder
+                card as ActionCardComplex
 
-            viewHolder.actionNameTextView.text = moveName
+                viewHolder.actionNameTextView.text = card.displayText
 
-            viewHolder.itemView.setOnClickListener {
-                val pointsString = viewHolder.inputEditText.text.toString()
-                if (pointsString.isNotEmpty()) {
-                    val points = pointsString.toInt()
-                    function.invoke(points)
+                viewHolder.itemView.setOnClickListener {
+                    val pointsString = viewHolder.inputEditText.text.toString()
+                    if (pointsString.isNotEmpty()) {
+                        val points = pointsString.toInt()
+                        card.function(points)
+                    }
+
+                    activity.buildActivity()
                 }
 
-                activity.buildActivity()
             }
+            ViewType.SimpleActionCard.ordinal -> {
+                viewHolder as SimpleActionCardViewHolder
+                card as ActionCardSimple
 
-        } else {
-            viewHolder as SimpleActionCardViewHolder
+                viewHolder.actionNameTextView.text = card.displayText
 
-            val move = round.roundActions.simpleActions[position - round.roundActions.sizeOfComplexActions()]
-            val function = move.first
-            val moveName = move.second
+                viewHolder.itemView.setOnClickListener {
+                    card.function()
 
-            viewHolder.actionNameTextView.text = moveName
+                    activity.buildActivity()
+                }
 
-            viewHolder.itemView.setOnClickListener {
-                function.invoke()
+            }
+            ViewType.DisplayCard.ordinal -> {
+                viewHolder as DisplayCardViewHolder
+                card as DisplayCard
 
-                activity.buildActivity()
+                viewHolder.actionNameTextView.text = card.displayText
+
             }
 
         }
 
+
     }
 
-    override fun getItemCount() = round.roundActions.size()
+
+    override fun getItemCount() = round.cards.size
 
 }

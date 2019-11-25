@@ -1,5 +1,6 @@
 package de.melon.tridomcounter.logic
 
+import org.junit.Assert.assertFalse
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
@@ -7,24 +8,14 @@ import org.junit.runners.MethodSorters
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MoveTests {
 
-    @Test
-    fun t01_instantiateWrapperMove() {
-        var move = WrapperMove(BaseMove, 1, 1)
-        assert(move.points == 1)
-        assert(move.actions == 1)
-
-        move = WrapperMove(move, -1, 1)
-        assert(move.points == 0)
-        assert(move.actions == 2)
-
-    }
+    // replace function test WrapperMove
 
     @Test
     fun t02_instantiateDrawMove() {
         val move = DrawMove(BaseMove)
 
         assert(move.points == -5)
-        assert(move.actions == 1)
+        assert(move.drawActions == 1)
 
     }
 
@@ -33,7 +24,7 @@ class MoveTests {
         val move = Move(BaseMove, 10)
 
         assert(move.points == 10)
-        assert(move.actions == 1)
+        assert(move.placeActions == 1)
 
     }
 
@@ -46,7 +37,8 @@ class MoveTests {
         move = Move(move, 20)
 
         assert(move.points == 10)
-        assert(move.actions == 3)
+        assert(move.drawActions == 2)
+        assert(move.placeActions == 1)
 
     }
 
@@ -58,7 +50,7 @@ class MoveTests {
         move = DrawMove(move)
         move = DrawMove(move)
 
-        assert(move.isOver())
+        assertFalse(move.ableToDraw())
 
     }
 
