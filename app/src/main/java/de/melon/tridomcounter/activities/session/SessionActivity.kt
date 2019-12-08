@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.OnItemClickListener
 import de.melon.tridomcounter.activities.addOnItemClickListener
@@ -60,6 +61,9 @@ class SessionActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+
+        val infoBack = Toast.makeText(this, R.string.back_message_session, Toast.LENGTH_LONG)
+        infoBack.show()
         
     }
 
@@ -74,7 +78,7 @@ class SessionActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        
+
     }
 
 }
