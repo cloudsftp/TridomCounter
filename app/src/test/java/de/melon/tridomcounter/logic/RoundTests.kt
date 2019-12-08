@@ -1,10 +1,9 @@
 package de.melon.tridomcounter.logic
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Before
-import org.junit.FixMethodOrder
 import org.junit.Test
-import org.junit.runners.MethodSorters
 
 class RoundTests {
 
@@ -19,13 +18,15 @@ class RoundTests {
         val session = Session(players)
         round = Round(session, firstPlayer)
 
+        checkPoints(firstPlayer, 20)
+
     }
 
     @Test
     fun makeSimpleDrawMove() {
         draw()
 
-        assertPoints(firstPlayer, 15)
+        checkPoints(firstPlayer, 15)
 
     }
 
@@ -33,7 +34,7 @@ class RoundTests {
     fun makeSimpleMove() {
         place(10)
 
-        assertPoints(firstPlayer, 30)
+        checkPoints(firstPlayer, 30)
 
     }
 
@@ -42,7 +43,7 @@ class RoundTests {
         draw()
         place(10)
 
-        assertPoints(firstPlayer, 25)
+        checkPoints(firstPlayer, 25)
 
     }
 
@@ -51,8 +52,7 @@ class RoundTests {
         for (i in 0 until 3)
             draw()
 
-        checkDrawNotPossible()
-        assertPoints(firstPlayer, 5)
+        checkPoints(firstPlayer, 5)
 
     }
 
@@ -61,6 +61,9 @@ class RoundTests {
         draw()
         place(20)
 
+        pass()
+
+        checkPoints(firstPlayer, 35)
 
     }
 
@@ -71,12 +74,54 @@ class RoundTests {
 
         pass()
 
-        assertPoints(firstPlayer, -5)
-
+        checkPoints(firstPlayer, -5)
 
     }
 
-    private fun assertPoints(player: Int, points: Int) = assert(round.getPoints(player) == points) { "expected $points, actual ${round.getPoints(player)}" }
+    @Test
+    fun disablingDrawButton() {
+        for (i in 0 until 3)
+            draw()
+
+        checkDrawNotPossible()
+
+    }
+
+    @Test
+    fun disablingPlaceButton() {
+        place(10)
+
+        checkPlaceNotPossible()
+
+    }
+
+    @Test
+    fun displayingPlace() {
+        place(10)
+
+        checkMoves(10, 20)
+
+    }
+
+    @Test
+    fun displayDraw() {
+        draw()
+
+        checkMoves(-5, 20)
+
+    }
+
+    @Test
+    fun displayDrawAndPlace() {
+        draw()
+        draw()
+        place(10)
+
+        checkMoves(10, -5, -5, 20)
+
+    }
+
+    private fun checkPoints(player: Int, points: Int) = assert(round.getPoints(player) == points) { "expected $points, actual ${round.getPoints(player)}" }
 
     private fun pass() {
         val passCard = round.cards[0] as ActionCardSimple
@@ -108,6 +153,21 @@ class RoundTests {
     private fun draw() {
         val drawCard = round.cards[drawCardIndex] as ActionCardSimple
         drawCard.function()
+
+    }
+
+    private fun checkMoves(vararg points: Int) {
+        var i = 0
+
+        for (card in round.cards)
+            if (card is DisplayCard) {
+                assertEquals(card.displayText, points[i].toString())
+                i++
+
+            }
+
+        if (i == 0 && points.isNotEmpty())
+            throw AssertionError("No moves displayed!")
 
     }
 

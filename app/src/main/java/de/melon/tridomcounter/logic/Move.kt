@@ -19,15 +19,20 @@ object BaseMove : AbstractMove()
 
 object StartMove : WrapperMove(BaseMove, 20, 0, 0)
 
-open class WrapperMove(innerMove: AbstractMove, deltaPoints: Int, deltaDrawActions: Int, deltaPlaceActions: Int) : AbstractMove() {
+open class WrapperMove(val innerMove: AbstractMove, val deltaPoints: Int,
+                       val deltaDrawActions: Int, val deltaPlaceActions: Int)
+        : AbstractMove() {
     override val points = innerMove.points + deltaPoints
     override val drawActions = innerMove.drawActions + deltaDrawActions
     override val placeActions = innerMove.placeActions + deltaPlaceActions
 
 }
 
-class Move(innerMove: AbstractMove, deltaPoints: Int) : WrapperMove(innerMove, deltaPoints, 0, 1)
+class Move(innerMove: AbstractMove, deltaPoints: Int)
+    : WrapperMove(innerMove, deltaPoints, 0, 1)
 
-class DrawMove(innerMove: AbstractMove) : WrapperMove(innerMove, -5, 1, 0)
+class DrawMove(innerMove: AbstractMove)
+    : WrapperMove(innerMove, -5, 1, 0)
 
-class PassMove(innerMove: AbstractMove) : WrapperMove(innerMove, -10, 0, 0)
+class PassMove(innerMove: AbstractMove)
+    : WrapperMove(innerMove, -10, 0, 0)

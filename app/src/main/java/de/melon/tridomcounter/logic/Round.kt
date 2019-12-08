@@ -61,6 +61,14 @@ class Round(val session: Session, var currentPlayerId: Int) : PointInterface {
         if (currentMove.ableToDraw())
             cards.add(ActionCardSimple("Ziehen", ::draw))
 
+        var move: AbstractMove = currentMove
+
+        while (move is WrapperMove) {
+            cards.add(DisplayCard(move.deltaPoints.toString()))
+            move = move.innerMove
+
+        }
+
     }
 
 }
