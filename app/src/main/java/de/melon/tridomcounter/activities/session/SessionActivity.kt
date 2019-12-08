@@ -55,11 +55,6 @@ class SessionActivity : AppCompatActivity() {
             }
         })
 
-        allSessionsButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
         fab.setOnClickListener {
             val intent = Intent(this, NewRoundActivity::class.java)
             startActivity(intent)
@@ -76,6 +71,10 @@ class SessionActivity : AppCompatActivity() {
 
     fun updateRoundRecyclerView() = roundCardAdapter.notifyDataSetChanged()
 
-    override fun onBackPressed() {}
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        
+    }
 
 }
