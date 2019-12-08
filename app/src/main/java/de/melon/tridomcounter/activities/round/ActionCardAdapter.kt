@@ -11,7 +11,6 @@ import de.melon.tridomcounter.logic.ActionCardComplex
 import de.melon.tridomcounter.logic.ActionCardSimple
 import de.melon.tridomcounter.logic.DisplayCard
 import de.melon.tridomcounter.logic.Round
-import java.lang.Exception
 
 class ActionCardAdapter(val round: Round, val activity: RoundActivity)
     : RecyclerView.Adapter<ActionCardAdapter.AbstractActionCardViewHolder>() {
@@ -90,6 +89,8 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
 
                     activity.buildActivity()
                 }
+
+                viewHolder.inputEditText.requestFocus()
 
             }
             ViewType.SimpleActionCard.ordinal -> {
