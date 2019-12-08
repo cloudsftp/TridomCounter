@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.Toast
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.session.SessionActivity
@@ -26,6 +27,9 @@ class RoundActivity : AppCompatActivity() {
         title = "$title ${current.roundId}"
 
         buildActivity()
+
+        val infoBack = Toast.makeText(this, R.string.back_message_round, Toast.LENGTH_LONG)
+        infoBack.show()
 
     }
 
