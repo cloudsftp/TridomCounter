@@ -1,5 +1,6 @@
 package de.melon.tridomcounter.logic
 
+import org.junit.Assert.assertFalse
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
@@ -7,37 +8,49 @@ import org.junit.runners.MethodSorters
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MoveTests {
 
+    // replace function test WrapperMove
+
     @Test
-    fun t00_drawThreeTimes() {
-        var move: Move = BaseMove
+    fun t02_instantiateDrawMove() {
+        val move = DrawMove(BaseMove)
 
-        for (i in 0 until 3)
-            move = DrawMove(move)
-
-        assert(move.isFinished())
-
-        assert(move.points == -15)
+        assert(move.points == -5)
+        assert(move.drawActions == 1)
 
     }
 
     @Test
-    fun t01_place() {
-        var move: Move = BaseMove
-
-        move = PlaceMove(move, 10)
+    fun t03_instantiateMove() {
+        val move = Move(BaseMove, 10)
 
         assert(move.points == 10)
+        assert(move.placeActions == 1)
 
     }
 
     @Test
-    fun t02_drawAndPlace() {
-        var move: Move = BaseMove
+    fun t04_drawMoveAndMove() {
+        var move : AbstractMove = BaseMove
 
         move = DrawMove(move)
-        move = PlaceMove(move, 10)
+        move = DrawMove(move)
+        move = Move(move, 20)
 
-        assert(move.points == 5)
+        assert(move.points == 10)
+        assert(move.drawActions == 2)
+        assert(move.placeActions == 1)
+
+    }
+
+    @Test
+    fun t05_isOver() {
+        var move : AbstractMove = BaseMove
+
+        move = DrawMove(move)
+        move = DrawMove(move)
+        move = DrawMove(move)
+
+        assertFalse(move.ableToDraw())
 
     }
 

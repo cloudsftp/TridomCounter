@@ -1,34 +1,124 @@
 package de.melon.tridomcounter.activities.round
 
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
-import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import de.melon.tridomcounter.R
-import de.melon.tridomcounter.activities.session.SessionActivity
+import de.melon.tridomcounter.logic.ActionCardComplex
+import de.melon.tridomcounter.logic.ActionCardSimple
+import de.melon.tridomcounter.logic.DisplayCard
 import de.melon.tridomcounter.logic.Round
+import java.lang.Exception
 
-class ActionCardAdapter(val round: Round)
-    : RecyclerView.Adapter<ActionCardViewHolder>() {
+class ActionCardAdapter(val round: Round, val activity: RoundActivity)
+    : RecyclerView.Adapter<ActionCardAdapter.AbstractActionCardViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, position: Int) = inflateActionCard(parent)
+    abstract class AbstractActionCardViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-    override fun onBindViewHolder(viewHolder: ActionCardViewHolder, position: Int) {
-        val context = viewHolder.itemView.context
-        val actionNameTextView = viewHolder.actionNameTextView
+    class ComplexActionCardViewHolder(view: View) : AbstractActionCardViewHolder(view) {
+        val actionNameTextView = view.findViewById<TextView>(R.id.actionNameTextView)
+        val inputEditText = view.findViewById<EditText>(R.id.actionInputEditText)
 
-        if (position == 0) {
-            actionNameTextView.gravity = Gravity.CENTER
-            actionNameTextView.text = context.getString(R.string.pause_round)
+    }
 
-            viewHolder.itemView.setOnClickListener {
-                context.startActivity(Intent(context, SessionActivity::class.java))
-            }
+    open class SimpleActionCardViewHolder(view: View) : AbstractActionCardViewHolder(view) {
+        val actionNameTextView = view.findViewById<TextView>(R.id.actionNameTextView)
+
+    }
+
+    class DisplayCardViewHolder(view: View) : SimpleActionCardViewHolder(view)
+
+    enum class ViewType {
+        DisplayCard,
+        SimpleActionCard,
+        ComplexActionCard,
+        Undefined
+    }
+
+    override fun getItemViewType(position: Int) = when (round.cards[position]) {
+        is DisplayCard -> ViewType.DisplayCard.ordinal
+        is ActionCardSimple -> ViewType.SimpleActionCard.ordinal
+        is ActionCardComplex -> ViewType.ComplexActionCard.ordinal
+        else -> ViewType.Undefined.ordinal
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, type: Int): AbstractActionCardViewHolder {
+        if (type == ViewType.ComplexActionCard.ordinal) {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.card_complex_action, parent, false) as View
+
+            return ComplexActionCardViewHolder(view)
+
+        } else if (type == ViewType.SimpleActionCard.ordinal) {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.card_action, parent, false) as View
+
+            return SimpleActionCardViewHolder(view)
+
+        } else if (type == ViewType.DisplayCard.ordinal) {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.card_action, parent, false) as View
+
+            return DisplayCardViewHolder(view)
+
+        } else {
+            throw Exception("Card Type not defined.")
 
         }
 
     }
 
-    override fun getItemCount() = 1
+    override fun onBindViewHolder(viewHolder: AbstractActionCardViewHolder, position: Int) {
+        val card = round.cards[position]
+
+        when (getItemViewType(position)) {
+            ViewType.ComplexActionCard.ordinal -> {
+                viewHolder as ComplexActionCardViewHolder
+                card as ActionCardComplex
+
+                viewHolder.actionNameTextView.text = card.displayText
+
+                viewHolder.itemView.setOnClickListener {
+                    val pointsString = viewHolder.inputEditText.text.toString()
+                    if (pointsString.isNotEmpty()) {
+                        val points = pointsString.toInt()
+                        card.function(points)
+                    }
+
+                    activity.buildActivity()
+                }
+
+            }
+            ViewType.SimpleActionCard.ordinal -> {
+                viewHolder as SimpleActionCardViewHolder
+                card as ActionCardSimple
+
+                viewHolder.actionNameTextView.text = card.displayText
+
+                viewHolder.itemView.setOnClickListener {
+                    card.function()
+
+                    activity.buildActivity()
+                }
+
+            }
+            ViewType.DisplayCard.ordinal -> {
+                viewHolder as DisplayCardViewHolder
+                card as DisplayCard
+
+                viewHolder.actionNameTextView.text = card.displayText
+
+            }
+
+        }
+
+
+    }
+
+
+    override fun getItemCount() = round.cards.size
 
 }
