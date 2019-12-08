@@ -59,7 +59,7 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
 
         } else if (type == ViewType.DisplayCard.ordinal) {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_action, parent, false) as View
+                .inflate(R.layout.card_display, parent, false) as View
 
             return DisplayCardViewHolder(view)
 

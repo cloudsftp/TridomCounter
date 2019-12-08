@@ -25,7 +25,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/players"
-                    android:textColor="@color/colorText" />
+                    android:textColor="@color/color_text" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -38,24 +38,24 @@
                         android:id="@+id/numberOfPlayersMinus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorBackground"
+                        android:background="@color/color_background"
                         android:text="@string/minus"
-                        android:textColor="@color/colorText" />
+                        android:textColor="@color/color_text" />
 
                 <TextView
                         android:id="@+id/numberOfPlayersTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/initial_num_of_players"
-                        android:textColor="@color/colorText" />
+                        android:textColor="@color/color_text" />
 
                 <Button
                         android:id="@+id/numberOfPlayersPlus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorBackground"
+                        android:background="@color/color_background"
                         android:text="@string/plus"
-                        android:textColor="@color/colorText" />
+                        android:textColor="@color/color_text" />
 
             </LinearLayout>
 

@@ -16,7 +16,7 @@
             android:layout_marginStart="0dp"
             android:textAlignment="center"
             android:text="@string/players"
-            android:textColor="@color/colorText"
+            android:textColor="@color/color_text"
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +28,7 @@
             android:layout_marginStart="0dp"
             android:textAlignment="center"
             android:text="@string/place_holder"
-            android:textColor="@color/colorText"
+            android:textColor="@color/color_text"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/activePlayerNameTextView" />
 

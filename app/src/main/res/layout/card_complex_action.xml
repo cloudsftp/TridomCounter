@@ -3,18 +3,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:paddingTop="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="5dp">
+        android:paddingTop="@dimen/action_card_padding_top"
+        android:paddingStart="@dimen/action_card_padding_side"
+        android:paddingEnd="@dimen/action_card_padding_side"
+        android:paddingBottom="@dimen/action_card_padding_bottom" >
 
     <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:cardBackgroundColor="@color/colorCard"
-            app:cardCornerRadius="8dp">
+            app:cardBackgroundColor="@color/color_card_action"
+            app:cardCornerRadius="@dimen/card_corner_radius">
 
         <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -25,13 +25,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
+                        android:paddingStart="@dimen/action_card_padding_content"
+                        android:paddingEnd="@dimen/action_card_padding_content"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp"
-                        android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:paddingTop="@dimen/action_card_padding_content"
+                        android:paddingBottom="@dimen/action_card_padding_content"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/action_card_text_size"
                         android:text="@string/place_holder" />
 
                 <EditText
@@ -40,13 +40,14 @@
                         android:layout_height="wrap_content"
                         android:inputType="numberSigned"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
+                        android:paddingStart="@dimen/action_card_padding_content"
+                        android:paddingEnd="@dimen/action_card_padding_content"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:paddingBottom="16dp"
-                        android:paddingTop="16dp"
-                        android:gravity="right"
-                        android:textColor="@color/colorText" />
+                        android:paddingBottom="@dimen/action_card_padding_content"
+                        android:paddingTop="@dimen/action_card_padding_content"
+                        android:gravity="end"
+                        android:textSize="@dimen/action_card_text_size"
+                        android:textColor="@color/color_text" />
 
         </android.support.constraint.ConstraintLayout>
 

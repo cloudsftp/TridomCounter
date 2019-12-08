@@ -1,3 +1,20 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="card_padding_top">5dp</dimen>
+    <dimen name="card_padding_side">10dp</dimen>
+    <dimen name="card_padding_bottom">5dp</dimen>
+    <dimen name="card_padding_content_horizontal">6dp</dimen>
+    <dimen name="card_padding_content_vertical">12dp</dimen>
+    <dimen name="card_corner_radius">8dp</dimen>
+
+    <dimen name="action_card_padding_top">10dp</dimen>
+    <dimen name="action_card_padding_side">10dp</dimen>
+    <dimen name="action_card_padding_bottom">10dp</dimen>
+    <dimen name="action_card_padding_content">25dp</dimen>
+    <dimen name="action_card_text_size">18sp</dimen>
+
+    <dimen name="small_card_padding_vertical">10dp</dimen>
+    <dimen name="small_card_padding_horizontal">5dp</dimen>
+
 </resources>
