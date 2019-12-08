@@ -1,22 +1,38 @@
 package de.melon.tridomcounter.logic
 
-abstract class Move {
-    open val numberOfActions = 0
+abstract class AbstractMove {
     open val points = 0
 
-    val maxNumberOfActions = 3
-    fun isFinished() = numberOfActions >= maxNumberOfActions
+    open val drawActions = 0
+    private val maxDrawActions = 3
+    fun ableToDraw() = drawActions < maxDrawActions && ableToPlace()
+
+    open val placeActions = 0
+    private val maxPlaceActions = 1
+    fun ableToPlace() = placeActions < maxPlaceActions
+
+
 
 }
 
-object BaseMove : Move()
+object BaseMove : AbstractMove()
 
-abstract class WrapperMove(innerMove: Move, deltaPoints: Int, deltaActions: Int) : Move() {
-    override val numberOfActions = innerMove.numberOfActions + deltaActions
+object StartMove : WrapperMove(BaseMove, 20, 0, 0)
+
+open class WrapperMove(val innerMove: AbstractMove, val deltaPoints: Int,
+                       val deltaDrawActions: Int, val deltaPlaceActions: Int)
+        : AbstractMove() {
     override val points = innerMove.points + deltaPoints
+    override val drawActions = innerMove.drawActions + deltaDrawActions
+    override val placeActions = innerMove.placeActions + deltaPlaceActions
 
 }
 
-class PlaceMove(innerMove: Move, deltaPoints: Int) : WrapperMove(innerMove, deltaPoints, 0)
+class Move(innerMove: AbstractMove, deltaPoints: Int)
+    : WrapperMove(innerMove, deltaPoints, 0, 1)
 
-class DrawMove(innerMove: Move) : WrapperMove(innerMove, -5, 1)
+class DrawMove(innerMove: AbstractMove)
+    : WrapperMove(innerMove, -5, 1, 0)
+
+class PassMove(innerMove: AbstractMove)
+    : WrapperMove(innerMove, -10, 0, 0)

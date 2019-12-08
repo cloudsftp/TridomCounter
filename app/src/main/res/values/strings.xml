@@ -30,4 +30,7 @@
 
     <string name="confirm">Weiter</string>
 
+    <string name="back_message_session">Zurück-Button für alle Sessions</string>
+    <string name="back_message_round">Zurück-Button für alle Runden</string>
+
 </resources>

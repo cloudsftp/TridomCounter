@@ -13,7 +13,6 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.activities.util.intendedActivity
-import de.melon.tridomcounter.activities.util.performTypeTextSafe
 import de.melon.tridomcounter.activities.util.withActionRecyclerView
 import de.melon.tridomcounter.data.GameData
 import org.junit.After
@@ -63,7 +62,7 @@ class RoundActivityTest {
 
     }
 
-    val pauseRoundCard = onView(withActionRecyclerView(R.id.actionRecyclerView)
+    val pauseRoundCard = onView(withActionRecyclerView(R.id.commonActionRecyclerView)
         .atPosition(0))
 
     @Test
@@ -72,19 +71,12 @@ class RoundActivityTest {
 
     }
 
-    val makeMoveCard = onView(withActionRecyclerView(R.id.playerActionRecyclerView)
+    val makeMoveCard = onView(withActionRecyclerView(R.id.customActionRecyclerView)
         .atPosition(0))
 
     @Test
     fun makeMoveCardDisplayed() {
         makeMoveCard.check(matches(withText("Legen")))
-
-    }
-
-    @Test
-    fun makeMoveCardWorks() {
-        makeMoveCard.perform(click())
-        checkPopupIsDisplayed()
 
     }
 
@@ -164,16 +156,14 @@ class RoundActivityTest {
     }
 
     fun makeMove(points: Int) {
-        makeMoveCard.perform(click())
-        checkPopupIsDisplayed()
-
         insertNumberOfPoints(points)
+
+        // TODO
 
     }
 
     fun insertNumberOfPoints(points: Int) {
-        onView(withId(R.id.numberOfPointsEditText)).performTypeTextSafe("$points")
-        onView(withId(R.id.acceptButton)).perform(click())
+        // TODO
 
     }
 
