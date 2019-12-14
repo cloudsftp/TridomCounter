@@ -1,5 +1,8 @@
 package de.melon.tridomcounter.activities.round
 
+import android.content.Context
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -81,6 +84,8 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
                 viewHolder.actionNameTextView.text = card.displayText
 
                 viewHolder.itemView.setOnClickListener {
+                    vibrate()
+
                     val pointsString = viewHolder.inputEditText.text.toString()
                     if (pointsString.isNotEmpty()) {
                         val points = pointsString.toInt()
@@ -100,6 +105,8 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
                 viewHolder.actionNameTextView.text = card.displayText
 
                 viewHolder.itemView.setOnClickListener {
+                    vibrate()
+
                     card.function()
 
                     activity.buildActivity()
@@ -118,6 +125,11 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
 
 
     }
+
+    private val v = activity.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+    private fun vibrate() = v.vibrate(
+        VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE)
+    )
 
 
     override fun getItemCount() = round.cards.size
