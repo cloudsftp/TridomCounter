@@ -2,6 +2,7 @@ package de.melon.tridomcounter.activities.session
 
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
@@ -16,7 +17,7 @@ import de.melon.tridomcounter.activities.round.RoundActivity
 import de.melon.tridomcounter.activities.util.*
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.logic.BaseMove
-import de.melon.tridomcounter.logic.PlaceMove
+import de.melon.tridomcounter.logic.Move
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -64,7 +65,7 @@ class SessionActivityTest {
 
     fun addPointsToPlayer(id: Int, points: Int) {
         val round = GameData.sessions[current.sessionId].rounds[current.roundId]
-        round.moves[id].add(PlaceMove(BaseMove, points))
+        round.moves[id].add(Move(BaseMove, points))
     }
 
     @JvmField
@@ -96,7 +97,7 @@ class SessionActivityTest {
     @Test
     fun displayRoundsQualitative() {
         for (i in 0 until numberOfRounds)
-            onView(roundRecyclerViewChild.atPosition(i)).check(matches(withText("Runde $i")))
+            onView(roundRecyclerViewChild.atPosition(i)).check(matches(withText("Runde ${i+1}")))
 
     }
 
@@ -105,11 +106,11 @@ class SessionActivityTest {
     @Test
     fun displayPoints() {
         onView(playerPointsRecyclerViewChild.atPosition(0))
-            .check(matches(withText("85")))
+            .check(matches(withText("125")))
         onView(playerPointsRecyclerViewChild.atPosition(1))
-            .check(matches(withText("27")))
+            .check(matches(withText("67")))
         onView(playerPointsRecyclerViewChild.atPosition(2))
-            .check(matches(withText("-11")))
+            .check(matches(withText("29")))
 
     }
 
@@ -118,18 +119,18 @@ class SessionActivityTest {
     @Test
     fun displayPointsRound() {
         onView(playerPointsNestedRecyclerViewChild.atPosition(0, 0))
-            .check(matches(withText("62")))
+            .check(matches(withText("82")))
         onView(playerPointsNestedRecyclerViewChild.atPosition(0, 1))
-            .check(matches(withText("25")))
+            .check(matches(withText("45")))
         onView(playerPointsNestedRecyclerViewChild.atPosition(0, 2))
-            .check(matches(withText("-11")))
+            .check(matches(withText("9")))
 
         onView(playerPointsNestedRecyclerViewChild.atPosition(1, 0))
-            .check(matches(withText("23")))
+            .check(matches(withText("43")))
         onView(playerPointsNestedRecyclerViewChild.atPosition(1, 1))
-            .check(matches(withText("2")))
+            .check(matches(withText("22")))
         onView(playerPointsNestedRecyclerViewChild.atPosition(1, 2))
-            .check(matches(withText("0")))
+            .check(matches(withText("20")))
 
     }
 
@@ -147,13 +148,13 @@ class SessionActivityTest {
 
         intendedActivity(RoundActivity::class.java.name)
 
-        checkTitle("Runde 1")
+        checkTitle("Runde 2")
 
     }
 
     @Test
     fun openAllSessions() {
-        onView(withId(R.id.allSessionsButton)).perform(click())
+        pressBack()
 
         intendedActivity(MainActivity::class.java.name)
 

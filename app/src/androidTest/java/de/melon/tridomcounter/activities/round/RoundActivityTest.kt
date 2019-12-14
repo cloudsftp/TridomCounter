@@ -53,7 +53,7 @@ class RoundActivityTest {
     @Test
     fun roundNumberDisplayed() {
         onView(withId(R.id.toolbar)).check(matches(isDisplayed()))
-        onView(withText("Runde ${current.roundId}")).check(matches(withParent(withId(R.id.toolbar))))
+        onView(withText("Runde ${current.roundId+1}")).check(matches(withParent(withId(R.id.toolbar))))
 
     }
 

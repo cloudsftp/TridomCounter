@@ -34,7 +34,7 @@ class SessionActivity : AppCompatActivity() {
 
         sessionId = current.sessionId
 
-        title = "$title $sessionId"
+        title = "$title ${sessionId+1}"
 
         session = GameData.sessions[sessionId]
         val players = session.players

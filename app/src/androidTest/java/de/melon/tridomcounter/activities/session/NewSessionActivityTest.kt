@@ -13,9 +13,11 @@ import de.melon.tridomcounter.activities.util.intendedActivity
 import de.melon.tridomcounter.activities.util.performTypeTextSafe
 import de.melon.tridomcounter.activities.util.withEditPlayerRecyclerView
 import de.melon.tridomcounter.activities.util.withPlayerRecyclerViewName
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 
 @RunWith(AndroidJUnit4::class)
 class NewSessionActivityTest {
@@ -62,7 +64,7 @@ class NewSessionActivityTest {
     @Test
     fun constraintNumberOfPlayers() {
         val minimumNumberOfPlayers = 2
-        val maximumNumberOfPlayers = 6
+        val maximumNumberOfPlayers = 8
 
         val clickIterations = maximumNumberOfPlayers - minimumNumberOfPlayers + 1
 

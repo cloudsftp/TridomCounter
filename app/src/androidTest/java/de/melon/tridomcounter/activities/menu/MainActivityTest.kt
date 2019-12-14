@@ -61,8 +61,8 @@ class MainActivityTest {
 
     @Test
     fun displaySessionsQualitative() {
-        onView(sessionRecyclerViewChild.atPosition(0)).check(matches(withText("Session 0")))
-        onView(sessionRecyclerViewChild.atPosition(1)).check(matches(withText("Session 1")))
+        onView(sessionRecyclerViewChild.atPosition(0)).check(matches(withText("Session 1")))
+        onView(sessionRecyclerViewChild.atPosition(1)).check(matches(withText("Session 2")))
 
     }
 
@@ -74,7 +74,7 @@ class MainActivityTest {
 
         intendedActivity(SessionActivity::class.java.name)
 
-        checkTitle("Session $sessionId")
+        checkTitle("Session ${sessionId+1}")
 
     }
 

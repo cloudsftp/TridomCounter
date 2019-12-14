@@ -12,7 +12,7 @@ class EditPlayerCardAdapter
     : RecyclerView.Adapter<EditPlayerCardAdapter.EditPlayerCardViewHolder>() {
 
     val minNumberOfPlayers = 2
-    val maxNumberOfPlayers = 6
+    val maxNumberOfPlayers = 8
 
     var numberOfPlayers = minNumberOfPlayers
     val playerNames = Array(maxNumberOfPlayers) {String()}
@@ -20,7 +20,7 @@ class EditPlayerCardAdapter
 
     init {
         for (i in 0 until maxNumberOfPlayers)
-            playerNames[i] = "Spieler $i"
+            playerNames[i] = "Spieler ${i+1}"
     }
 
     val editableFactory = Editable.Factory.getInstance()
