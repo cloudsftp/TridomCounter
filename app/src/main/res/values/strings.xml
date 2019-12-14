@@ -1,4 +1,36 @@
 <resources>
     <string name="app_name">TridomCounter</string>
     <string name="action_settings">Settings</string>
+    <string name="menu_title">Tridom Counter</string>
+
+    <string name="title_activity_new_session">Neue Session</string>
+
+    <string name="players">Spieler:</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="initial_num_of_players">2</string>
+    <string name="input_name">Name:</string>
+
+    <string name="title_activity_session">Session</string>
+
+    <string name="show_all_sessions">Alle Sessions</string>
+    <string name="title_activity_round">Runde</string>
+    <string name="title_activity_new_round">Neue Runde</string>
+
+    <string name="round">Runde</string>
+
+    <string name="choose_first_player">Ersten Spieler wählen:</string>
+
+    <string name="pause_round">Runde Pausieren</string>
+
+    <string name="place_holder">Some Text.</string>
+    <string name="make_move">Legen</string>
+
+    <string name="number_of_points">Augenzahl:</string>
+
+    <string name="confirm">Weiter</string>
+
+    <string name="back_message_session">Zurück-Button für alle Sessions</string>
+    <string name="back_message_round">Zurück-Button für alle Runden</string>
+
 </resources>

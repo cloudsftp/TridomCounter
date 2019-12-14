@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingTop="@dimen/action_card_padding_top"
+        android:paddingStart="@dimen/action_card_padding_side"
+        android:paddingEnd="@dimen/action_card_padding_side"
+        android:paddingBottom="@dimen/action_card_padding_bottom" >
+
+    <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/color_card_action"
+            app:cardCornerRadius="@dimen/card_corner_radius">
+
+        <TextView
+                android:id="@+id/actionNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/action_card_content_padding"
+                android:paddingEnd="@dimen/action_card_content_padding"
+                android:paddingTop="@dimen/action_card_content_padding"
+                android:paddingBottom="@dimen/action_card_content_padding"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/action_card_text_size"
+                android:text="@string/place_holder" />
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

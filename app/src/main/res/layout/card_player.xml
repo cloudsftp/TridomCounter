@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingTop="@dimen/small_card_padding_horizontal"
+        android:paddingLeft="@dimen/small_card_padding_horizontal"
+        android:paddingRight="@dimen/small_card_padding_horizontal"
+        android:paddingBottom="@dimen/small_card_padding_horizontal">
+
+    <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/color_card"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:contentPadding="@dimen/small_card_content_padding">
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/playerNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/place_holder"
+                    android:textColor="@color/color_text" />
+
+            <TextView
+                    android:id="@+id/playerPointsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/place_holder"
+                    android:textColor="@color/color_text" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

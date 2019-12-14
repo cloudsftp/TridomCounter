@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="color_background">#000000</color>
+    <color name="color_background_light">#202020</color>
+    <color name="color_primary">#4A29CF</color>
+    <color name="color_primary_dark">#2C0D96</color>
+    <color name="color_accent">#D81B60</color>
+
+    <color name="color_card">#3081DA</color>
+    <color name="color_card_action">#3081DA</color>
+    <color name="color_card_display">#303050</color>
+
+    <color name="color_text">#FFFFFF</color>
+
+    <color name="black_overlay">#66000000</color>
+
 </resources>
