@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/color_card"
             app:cardCornerRadius="@dimen/card_corner_radius"
-            app:contentPadding="15dp">
+            app:contentPadding="@dimen/card_content_padding">
 
         <TextView
                 android:id="@+id/playerNameTextView"

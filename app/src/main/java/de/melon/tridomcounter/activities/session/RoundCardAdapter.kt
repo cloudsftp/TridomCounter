@@ -29,7 +29,7 @@ class RoundCardAdapter(val rounds: MutableList<Round>)
     }
 
     override fun onBindViewHolder(viewHolder: RoundCardViewHolder, position: Int) {
-        viewHolder.nameTextView.text = String.format("%s %d", viewHolder.itemView.context.getString(R.string.round), position)
+        viewHolder.nameTextView.text = String.format("%s %d", viewHolder.itemView.context.getString(R.string.round), position + 1)
 
         val session = GameData.sessions[current.sessionId]
         viewHolder.playerRecyclerView.adapter = PlayerCardAdapter(session.players, session.rounds[position], true)

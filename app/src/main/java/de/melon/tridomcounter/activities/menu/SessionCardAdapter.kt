@@ -24,7 +24,7 @@ class SessionCardAdapter(var sessions: MutableList<Session>) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.sessionName.text = "Session $position"
+        viewHolder.sessionName.text = "Session ${position+1}"
 
     }
 

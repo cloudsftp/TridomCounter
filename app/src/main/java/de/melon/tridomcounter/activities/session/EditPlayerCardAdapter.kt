@@ -12,7 +12,7 @@ class EditPlayerCardAdapter
     : RecyclerView.Adapter<EditPlayerCardAdapter.EditPlayerCardViewHolder>() {
 
     val minNumberOfPlayers = 2
-    val maxNumberOfPlayers = 6
+    val maxNumberOfPlayers = 8
 
     var numberOfPlayers = minNumberOfPlayers
     val playerNames = Array(maxNumberOfPlayers) {String()}
@@ -20,7 +20,7 @@ class EditPlayerCardAdapter
 
     init {
         for (i in 0 until maxNumberOfPlayers)
-            playerNames[i] = "Spieler $i"
+            playerNames[i] = "Spieler ${i+1}"
     }
 
     val editableFactory = Editable.Factory.getInstance()
@@ -54,7 +54,7 @@ class EditPlayerCardAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : EditPlayerCardViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.card_edit_player, parent, false) as View
+            .inflate(R.layout.card_player_edit, parent, false) as View
 
         return EditPlayerCardViewHolder(view)
 

@@ -50,7 +50,7 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): AbstractActionCardViewHolder {
         if (type == ViewType.ComplexActionCard.ordinal) {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_complex_action, parent, false) as View
+                .inflate(R.layout.card_action_complex, parent, false) as View
 
             return ComplexActionCardViewHolder(view)
 

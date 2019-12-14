@@ -24,7 +24,7 @@ class RoundActivity : AppCompatActivity() {
         setContentView(R.layout.activity_round)
         setSupportActionBar(toolbar)
 
-        title = "$title ${current.roundId}"
+        title = "$title ${current.roundId+1}"
 
         buildActivity()
 
@@ -41,7 +41,6 @@ class RoundActivity : AppCompatActivity() {
         customActionRecyclerView.layoutManager = LinearLayoutManager(this)
 
         activePlayerNameTextView.text = session.players[round.currentPlayerId]
-        pointsTextView.text = round.getPoints(round.currentPlayerId).toString()
 
     }
 

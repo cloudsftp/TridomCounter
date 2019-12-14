@@ -12,16 +12,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/color_card_display"
-            app:cardCornerRadius="@dimen/card_corner_radius">
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:contentPadding="@dimen/action_card_content_padding">
 
         <TextView
                 android:id="@+id/actionNameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/action_card_padding_content"
-                android:paddingEnd="@dimen/action_card_padding_content"
-                android:paddingTop="@dimen/action_card_padding_content"
-                android:paddingBottom="@dimen/action_card_padding_content"
                 android:textColor="@color/color_text"
                 android:textSize="@dimen/action_card_text_size"
                 android:text="@string/place_holder" />
