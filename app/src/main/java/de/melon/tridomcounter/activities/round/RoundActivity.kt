@@ -41,7 +41,6 @@ class RoundActivity : AppCompatActivity() {
         customActionRecyclerView.layoutManager = LinearLayoutManager(this)
 
         activePlayerNameTextView.text = session.players[round.currentPlayerId]
-        pointsTextView.text = round.getPoints(round.currentPlayerId).toString()
 
     }
 
