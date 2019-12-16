@@ -3,12 +3,12 @@ package de.melon.tridomcounter.activities.round
 import android.content.Context
 import android.os.VibrationEffect
 import android.os.Vibrator
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.logic.ActionCardComplex
 import de.melon.tridomcounter.logic.ActionCardSimple
@@ -83,7 +83,7 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
 
                 viewHolder.actionNameTextView.text = card.displayText
 
-                viewHolder.itemView.setOnClickListener {
+                fun getInput() {
                     vibrate()
 
                     val pointsString = viewHolder.inputEditText.text.toString()
@@ -94,6 +94,9 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
 
                     activity.buildActivity()
                 }
+
+                viewHolder.itemView.setOnClickListener { getInput() }
+                viewHolder.inputEditText.onSubmit { getInput() }
 
                 viewHolder.inputEditText.requestFocus()
 
