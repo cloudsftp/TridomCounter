@@ -1,15 +1,15 @@
 package de.melon.tridomcounter.activities.util
 
 import android.content.res.Resources
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.ViewInteraction
-import android.support.test.espresso.action.ViewActions.clearText
-import android.support.test.espresso.action.ViewActions.typeText
-import android.support.test.espresso.assertion.ViewAssertions
-import android.support.test.espresso.intent.Intents.intended
-import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import android.support.test.espresso.matcher.ViewMatchers
-import android.support.v7.widget.RecyclerView
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.ViewInteraction
+import androidx.test.espresso.action.ViewActions.clearText
+import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView

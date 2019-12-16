@@ -2,8 +2,9 @@ package de.melon.tridomcounter.activities.session
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.data.GameData
@@ -17,7 +18,7 @@ class NewSessionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_session)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar as Toolbar?)
 
         setUpPlayerControls()
 

@@ -2,9 +2,9 @@ package de.melon.tridomcounter.activities.round
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.session.SessionActivity

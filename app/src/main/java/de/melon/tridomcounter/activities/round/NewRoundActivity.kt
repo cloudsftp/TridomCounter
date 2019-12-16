@@ -2,9 +2,10 @@ package de.melon.tridomcounter.activities.round
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.OnItemClickListener
 import de.melon.tridomcounter.activities.addOnItemClickListener
@@ -18,7 +19,7 @@ class NewRoundActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_round)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar as Toolbar?)
 
         val session = GameData.sessions[current.sessionId]
         val players = session.players
