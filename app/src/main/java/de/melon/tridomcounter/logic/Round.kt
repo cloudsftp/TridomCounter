@@ -2,12 +2,13 @@ package de.melon.tridomcounter.logic
 
 import kotlin.properties.Delegates
 
-class Round(val session: Session, var currentPlayerId: Int) : PointInterface {
+class Round(val session: Session) : PointInterface {
     private var currentMove : AbstractMove by Delegates.observable(BaseMove) {
             _, _ : AbstractMove, _: AbstractMove ->
             updateCards()
     }
 
+    var currentPlayerId = -1
     val moves = Array(session.numberOfPlayers) {MutableList<AbstractMove>(0) {BaseMove}}
 
     override fun getPoints(id: Int) = moves[id].sumBy { m -> m.points } + currentMove.points

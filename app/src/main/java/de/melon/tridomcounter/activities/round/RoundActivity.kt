@@ -24,6 +24,9 @@ class RoundActivity : AppCompatActivity() {
         setContentView(R.layout.activity_round)
         setSupportActionBar(toolbar)
 
+        session = GameData.sessions[current.sessionId]
+        round = session.rounds[current.roundId]
+
         title = "$title ${current.roundId+1}"
 
         buildActivity()
@@ -34,13 +37,8 @@ class RoundActivity : AppCompatActivity() {
     }
 
     fun buildActivity() {
-        session = GameData.sessions[current.sessionId]
-        round = session.rounds[current.roundId]
-
-        customActionRecyclerView.adapter = ActionCardAdapter(round, this)
-        customActionRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        activePlayerNameTextView.text = session.players[round.currentPlayerId]
+            customActionRecyclerView.adapter = ActionCardAdapter(round, this)
+            customActionRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 

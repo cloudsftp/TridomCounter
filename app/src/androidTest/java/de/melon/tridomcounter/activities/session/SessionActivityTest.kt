@@ -12,7 +12,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.menu.MainActivity
-import de.melon.tridomcounter.activities.round.NewRoundActivity
 import de.melon.tridomcounter.activities.round.RoundActivity
 import de.melon.tridomcounter.activities.util.*
 import de.melon.tridomcounter.data.GameData
