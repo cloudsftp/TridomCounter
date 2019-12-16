@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-        - image: circleci/android:api-29-alpha
+        - image: circleci/android:api-29
     steps:
       - checkout
       - run:
@@ -12,7 +12,7 @@ jobs:
 
   testUnit:
     docker:
-        - image: circleci/android:api-29-alpha
+        - image: circleci/android:api-29
     steps:
       - checkout
       - run:
@@ -31,7 +31,7 @@ jobs:
 
   testUI:
     docker:
-        - image: circleci/android:api-29-alpha
+        - image: circleci/android:api-29
     steps:
       - checkout
       - run:
