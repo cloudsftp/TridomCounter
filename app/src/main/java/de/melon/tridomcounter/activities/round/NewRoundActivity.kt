@@ -19,7 +19,7 @@ class NewRoundActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_round)
-        setSupportActionBar(toolbar as Toolbar?)
+        setSupportActionBar(toolbar)
 
         val session = GameData.sessions[current.sessionId]
         val players = session.players

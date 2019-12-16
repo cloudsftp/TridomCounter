@@ -31,7 +31,7 @@ class SessionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_session)
-        setSupportActionBar(toolbar as Toolbar?)
+        setSupportActionBar(toolbar)
 
         sessionId = current.sessionId
 
