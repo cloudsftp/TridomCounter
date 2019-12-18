@@ -1,9 +1,5 @@
 package de.melon.tridomcounter.logic.round
 
-import de.melon.tridomcounter.logic.round.AbstractMove
-import de.melon.tridomcounter.logic.round.BaseMove
-import de.melon.tridomcounter.logic.round.DrawMove
-import de.melon.tridomcounter.logic.round.Move
 import org.junit.Assert.assertFalse
 import org.junit.FixMethodOrder
 import org.junit.Test

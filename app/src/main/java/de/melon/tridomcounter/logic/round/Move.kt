@@ -11,8 +11,6 @@ abstract class AbstractMove {
     private val maxPlaceActions = 1
     fun ableToPlace() = placeActions < maxPlaceActions
 
-
-
 }
 
 object BaseMove : AbstractMove()
