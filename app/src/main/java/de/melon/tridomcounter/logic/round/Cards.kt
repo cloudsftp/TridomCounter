@@ -1,4 +1,4 @@
-package de.melon.tridomcounter.logic
+package de.melon.tridomcounter.logic.round
 
 abstract class Card {
     abstract val displayText: String

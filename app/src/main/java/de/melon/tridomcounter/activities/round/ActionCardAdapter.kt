@@ -10,10 +10,10 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import de.melon.tridomcounter.R
-import de.melon.tridomcounter.logic.ActionCardComplex
-import de.melon.tridomcounter.logic.ActionCardSimple
-import de.melon.tridomcounter.logic.DisplayCard
-import de.melon.tridomcounter.logic.Round
+import de.melon.tridomcounter.logic.round.ActionCardComplex
+import de.melon.tridomcounter.logic.round.ActionCardSimple
+import de.melon.tridomcounter.logic.round.DisplayCard
+import de.melon.tridomcounter.logic.round.Round
 
 class ActionCardAdapter(val round: Round, val activity: RoundActivity)
     : RecyclerView.Adapter<ActionCardAdapter.AbstractActionCardViewHolder>() {

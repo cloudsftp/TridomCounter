@@ -9,7 +9,7 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.data.GameData
-import de.melon.tridomcounter.logic.Round
+import de.melon.tridomcounter.logic.round.Round
 import de.melon.tridomcounter.logic.Session
 import kotlinx.android.synthetic.main.activity_round.*
 import kotlinx.android.synthetic.main.content_round.*
