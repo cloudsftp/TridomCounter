@@ -9,8 +9,6 @@ class RoundTests {
     val players = arrayOf("Fabian", "Paul", "Tim")
     lateinit var round: Round
 
-    val firstPlayer = 1
-
     @Test
     @Before
     fun instantiate() {

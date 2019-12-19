@@ -37,8 +37,8 @@ fun chooseFirstPlayer(round: Round, playerId: Int, players: Array<String>) {
     assertEquals(players.size, round.cards.size)
 
     val playerCard = round.cards[playerId]
-    if (playerCard is ActionCardSimple)
-        playerCard.function()
+    if (playerCard is ActionCardChoice)
+        playerCard.function(playerId)
 
     else
         throw UnexpectedCardError(playerCard)
@@ -46,4 +46,4 @@ fun chooseFirstPlayer(round: Round, playerId: Int, players: Array<String>) {
 }
 
 class UnexpectedCardError(card: Card)
-    : AssertionError("Unexpected Card Type ${card.displayText}")
+    : AssertionError("Unexpected Card Type ${card}")

@@ -24,7 +24,7 @@ class Round(val session: Session) : PointInterface {
 
             RoundState.CHOOSE_FIRST_PLAYER -> {
                 for (playerId in 0 until session.players.size)
-                    cards.add(ActionCardSimple(session.players[playerId],
+                    cards.add(ActionCardChoice(session.players[playerId],
                                 ::choosePlayer))
 
             }
@@ -86,7 +86,6 @@ class Round(val session: Session) : PointInterface {
 
     // CHOOSE_FIRST_PLAYER
 
-    private fun choosePlayer() = choosePlayer(0)
     private fun choosePlayer(playerId: Int) { currentPlayerId = playerId }
 
     // CHOOSE_FIRST_PIECE
