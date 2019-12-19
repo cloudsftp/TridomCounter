@@ -5,7 +5,10 @@ import de.melon.tridomcounter.logic.Session
 import kotlin.properties.Delegates
 
 class Round(val session: Session) : PointInterface {
-    var state = RoundState.CHOOSE_VARIANT
+    var state by Delegates.observable(RoundState.CHOOSE_VARIANT) {
+        _, _, _ ->
+        updateCards()
+    }
 
     val cards = mutableListOf<Card>()
 
@@ -23,17 +26,19 @@ class Round(val session: Session) : PointInterface {
             }
 
             RoundState.CHOOSE_FIRST_PLAYER -> {
-                for (playerId in 0 until session.players.size)
-                    cards.add(ActionCardChoice(session.players[playerId],
+                for (player in session.players)
+                    cards.add(ActionCardChoice(player,
                                 ::choosePlayer))
 
             }
 
-            RoundState.CHOOSE_FIRST_PIECE -> {
-
-            }
-
             RoundState.FIRST_MOVE -> {
+                for (i in 0 until 6)
+                    cards.add(ActionCardChoice("Triple $i",
+                                ::chooseTriple))
+
+                cards.add(ActionCardComplex("Anderer Stein",
+                            ::chooseCustomFirstPiece))
 
             }
 
@@ -63,7 +68,7 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    private var currentMove : AbstractMove by Delegates.observable(BaseMove) {
+    private var currentMove : AbstractMove by Delegates.observable(StartMove) {
             _, _ : AbstractMove, _: AbstractMove ->
             updateCards()
     }
@@ -84,7 +89,6 @@ class Round(val session: Session) : PointInterface {
         numOfPieces = pieces
 
         state = RoundState.CHOOSE_FIRST_PLAYER
-        updateCards()
 
     }
 
@@ -93,14 +97,31 @@ class Round(val session: Session) : PointInterface {
     private fun choosePlayer(playerId: Int) {
         currentPlayerId = playerId
 
-        state = RoundState.CHOOSE_FIRST_PIECE
+        state = RoundState.FIRST_MOVE
 
     }
 
-    // CHOOSE_FIRST_PIECE
-    
+    // FIRST_MOVE
 
-    // NORMAL or FIRST_MOVE
+    fun chooseTriple(i: Int) {
+        val points = when (i) {
+            0 -> 40
+            else -> 3 * i
+        }
+
+        chooseCustomFirstPiece(points)
+
+    }
+
+    fun chooseCustomFirstPiece(points: Int) {
+        currentMove = Move(currentMove, points)
+        next()
+
+        state = RoundState.NORMAL
+
+    }
+
+    // NORMAL
 
     private fun pass() {
         if (currentMove.ableToPlace())
