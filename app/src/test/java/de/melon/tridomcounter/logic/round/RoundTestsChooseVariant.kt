@@ -4,7 +4,7 @@ import de.melon.tridomcounter.logic.Session
 import org.junit.Before
 import org.junit.Test
 
-class RoundTests {
+class RoundTestsChooseVariant {
 
     val players = arrayOf("Fabian", "Paul", "Tim")
     lateinit var round: Round

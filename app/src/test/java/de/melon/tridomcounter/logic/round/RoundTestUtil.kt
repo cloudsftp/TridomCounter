@@ -45,5 +45,23 @@ fun chooseFirstPlayer(round: Round, playerId: Int, players: Array<String>) {
 
 }
 
+fun chooseFirstPiece(round: Round, player: Int, number: Int, expected: Int) {
+    val triplePieceCard = round.cards[number]
+    if (triplePieceCard is ActionCardChoice)
+        triplePieceCard.function(number)
+
+    assertEquals(expected, round.getPoints(player))
+
+}
+
+fun chooseCustomFirstPiece(round: Round, player: Int, points: Int) {
+    val customPieceCard = round.cards[6]
+    if (customPieceCard is ActionCardComplex)
+        customPieceCard.function(points)
+
+    assertEquals(20 + points, round.getPoints(player))
+
+}
+
 class UnexpectedCardError(card: Card)
     : AssertionError("Unexpected Card Type ${card}")
