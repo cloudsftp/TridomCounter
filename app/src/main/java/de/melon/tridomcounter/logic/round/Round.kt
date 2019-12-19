@@ -68,7 +68,7 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    private var currentMove : AbstractMove by Delegates.observable(StartMove) {
+    private var currentMove : AbstractMove by Delegates.observable(BaseMove) {
             _, _ : AbstractMove, _: AbstractMove ->
             updateCards()
     }
@@ -96,6 +96,7 @@ class Round(val session: Session) : PointInterface {
 
     private fun choosePlayer(playerId: Int) {
         currentPlayerId = playerId
+        currentMove = StartMove
 
         state = RoundState.FIRST_MOVE
 

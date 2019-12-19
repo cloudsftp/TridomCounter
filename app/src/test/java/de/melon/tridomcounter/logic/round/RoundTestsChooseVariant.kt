@@ -15,7 +15,7 @@ class RoundTests {
         val session = Session(players)
         round = Round(session)
 
-        for (i in 0 until players.size)
+        for (i in players.indices)
             checkPoints(round, i, 0)
 
     }
