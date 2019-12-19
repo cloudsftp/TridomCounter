@@ -29,6 +29,10 @@ class Round(val session: Session) : PointInterface {
 
             }
 
+            RoundState.CHOOSE_FIRST_PIECE -> {
+
+            }
+
             RoundState.FIRST_MOVE -> {
 
             }
@@ -86,7 +90,12 @@ class Round(val session: Session) : PointInterface {
 
     // CHOOSE_FIRST_PLAYER
 
-    private fun choosePlayer(playerId: Int) { currentPlayerId = playerId }
+    private fun choosePlayer(playerId: Int) {
+        currentPlayerId = playerId
+
+        state = RoundState.CHOOSE_FIRST_PIECE
+
+    }
 
     // CHOOSE_FIRST_PIECE
     
