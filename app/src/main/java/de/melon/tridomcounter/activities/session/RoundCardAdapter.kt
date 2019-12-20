@@ -9,7 +9,7 @@ import android.widget.TextView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.data.GameData
-import de.melon.tridomcounter.logic.Round
+import de.melon.tridomcounter.logic.round.Round
 
 class RoundCardAdapter(val rounds: MutableList<Round>)
     : RecyclerView.Adapter<RoundCardAdapter.RoundCardViewHolder>() {

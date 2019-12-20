@@ -5,17 +5,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.OnItemClickListener
 import de.melon.tridomcounter.activities.addOnItemClickListener
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.menu.MainActivity
-import de.melon.tridomcounter.activities.round.NewRoundActivity
 import de.melon.tridomcounter.activities.round.RoundActivity
 import de.melon.tridomcounter.data.GameData
-import de.melon.tridomcounter.logic.Round
+import de.melon.tridomcounter.logic.round.Round
 import de.melon.tridomcounter.logic.Session
 import kotlinx.android.synthetic.main.activity_session.*
 import kotlinx.android.synthetic.main.content_session.*
@@ -58,7 +56,8 @@ class SessionActivity : AppCompatActivity() {
         })
 
         fab.setOnClickListener {
-            val intent = Intent(this, NewRoundActivity::class.java)
+            current.roundId = session.newRound()
+            val intent = Intent(this, RoundActivity::class.java)
             startActivity(intent)
 
         }

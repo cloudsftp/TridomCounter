@@ -10,10 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import de.melon.tridomcounter.R
-import de.melon.tridomcounter.logic.ActionCardComplex
-import de.melon.tridomcounter.logic.ActionCardSimple
-import de.melon.tridomcounter.logic.DisplayCard
-import de.melon.tridomcounter.logic.Round
+import de.melon.tridomcounter.logic.round.*
 
 class ActionCardAdapter(val round: Round, val activity: RoundActivity)
     : RecyclerView.Adapter<ActionCardAdapter.AbstractActionCardViewHolder>() {
@@ -34,40 +31,56 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
     class DisplayCardViewHolder(view: View) : SimpleActionCardViewHolder(view)
 
     enum class ViewType {
-        DisplayCard,
-        SimpleActionCard,
-        ComplexActionCard,
-        Undefined
+        COMPLEX_ACTION_CARD,
+        CHOICE_ACTION_CARD,
+        SIMPLE_ACTION_CARD,
+        DISPLAY_CARD,
+        UNDEFINED
     }
 
     override fun getItemViewType(position: Int) = when (round.cards[position]) {
-        is DisplayCard -> ViewType.DisplayCard.ordinal
-        is ActionCardSimple -> ViewType.SimpleActionCard.ordinal
-        is ActionCardComplex -> ViewType.ComplexActionCard.ordinal
-        else -> ViewType.Undefined.ordinal
+        is DisplayCard -> ViewType.DISPLAY_CARD.ordinal
+        is ActionCardSimple -> ViewType.SIMPLE_ACTION_CARD.ordinal
+        is ActionCardChoice -> ViewType.CHOICE_ACTION_CARD.ordinal
+        is ActionCardComplex -> ViewType.COMPLEX_ACTION_CARD.ordinal
+        else -> ViewType.UNDEFINED.ordinal
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): AbstractActionCardViewHolder {
-        if (type == ViewType.ComplexActionCard.ordinal) {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_action_complex, parent, false) as View
+        return when (type) {
+            ViewType.COMPLEX_ACTION_CARD.ordinal -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.card_action_complex, parent, false) as View
 
-            return ComplexActionCardViewHolder(view)
+                ComplexActionCardViewHolder(view)
 
-        } else if (type == ViewType.SimpleActionCard.ordinal) {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_action, parent, false) as View
+            }
 
-            return SimpleActionCardViewHolder(view)
+            ViewType.CHOICE_ACTION_CARD.ordinal -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.card_action, parent, false) as View
 
-        } else if (type == ViewType.DisplayCard.ordinal) {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_display, parent, false) as View
+                SimpleActionCardViewHolder(view)
 
-            return DisplayCardViewHolder(view)
+            }
 
-        } else {
-            throw Exception("Card Type not defined.")
+            ViewType.SIMPLE_ACTION_CARD.ordinal -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.card_action, parent, false) as View
+
+                SimpleActionCardViewHolder(view)
+
+            }
+
+            ViewType.DISPLAY_CARD.ordinal -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.card_display, parent, false) as View
+
+                DisplayCardViewHolder(view)
+
+            }
+
+            else -> throw Exception("Card Type not defined.")
 
         }
 
@@ -77,7 +90,7 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
         val card = round.cards[position]
 
         when (getItemViewType(position)) {
-            ViewType.ComplexActionCard.ordinal -> {
+            ViewType.COMPLEX_ACTION_CARD.ordinal -> {
                 viewHolder as ComplexActionCardViewHolder
                 card as ActionCardComplex
 
@@ -101,7 +114,27 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
                 viewHolder.inputEditText.requestFocus()
 
             }
-            ViewType.SimpleActionCard.ordinal -> {
+
+            ViewType.CHOICE_ACTION_CARD.ordinal -> {
+                viewHolder as SimpleActionCardViewHolder
+                card as ActionCardChoice
+
+                viewHolder.actionNameTextView.text = card.displayText
+
+                fun chooseCard() {
+                    vibrate()
+
+                    card.function(position)
+
+                    activity.buildActivity()
+
+                }
+
+                viewHolder.itemView.setOnClickListener { chooseCard() }
+
+            }
+
+            ViewType.SIMPLE_ACTION_CARD.ordinal -> {
                 viewHolder as SimpleActionCardViewHolder
                 card as ActionCardSimple
 
@@ -116,7 +149,8 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
                 }
 
             }
-            ViewType.DisplayCard.ordinal -> {
+
+            ViewType.DISPLAY_CARD.ordinal -> {
                 viewHolder as DisplayCardViewHolder
                 card as DisplayCard
 

@@ -9,7 +9,7 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.data.GameData
-import de.melon.tridomcounter.logic.Round
+import de.melon.tridomcounter.logic.round.Round
 import de.melon.tridomcounter.logic.Session
 import kotlinx.android.synthetic.main.activity_round.*
 import kotlinx.android.synthetic.main.content_round.*
@@ -24,6 +24,9 @@ class RoundActivity : AppCompatActivity() {
         setContentView(R.layout.activity_round)
         setSupportActionBar(toolbar)
 
+        session = GameData.sessions[current.sessionId]
+        round = session.rounds[current.roundId]
+
         title = "$title ${current.roundId+1}"
 
         buildActivity()
@@ -34,13 +37,8 @@ class RoundActivity : AppCompatActivity() {
     }
 
     fun buildActivity() {
-        session = GameData.sessions[current.sessionId]
-        round = session.rounds[current.roundId]
-
-        customActionRecyclerView.adapter = ActionCardAdapter(round, this)
-        customActionRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        activePlayerNameTextView.text = session.players[round.currentPlayerId]
+            customActionRecyclerView.adapter = ActionCardAdapter(round, this)
+            customActionRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 
