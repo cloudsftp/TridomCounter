@@ -1,23 +1,22 @@
 package de.melon.tridomcounter.activities.session
 
 import android.content.Intent
-import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.Espresso.pressBack
-import android.support.test.espresso.action.ViewActions.click
-import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.intent.Intents
-import android.support.test.espresso.matcher.ViewMatchers.*
-import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.rule.ActivityTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.menu.MainActivity
-import de.melon.tridomcounter.activities.round.NewRoundActivity
 import de.melon.tridomcounter.activities.round.RoundActivity
 import de.melon.tridomcounter.activities.util.*
 import de.melon.tridomcounter.data.GameData
-import de.melon.tridomcounter.logic.BaseMove
-import de.melon.tridomcounter.logic.Move
+import de.melon.tridomcounter.logic.round.BaseMove
+import de.melon.tridomcounter.logic.round.Move
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -65,7 +64,12 @@ class SessionActivityTest {
 
     fun addPointsToPlayer(id: Int, points: Int) {
         val round = GameData.sessions[current.sessionId].rounds[current.roundId]
-        round.moves[id].add(Move(BaseMove, points))
+        round.moves[id].add(
+            Move(
+                BaseMove,
+                points
+            )
+        )
     }
 
     @JvmField

@@ -8,7 +8,7 @@
         android:paddingRight="@dimen/card_padding_side"
         android:paddingBottom="@dimen/card_padding_bottom" >
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/color_card"
@@ -23,5 +23,5 @@
                 android:textSize="@dimen/action_card_text_size"
                 android:textColor="@color/color_text" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

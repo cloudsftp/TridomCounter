@@ -1,7 +1,7 @@
 package de.melon.tridomcounter.activities.session
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import android.widget.TextView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.data.GameData
-import de.melon.tridomcounter.logic.Round
+import de.melon.tridomcounter.logic.round.Round
 
 class RoundCardAdapter(val rounds: MutableList<Round>)
     : RecyclerView.Adapter<RoundCardAdapter.RoundCardViewHolder>() {
