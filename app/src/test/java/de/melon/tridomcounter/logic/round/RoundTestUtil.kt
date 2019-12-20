@@ -8,12 +8,7 @@ fun checkPoints(round: Round, playerId: Int, points: Int)
 fun chooseTridomVariant(round: Round, variant: Int) {
     assertEquals(3, round.cards.size)
 
-    val roundCard = round.cards[variant]
-    if (roundCard is ActionCardSimple)
-        roundCard.function()
-
-    else
-        throw UnexpectedCardError(roundCard)
+    invokeSimpleActionCard(round.cards[variant])
 
     assertEquals(round.session.players.size, round.cards.size)
 
@@ -22,12 +17,7 @@ fun chooseTridomVariant(round: Round, variant: Int) {
 fun chooseCustomTridomVariant(round: Round, pieces: Int) {
     assertEquals(3, round.cards.size)
 
-    val roundCard = round.cards[2]
-    if (roundCard is ActionCardComplex)
-        roundCard.function(pieces)
-
-    else
-        throw UnexpectedCardError(roundCard)
+    invokeComplexActionCard(round.cards[2], pieces)
 
     assertEquals(round.session.players.size, round.cards.size)
 
@@ -36,32 +26,45 @@ fun chooseCustomTridomVariant(round: Round, pieces: Int) {
 fun chooseFirstPlayer(round: Round, playerId: Int, players: Array<String>) {
     assertEquals(players.size, round.cards.size)
 
-    val playerCard = round.cards[playerId]
-    if (playerCard is ActionCardChoice)
-        playerCard.function(playerId)
-
-    else
-        throw UnexpectedCardError(playerCard)
+    invokeChoiceActionCard(round.cards[playerId], playerId)
 
 }
 
-fun chooseFirstPiece(round: Round, player: Int, number: Int, expected: Int) {
-    val triplePieceCard = round.cards[number]
-    if (triplePieceCard is ActionCardChoice)
-        triplePieceCard.function(number)
+fun chooseFirstPiece(round: Round, playerId: Int, number: Int, expected: Int) {
+    invokeChoiceActionCard(round.cards[number], number)
 
-    assertEquals(expected, round.getPoints(player))
+    assertEquals(expected, round.getPoints(playerId))
 
 }
 
-fun chooseCustomFirstPiece(round: Round, player: Int, points: Int) {
-    val customPieceCard = round.cards[6]
-    if (customPieceCard is ActionCardComplex)
-        customPieceCard.function(points)
+fun chooseCustomFirstPiece(round: Round, playerId: Int, points: Int) {
+    invokeComplexActionCard(round.cards[6], points)
 
-    assertEquals(20 + points, round.getPoints(player))
+    assertEquals(20 + points, round.getPoints(playerId))
 
 }
+
+fun choosePlace(round: Round, points: Int)
+        = invokeComplexActionCard(round.cards[0], points)
+
+fun choosePass(round: Round) = chooseDraw(round)
+fun chooseDraw(round: Round)
+        = invokeSimpleActionCard(round.cards[1])
+
+fun invokeComplexActionCard(card: Card, arg: Int)
+        =   if (card is ActionCardComplex)
+                card.function(arg)
+            else throw UnexpectedCardError(card)
+
+fun invokeChoiceActionCard(card: Card, arg: Int)
+        =   if (card is ActionCardChoice)
+                card.function(arg)
+            else throw UnexpectedCardError(card)
+
+fun invokeSimpleActionCard(card: Card)
+        =   if (card is ActionCardSimple)
+                card.function()
+            else throw UnexpectedCardError(card)
 
 class UnexpectedCardError(card: Card)
     : AssertionError("Unexpected Card Type ${card}")

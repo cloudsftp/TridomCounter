@@ -43,11 +43,13 @@ class Round(val session: Session) : PointInterface {
             }
 
             RoundState.NORMAL -> {
-                if (currentMove.ableToPlace())
-                    cards.add(ActionCardComplex("Legen", ::place))
+                cards.add(ActionCardComplex("Legen", ::place))
 
                 if (currentMove.ableToDraw())
                     cards.add(ActionCardSimple("Ziehen", ::draw))
+
+                else
+                    cards.add(ActionCardSimple("Weiter", ::pass))
 
                 var move
                         : AbstractMove = currentMove
@@ -104,7 +106,7 @@ class Round(val session: Session) : PointInterface {
 
     // FIRST_MOVE
 
-    fun chooseTriple(i: Int) {
+    private fun chooseTriple(i: Int) {
         val points = when (i) {
             0 -> 40
             else -> 3 * i
@@ -114,7 +116,7 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    fun chooseCustomFirstPiece(points: Int) {
+    private fun chooseCustomFirstPiece(points: Int) {
         currentMove = Move(currentMove, points)
         next()
 
@@ -124,9 +126,20 @@ class Round(val session: Session) : PointInterface {
 
     // NORMAL
 
+    private fun place(points: Int) {
+        currentMove = Move(currentMove, points)
+
+        next()
+
+    }
+
+    private fun draw() {
+        currentMove = DrawMove(currentMove)
+
+    }
+
     private fun pass() {
-        if (currentMove.ableToPlace())
-            currentMove = PassMove(currentMove)
+        currentMove = PassMove(currentMove)
 
         next()
 
@@ -141,16 +154,6 @@ class Round(val session: Session) : PointInterface {
             currentPlayerId = 0
 
         currentMove = BaseMove
-
-    }
-
-    private fun draw() {
-        currentMove = DrawMove(currentMove)
-
-    }
-
-    private fun place(points: Int) {
-        currentMove = Move(currentMove, points)
 
     }
 

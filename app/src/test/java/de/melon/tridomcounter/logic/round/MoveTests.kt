@@ -26,7 +26,6 @@ class MoveTests {
             Move(BaseMove, 10)
 
         assert(move.points == 10)
-        assert(move.placeActions == 1)
 
     }
 
@@ -41,7 +40,6 @@ class MoveTests {
 
         assert(move.points == 10)
         assert(move.drawActions == 2)
-        assert(move.placeActions == 1)
 
     }
 

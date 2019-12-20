@@ -4,7 +4,7 @@ import de.melon.tridomcounter.logic.Session
 import org.junit.Before
 import org.junit.Test
 
-class RoundTestsChooseFirstPiece {
+class RoundTestsFirstMove {
 
     val players = arrayOf("Fabian", "Paul", "Tim")
     lateinit var round: Round
@@ -24,31 +24,31 @@ class RoundTestsChooseFirstPiece {
     }
 
     @Test
-    fun testChooseTriple0()
+    fun chooseTriple0()
             = chooseFirstPiece(round, firstPlayer, 0, 60)
 
     @Test
-    fun testChooseTriple1()
+    fun chooseTriple1()
             = chooseFirstPiece(round, firstPlayer, 1, 23)
 
     @Test
-    fun testChooseTriple2()
+    fun chooseTriple2()
             = chooseFirstPiece(round, firstPlayer, 2, 26)
 
     @Test
-    fun testChooseTriple3()
+    fun chooseTriple3()
             = chooseFirstPiece(round, firstPlayer, 3, 29)
 
     @Test
-    fun testChooseTriple4()
+    fun chooseTriple4()
             = chooseFirstPiece(round, firstPlayer, 4, 32)
 
     @Test
-    fun testChooseTriple5()
+    fun chooseTriple5()
             = chooseFirstPiece(round, firstPlayer, 5, 35)
 
     @Test
-    fun testChooseCustom()
+    fun chooseCustom()
             = chooseCustomFirstPiece(round, firstPlayer, 13)
 
 }
