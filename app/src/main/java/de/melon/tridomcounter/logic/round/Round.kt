@@ -5,7 +5,6 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.logic.PointInterface
 import de.melon.tridomcounter.logic.Session
-import kotlin.properties.Delegates
 
 class Round(val session: Session) : PointInterface {
     lateinit var context: Context
@@ -32,10 +31,7 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    var state by Delegates.observable(RoundState.CHOOSE_VARIANT) {
-        _, _, _ ->
-        //updateCards()
-    }
+    var state = RoundState.CHOOSE_VARIANT
 
     val cards = mutableListOf<Card>()
 
@@ -52,40 +48,30 @@ class Round(val session: Session) : PointInterface {
 
             RoundState.CHOOSE_FIRST_PLAYER -> {
                 for (player in session.players)
-                    cards.add(ActionCardChoice(player,
-                                ::choosePlayer))
+                    cards.add(ActionCardChoice(player, ::choosePlayer))
 
             }
 
             RoundState.FIRST_MOVE -> {
                 for (i in 0 until 6)
                     cards.add(ActionCardChoice(
-                        "${context.getString(R.string.triple)} $i",
+                        "${string(R.string.triple)} $i",
                         ::chooseTriple))
 
                 cards.add(ActionCardComplex(
-                    context.getString(R.string.other_piece),
-                    ::chooseCustomFirstPiece))
+                    string(R.string.other_piece), ::chooseCustomFirstPiece)
+                )
 
             }
 
             RoundState.NORMAL -> {
-                cards.add(ActionCardComplex(
-                    context.getString(R.string.make_move),
-                    ::place)
-                )
+                cards.add(ActionCardComplex(string(R.string.make_move), ::place))
 
                 if (currentMove.ableToDraw())
-                    cards.add(ActionCardSimple(
-                        context.getString(R.string.draw),
-                        ::draw)
-                    )
+                    cards.add(ActionCardSimple(string(R.string.draw), ::draw))
 
                 else
-                    cards.add(ActionCardSimple(
-                        context.getString(R.string.pass),
-                        ::pass)
-                    )
+                    cards.add(ActionCardSimple(string(R.string.pass), ::pass))
 
                 var move
                         : AbstractMove = currentMove
@@ -106,10 +92,7 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    private var currentMove : AbstractMove by Delegates.observable(BaseMove) {
-            _, _ : AbstractMove, _: AbstractMove ->
-            //updateCards()
-    }
+    private var currentMove : AbstractMove = BaseMove
 
     var currentPlayerId = -1
     val moves = Array(session.numberOfPlayers) {MutableList<AbstractMove>(0) { BaseMove }}
