@@ -18,10 +18,9 @@
     <string name="title_activity_new_round">Neue Runde</string>
 
     <string name="round">Runde</string>
-
-    <string name="choose_first_player">Ersten Spieler wählen:</string>
-
-    <string name="pause_round">Runde Pausieren</string>
+    <string name="choose_variant">Variante wählen</string>
+    <string name="choose_first_player">Ersten Spieler wählen</string>
+    <string name="choose_first_piece">Ersten Stein wählen</string>
 
     <string name="place_holder">Some Text.</string>
     <string name="make_move">Legen</string>

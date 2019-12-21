@@ -1,10 +1,32 @@
 package de.melon.tridomcounter.logic.round
 
+import android.content.Context
+import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.logic.PointInterface
 import de.melon.tridomcounter.logic.Session
 import kotlin.properties.Delegates
 
 class Round(val session: Session) : PointInterface {
+    fun title(context: Context) : String {
+        val titleBuilder = StringBuilder(context.getString(R.string.round))
+        titleBuilder.append(' ')
+        titleBuilder.append(current.roundId + 1)
+        titleBuilder.append(" - ")
+        titleBuilder.append(
+            when (state) {
+                RoundState.CHOOSE_VARIANT -> context.getString(R.string.choose_variant)
+                RoundState.CHOOSE_FIRST_PLAYER -> context.getString(R.string.choose_first_player)
+                RoundState.FIRST_MOVE -> context.getString(R.string.choose_first_piece)
+                RoundState.NORMAL -> session.players[currentPlayerId]
+                RoundState.LAST_MOVE -> session.players[currentPlayerId]
+            }
+        )
+
+        return titleBuilder.toString()
+
+    }
+
     var state by Delegates.observable(RoundState.CHOOSE_VARIANT) {
         _, _, _ ->
         updateCards()

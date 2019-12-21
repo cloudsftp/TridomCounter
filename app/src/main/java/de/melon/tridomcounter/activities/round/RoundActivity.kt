@@ -9,8 +9,8 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.data.GameData
-import de.melon.tridomcounter.logic.round.Round
 import de.melon.tridomcounter.logic.Session
+import de.melon.tridomcounter.logic.round.Round
 import kotlinx.android.synthetic.main.activity_round.*
 import kotlinx.android.synthetic.main.content_round.*
 
@@ -27,8 +27,6 @@ class RoundActivity : AppCompatActivity() {
         session = GameData.sessions[current.sessionId]
         round = session.rounds[current.roundId]
 
-        title = "$title ${current.roundId+1}"
-
         buildActivity()
 
         val infoBack = Toast.makeText(this, R.string.back_message_round, Toast.LENGTH_LONG)
@@ -37,8 +35,10 @@ class RoundActivity : AppCompatActivity() {
     }
 
     fun buildActivity() {
-            customActionRecyclerView.adapter = ActionCardAdapter(round, this)
-            customActionRecyclerView.layoutManager = LinearLayoutManager(this)
+        title = round.title(this)
+
+        customActionRecyclerView.adapter = ActionCardAdapter(round, this)
+        customActionRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 
