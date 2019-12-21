@@ -6,6 +6,8 @@ fun checkPoints(round: Round, playerId: Int, points: Int)
         = assertEquals(points, round.getPoints(playerId))
 
 fun chooseTridomVariant(round: Round, variant: Int) {
+    update(round)
+
     assertEquals(3, round.cards.size)
 
     invokeSimpleActionCard(round.cards[variant])
@@ -15,6 +17,8 @@ fun chooseTridomVariant(round: Round, variant: Int) {
 }
 
 fun chooseCustomTridomVariant(round: Round, pieces: Int) {
+    update(round)
+
     assertEquals(3, round.cards.size)
 
     invokeComplexActionCard(round.cards[2], pieces)
@@ -24,6 +28,8 @@ fun chooseCustomTridomVariant(round: Round, pieces: Int) {
 }
 
 fun chooseFirstPlayer(round: Round, playerId: Int, players: Array<String>) {
+    update(round)
+
     assertEquals(players.size, round.cards.size)
 
     invokeChoiceActionCard(round.cards[playerId], playerId)
@@ -31,6 +37,8 @@ fun chooseFirstPlayer(round: Round, playerId: Int, players: Array<String>) {
 }
 
 fun chooseFirstPiece(round: Round, playerId: Int, number: Int, expected: Int) {
+    update(round)
+
     invokeChoiceActionCard(round.cards[number], number)
 
     assertEquals(expected, round.getPoints(playerId))
@@ -38,18 +46,30 @@ fun chooseFirstPiece(round: Round, playerId: Int, number: Int, expected: Int) {
 }
 
 fun chooseCustomFirstPiece(round: Round, playerId: Int, points: Int) {
+    update(round)
+
     invokeComplexActionCard(round.cards[6], points)
 
     assertEquals(20 + points, round.getPoints(playerId))
 
 }
 
-fun choosePlace(round: Round, points: Int)
-        = invokeComplexActionCard(round.cards[0], points)
+fun choosePlace(round: Round, points: Int) {
+    update(round)
+
+    invokeComplexActionCard(round.cards[0], points)
+
+}
 
 fun choosePass(round: Round) = chooseDraw(round)
-fun chooseDraw(round: Round)
-        = invokeSimpleActionCard(round.cards[1])
+fun chooseDraw(round: Round) {
+    update(round)
+
+    invokeSimpleActionCard(round.cards[1])
+
+}
+
+fun update(round: Round) = round.updateCards()
 
 fun invokeComplexActionCard(card: Card, arg: Int)
         =   if (card is ActionCardComplex)
@@ -67,4 +87,4 @@ fun invokeSimpleActionCard(card: Card)
             else throw UnexpectedCardError(card)
 
 class UnexpectedCardError(card: Card)
-    : AssertionError("Unexpected Card Type ${card}")
+    : AssertionError("Unexpected Card Type $card")
