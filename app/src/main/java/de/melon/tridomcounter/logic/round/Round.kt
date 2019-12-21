@@ -35,7 +35,7 @@ class Round(val session: Session) : PointInterface {
 
     val cards = mutableListOf<Card>()
 
-    private fun updateCards() {
+    fun updateCards() {
         cards.clear()
 
         when (state) {

@@ -1,10 +1,20 @@
 package de.melon.tridomcounter.logic.round
 
+import android.content.Context
 import de.melon.tridomcounter.logic.Session
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Matchers.anyInt
+import org.mockito.Mock
+import org.mockito.Mockito.doReturn
+import org.mockito.runners.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class RoundTestsChooseVariant {
+
+    @Mock
+    lateinit var context: Context
 
     val players = arrayOf("Fabian", "Paul", "Tim")
     lateinit var round: Round
@@ -14,6 +24,9 @@ class RoundTestsChooseVariant {
     fun instantiate() {
         val session = Session(players)
         round = Round(session)
+
+        doReturn("").`when`(context).getString(anyInt())
+        round.context = context
 
         for (i in players.indices)
             checkPoints(round, i, 0)
