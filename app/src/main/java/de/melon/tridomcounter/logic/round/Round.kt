@@ -1,55 +1,77 @@
 package de.melon.tridomcounter.logic.round
 
+import android.content.Context
+import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.logic.PointInterface
 import de.melon.tridomcounter.logic.Session
-import kotlin.properties.Delegates
 
 class Round(val session: Session) : PointInterface {
-    var state by Delegates.observable(RoundState.CHOOSE_VARIANT) {
-        _, _, _ ->
+    lateinit var context: Context
+    fun string(id: Int) = context.getString(id)
+
+    fun title() : String {
+        val titleBuilder = StringBuilder(context.getString(R.string.round))
+        titleBuilder.append(' ')
+        titleBuilder.append(current.roundId + 1)
+        titleBuilder.append(" - ")
+        titleBuilder.append(
+            when (state) {
+                RoundState.CHOOSE_VARIANT -> context.getString(R.string.choose_variant)
+                RoundState.CHOOSE_FIRST_PLAYER -> context.getString(R.string.choose_first_player)
+                RoundState.FIRST_MOVE -> context.getString(R.string.choose_first_piece)
+                RoundState.NORMAL -> session.players[currentPlayerId]
+                RoundState.LAST_MOVE -> session.players[currentPlayerId]
+            }
+        )
+
         updateCards()
+
+        return titleBuilder.toString()
+
     }
 
-    val cards = mutableListOf<Card>()
+    var state = RoundState.CHOOSE_VARIANT
 
-    init { updateCards() }
+    val cards = mutableListOf<Card>()
 
     private fun updateCards() {
         cards.clear()
 
         when (state) {
             RoundState.CHOOSE_VARIANT -> {
-                cards.add(ActionCardSimple("Tridom", ::chooseNormalVariant))
-                cards.add(ActionCardSimple("Super Tridom", ::chooseSuperVariant))
-                cards.add(ActionCardComplex("Custom Tridom", ::chooseCustomVariant))
+                cards.add(ActionCardSimple(string(R.string.tridom), ::chooseNormalVariant))
+                cards.add(ActionCardSimple(string(R.string.super_tridom), ::chooseSuperVariant))
+                cards.add(ActionCardComplex(string(R.string.custom_tridom), ::chooseCustomVariant))
 
             }
 
             RoundState.CHOOSE_FIRST_PLAYER -> {
                 for (player in session.players)
-                    cards.add(ActionCardChoice(player,
-                                ::choosePlayer))
+                    cards.add(ActionCardChoice(player, ::choosePlayer))
 
             }
 
             RoundState.FIRST_MOVE -> {
                 for (i in 0 until 6)
-                    cards.add(ActionCardChoice("Triple $i",
-                                ::chooseTriple))
+                    cards.add(ActionCardChoice(
+                        "${string(R.string.triple)} $i",
+                        ::chooseTriple))
 
-                cards.add(ActionCardComplex("Anderer Stein",
-                            ::chooseCustomFirstPiece))
+                cards.add(ActionCardComplex(
+                    string(R.string.other_piece), ::chooseCustomFirstPiece)
+                )
 
             }
 
             RoundState.NORMAL -> {
-                cards.add(ActionCardComplex("Legen", ::place))
+                cards.add(ActionCardComplex(string(R.string.make_move), ::place))
 
                 if (currentMove.ableToDraw())
-                    cards.add(ActionCardSimple("Ziehen", ::draw))
+                    cards.add(ActionCardSimple(string(R.string.draw), ::draw))
 
                 else
-                    cards.add(ActionCardSimple("Weiter", ::pass))
+                    cards.add(ActionCardSimple(string(R.string.pass), ::pass))
 
                 var move
                         : AbstractMove = currentMove
@@ -70,10 +92,7 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    private var currentMove : AbstractMove by Delegates.observable(BaseMove) {
-            _, _ : AbstractMove, _: AbstractMove ->
-            updateCards()
-    }
+    private var currentMove : AbstractMove = BaseMove
 
     var currentPlayerId = -1
     val moves = Array(session.numberOfPlayers) {MutableList<AbstractMove>(0) { BaseMove }}

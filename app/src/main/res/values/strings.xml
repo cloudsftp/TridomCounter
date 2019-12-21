@@ -3,34 +3,41 @@
     <string name="action_settings">Settings</string>
     <string name="menu_title">Tridom Counter</string>
 
-    <string name="title_activity_new_session">Neue Session</string>
+    <string name="place_holder">Some Text.</string>
 
-    <string name="players">Spieler:</string>
+    <string name="number_of_players">Anzahl der Spieler:</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
     <string name="initial_num_of_players">2</string>
     <string name="input_name">Name:</string>
 
-    <string name="title_activity_session">Session</string>
-
     <string name="show_all_sessions">Alle Sessions</string>
-    <string name="title_activity_round">Runde</string>
-    <string name="title_activity_new_round">Neue Runde</string>
 
+    // round
     <string name="round">Runde</string>
 
-    <string name="choose_first_player">Ersten Spieler wählen:</string>
+    <string name="choose_variant">Variante wählen</string>
+    <string name="tridom">Tridom</string>
+    <string name="super_tridom">Super Tridom</string>
+    <string name="custom_tridom">Andere Variante - Steine:</string>
 
-    <string name="pause_round">Runde Pausieren</string>
+    <string name="choose_first_player">Ersten Spieler wählen</string>
 
-    <string name="place_holder">Some Text.</string>
+    <string name="choose_first_piece">Ersten Stein wählen</string>
+    <string name="triple">Triple</string>
+    <string name="other_piece">Anderer Stein</string>
+
     <string name="make_move">Legen</string>
-
-    <string name="number_of_points">Augenzahl:</string>
-
-    <string name="confirm">Weiter</string>
+    <string name="draw">Ziehen</string>
+    <string name="pass">Weiter</string>
 
     <string name="back_message_session">Zurück-Button für alle Sessions</string>
     <string name="back_message_round">Zurück-Button für alle Runden</string>
+
+
+    <string name="title_activity_session">Session</string>
+    <string name="title_activity_new_session">Neue Session</string>
+    <string name="title_activity_round">Runde</string>
+    <string name="title_activity_new_round">Neue Runde</string>
 
 </resources>

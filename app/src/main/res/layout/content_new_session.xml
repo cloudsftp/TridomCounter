@@ -24,7 +24,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="@string/players"
+                    android:text="@string/number_of_players"
                     android:textColor="@color/color_text" />
 
             <LinearLayout
