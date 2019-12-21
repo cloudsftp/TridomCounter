@@ -8,7 +8,10 @@ import de.melon.tridomcounter.logic.Session
 import kotlin.properties.Delegates
 
 class Round(val session: Session) : PointInterface {
-    fun title(context: Context) : String {
+    lateinit var context: Context
+    fun string(id: Int) = context.getString(id)
+
+    fun title() : String {
         val titleBuilder = StringBuilder(context.getString(R.string.round))
         titleBuilder.append(' ')
         titleBuilder.append(current.roundId + 1)
@@ -23,27 +26,27 @@ class Round(val session: Session) : PointInterface {
             }
         )
 
+        updateCards()
+
         return titleBuilder.toString()
 
     }
 
     var state by Delegates.observable(RoundState.CHOOSE_VARIANT) {
         _, _, _ ->
-        updateCards()
+        //updateCards()
     }
 
     val cards = mutableListOf<Card>()
-
-    init { updateCards() }
 
     private fun updateCards() {
         cards.clear()
 
         when (state) {
             RoundState.CHOOSE_VARIANT -> {
-                cards.add(ActionCardSimple("Tridom", ::chooseNormalVariant))
-                cards.add(ActionCardSimple("Super Tridom", ::chooseSuperVariant))
-                cards.add(ActionCardComplex("Custom Tridom", ::chooseCustomVariant))
+                cards.add(ActionCardSimple(string(R.string.tridom), ::chooseNormalVariant))
+                cards.add(ActionCardSimple(string(R.string.super_tridom), ::chooseSuperVariant))
+                cards.add(ActionCardComplex(string(R.string.custom_tridom), ::chooseCustomVariant))
 
             }
 
@@ -56,22 +59,33 @@ class Round(val session: Session) : PointInterface {
 
             RoundState.FIRST_MOVE -> {
                 for (i in 0 until 6)
-                    cards.add(ActionCardChoice("Triple $i",
-                                ::chooseTriple))
+                    cards.add(ActionCardChoice(
+                        "${context.getString(R.string.triple)} $i",
+                        ::chooseTriple))
 
-                cards.add(ActionCardComplex("Anderer Stein",
-                            ::chooseCustomFirstPiece))
+                cards.add(ActionCardComplex(
+                    context.getString(R.string.other_piece),
+                    ::chooseCustomFirstPiece))
 
             }
 
             RoundState.NORMAL -> {
-                cards.add(ActionCardComplex("Legen", ::place))
+                cards.add(ActionCardComplex(
+                    context.getString(R.string.make_move),
+                    ::place)
+                )
 
                 if (currentMove.ableToDraw())
-                    cards.add(ActionCardSimple("Ziehen", ::draw))
+                    cards.add(ActionCardSimple(
+                        context.getString(R.string.draw),
+                        ::draw)
+                    )
 
                 else
-                    cards.add(ActionCardSimple("Weiter", ::pass))
+                    cards.add(ActionCardSimple(
+                        context.getString(R.string.pass),
+                        ::pass)
+                    )
 
                 var move
                         : AbstractMove = currentMove
@@ -94,7 +108,7 @@ class Round(val session: Session) : PointInterface {
 
     private var currentMove : AbstractMove by Delegates.observable(BaseMove) {
             _, _ : AbstractMove, _: AbstractMove ->
-            updateCards()
+            //updateCards()
     }
 
     var currentPlayerId = -1

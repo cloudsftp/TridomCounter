@@ -27,6 +27,7 @@ class RoundActivity : AppCompatActivity() {
         session = GameData.sessions[current.sessionId]
         round = session.rounds[current.roundId]
 
+        round.context = this
         buildActivity()
 
         val infoBack = Toast.makeText(this, R.string.back_message_round, Toast.LENGTH_LONG)
@@ -35,7 +36,7 @@ class RoundActivity : AppCompatActivity() {
     }
 
     fun buildActivity() {
-        title = round.title(this)
+        title = round.title()
 
         customActionRecyclerView.adapter = ActionCardAdapter(round, this)
         customActionRecyclerView.layoutManager = LinearLayoutManager(this)
