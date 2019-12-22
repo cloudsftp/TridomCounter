@@ -35,6 +35,13 @@
     <string name="draw">Ziehen</string>
     <string name="pass">Weiter</string>
 
+    <string name="won">hat gewonnen!</string>
+    <string name="add_bonus">Bonus hinzufügen</string>
+    <string name="finished">Fertig</string>
+
+    <string name="done">Runde vorbei</string>
+    <string name="no_more_actions">Kein Aktionen mehr möglich</string>
+
     <string name="back_message_session">Zurück-Button für alle Sessions</string>
     <string name="back_message_round">Zurück-Button für alle Runden</string>
 

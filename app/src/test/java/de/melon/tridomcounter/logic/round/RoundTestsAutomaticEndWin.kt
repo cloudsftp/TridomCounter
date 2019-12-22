@@ -45,8 +45,10 @@ class RoundTestsAutomaticEndWin {
 
     @Test
     fun noDraws() {
+        var currentPlayer = 1
+
         for (i in 0 until 2) {
-            var currentPlayer = 1
+            currentPlayer = 1
             choosePlace(round, 0)
 
             currentPlayer = 2
@@ -57,7 +59,35 @@ class RoundTestsAutomaticEndWin {
 
         }
 
+        checkWin(round)
 
+        chooseBonus(round, 15)
+
+        checkPointsAndUpdate(currentPlayer, 40)
+
+    }
+
+    @Test
+    fun done() {
+        var currentPlayer = 1
+
+        for (i in 0 until 2) {
+            currentPlayer = 1
+            choosePlace(round, 0)
+
+            currentPlayer = 2
+            choosePlace(round, 0)
+
+            currentPlayer = 0
+            choosePlace(round, 0)
+
+        }
+
+        checkWin(round)
+
+        chooseFinish(round)
+
+        checkDone(round)
 
     }
 

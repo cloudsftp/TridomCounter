@@ -6,5 +6,6 @@ enum class RoundState {
     CHOOSE_FIRST_PLAYER,
     FIRST_MOVE,
     NORMAL,
-    LAST_MOVE
+    WIN,
+    DONE
 }

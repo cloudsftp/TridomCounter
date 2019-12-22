@@ -85,6 +85,39 @@ fun chooseDraw(round: Round) {
 
 }
 
+fun checkWin(round: Round) {
+    update(round)
+
+    assertEquals(4, round.cards.size)
+
+    assert(round.cards[0] is ActionCardSimple)
+    assert(round.cards[1] is ActionCardComplex)
+    assert(round.cards[2] is DisplayCard)
+    assert(round.cards[3] is DisplayCard)
+
+}
+
+fun chooseFinish(round: Round) {
+    update(round)
+
+    invokeSimpleActionCard(round.cards[0])
+
+}
+
+fun chooseBonus(round: Round, points: Int) {
+    update(round)
+
+    invokeComplexActionCard(round.cards[1], points)
+
+}
+
+fun checkDone(round: Round) {
+    update(round)
+
+    assertEquals(1, round.cards.size)
+
+}
+
 fun update(round: Round) = round.updateCards()
 
 fun invokeComplexActionCard(card: Card, arg: Int)

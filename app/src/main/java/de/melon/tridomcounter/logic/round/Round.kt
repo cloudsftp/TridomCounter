@@ -22,7 +22,9 @@ class Round(val session: Session) : PointInterface {
                 RoundState.CHOOSE_FIRST_PLAYER -> context.getString(R.string.choose_first_player)
                 RoundState.FIRST_MOVE -> context.getString(R.string.choose_first_piece)
                 RoundState.NORMAL -> session.players[currentPlayerId]
-                RoundState.LAST_MOVE -> session.players[currentPlayerId]
+                RoundState.WIN -> "${session.players[currentPlayerId]} ${string(R.string.won)}"
+
+                RoundState.DONE -> string(R.string.done)
             }
         )
 
@@ -32,7 +34,7 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    var state = RoundState.CHOOSE_VARIANT
+    private var state = RoundState.CHOOSE_VARIANT
 
     val cards = mutableListOf<Card>()
 
@@ -77,12 +79,10 @@ class Round(val session: Session) : PointInterface {
 
                 if (currentMove.ableToDraw())
                     cards.add(ActionCardSimple(string(R.string.draw), ::draw))
-
                 else
                     cards.add(ActionCardSimple(string(R.string.pass), ::pass))
 
-                var move
-                        : AbstractMove = currentMove
+                var move: AbstractMove = currentMove
 
                 while (move is WrapperMove) {
                     cards.add(DisplayCard(move.deltaPoints.toString()))
@@ -92,7 +92,22 @@ class Round(val session: Session) : PointInterface {
 
             }
 
-            RoundState.LAST_MOVE -> {
+            RoundState.WIN -> {
+                cards.add(ActionCardSimple(string(R.string.finished), ::finishRound))
+                cards.add(ActionCardComplex(string(R.string.add_bonus), ::addBonus))
+
+                var move: AbstractMove = currentMove
+
+                while (move is WrapperMove) {
+                    cards.add(DisplayCard(move.deltaPoints.toString()))
+                    move = move.innerMove
+
+                }
+
+            }
+
+            RoundState.DONE -> {
+                cards.add(DisplayCard(string(R.string.no_more_actions)))
 
             }
 
@@ -105,11 +120,12 @@ class Round(val session: Session) : PointInterface {
     var currentPlayerId = -1
     val moves = Array(session.numberOfPlayers) {MutableList<AbstractMove>(0) { BaseMove }}
 
-    override fun getPoints(id: Int) = moves[id].sumBy { m -> m.points } + currentMove.points
+    override fun getPoints(playerId: Int) = currentMove.points + moves[playerId].sumBy { it.points }
 
-
-    var numOfPieces = -1
-    var numOfStartPiecesEach = -1
+    private var numOfPieces = -1
+    private fun getPieces() = numOfPieces - moves.sumBy { it.sumBy { it.pieces } }
+    private var numOfStartPiecesEach = -1
+    private fun getPieces(playerId: Int) = numOfStartPiecesEach + moves[playerId].sumBy { it.pieces }
 
     // CHOOSE_VARIANT
 
@@ -168,7 +184,15 @@ class Round(val session: Session) : PointInterface {
     private fun place(points: Int) {
         currentMove = Move(currentMove, points)
 
-        next()
+        if (getPieces(currentPlayerId) > 0) {
+            next()
+
+        } else {
+            currentMove = WinBonusMove(currentMove)
+
+            state = RoundState.WIN
+
+        }
 
     }
 
@@ -185,7 +209,7 @@ class Round(val session: Session) : PointInterface {
     }
 
     private fun next() {
-        moves[currentPlayerId].add(currentMove)
+        saveCurrentMove()
 
         currentPlayerId++
 
@@ -196,7 +220,21 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    // LAST_MOVE
+    // WIN
 
+    fun addBonus(points: Int) {
+        currentMove = BonusMove(currentMove, points)
+
+    }
+
+
+    fun finishRound() {
+        saveCurrentMove()
+
+        state = RoundState.DONE
+
+    }
+
+    fun saveCurrentMove() = moves[currentPlayerId].add(currentMove)
 
 }
