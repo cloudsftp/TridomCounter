@@ -57,7 +57,7 @@ class RoundTestsAutomaticEndWin {
 
         }
 
-        // player 0 should win
+
 
     }
 
