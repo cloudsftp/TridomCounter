@@ -19,7 +19,11 @@
     <string name="choose_variant">Variante wählen</string>
     <string name="tridom">Tridom</string>
     <string name="super_tridom">Super Tridom</string>
-    <string name="custom_tridom">Andere Variante - Steine:</string>
+    <string name="custom_number">Andere Anzahl:</string>
+
+    <string name="choose_pieces">Anzahl der Steine am Anfang wählen</string>
+    <string name="seven">7</string>
+    <string name="nine">9</string>
 
     <string name="choose_first_player">Ersten Spieler wählen</string>
 

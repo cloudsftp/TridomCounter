@@ -30,6 +30,8 @@ class RoundTestsChooseFirstPlayer {
 
         chooseCustomTridomVariant(round, 20)
 
+        choose7Pieces(round)
+
     }
 
     @Test

@@ -34,6 +34,8 @@ class RoundTestsNormal {
 
         chooseCustomTridomVariant(round, 20)
 
+        choose7Pieces(round)
+
         chooseFirstPlayer(round, firstPlayer, players)
 
         chooseFirstPiece(round, firstPlayer, 0, 60)

@@ -11,7 +11,7 @@ import org.mockito.Mockito
 import org.mockito.runners.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RoundTestsFirstMove {
+class RoundTestsAutomaticEndWin {
 
     @Mock
     lateinit var context: Context
@@ -20,6 +20,8 @@ class RoundTestsFirstMove {
     lateinit var round: Round
 
     val firstPlayer = 0
+
+    lateinit var points: Array<Int>
 
     @Test
     @Before
@@ -30,40 +32,39 @@ class RoundTestsFirstMove {
         Mockito.doReturn("").`when`(context).getString(Matchers.anyInt())
         round.context = context
 
-        chooseCustomTridomVariant(round, 20)
+        chooseCustomTridomVariant(round, 6)
 
-        choose7Pieces(round)
+        chooseCustomPieces(round, 2)
 
         chooseFirstPlayer(round, firstPlayer, players)
+
+        chooseFirstPiece(round, firstPlayer, 0, 60)
+        points = arrayOf(60, 0, 0)
 
     }
 
     @Test
-    fun chooseTriple0()
-            = chooseFirstPiece(round, firstPlayer, 0, 60)
+    fun noDraws() {
+        for (i in 0 until 2) {
+            var currentPlayer = 1
+            choosePlace(round, 0)
 
-    @Test
-    fun chooseTriple1()
-            = chooseFirstPiece(round, firstPlayer, 1, 23)
+            currentPlayer = 2
+            choosePlace(round, 0)
 
-    @Test
-    fun chooseTriple2()
-            = chooseFirstPiece(round, firstPlayer, 2, 26)
+            currentPlayer = 0
+            choosePlace(round, 0)
 
-    @Test
-    fun chooseTriple3()
-            = chooseFirstPiece(round, firstPlayer, 3, 29)
+        }
 
-    @Test
-    fun chooseTriple4()
-            = chooseFirstPiece(round, firstPlayer, 4, 32)
+        // player 0 should win
 
-    @Test
-    fun chooseTriple5()
-            = chooseFirstPiece(round, firstPlayer, 5, 35)
+    }
 
-    @Test
-    fun chooseCustom()
-            = chooseCustomFirstPiece(round, firstPlayer, 13)
+    fun checkPointsAndUpdate(playerId: Int, delta: Int) {
+        points[playerId] += delta
+        checkPoints(round, playerId, points[playerId])
+
+    }
 
 }
