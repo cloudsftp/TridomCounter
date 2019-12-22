@@ -12,8 +12,6 @@ fun chooseTridomVariant(round: Round, variant: Int) {
 
     invokeSimpleActionCard(round.cards[variant])
 
-    assertEquals(round.session.players.size, round.cards.size)
-
 }
 
 fun chooseCustomTridomVariant(round: Round, pieces: Int) {
@@ -23,7 +21,25 @@ fun chooseCustomTridomVariant(round: Round, pieces: Int) {
 
     invokeComplexActionCard(round.cards[2], pieces)
 
-    assertEquals(round.session.players.size, round.cards.size)
+}
+
+fun choose7Pieces(round: Round) = choosePieces(round, 0)
+fun choose9Pieces(round: Round) = choosePieces(round, 1)
+fun choosePieces(round: Round, option: Int) {
+    update(round)
+
+    assertEquals(3, round.cards.size)
+
+    invokeSimpleActionCard(round.cards[option])
+
+}
+
+fun chooseCustomPieces(round: Round, pieces: Int) {
+    update(round)
+
+    assertEquals(3, round.cards.size)
+
+    invokeComplexActionCard(round.cards[2], pieces)
 
 }
 
@@ -66,6 +82,39 @@ fun chooseDraw(round: Round) {
     update(round)
 
     invokeSimpleActionCard(round.cards[1])
+
+}
+
+fun checkWin(round: Round) {
+    update(round)
+
+    assertEquals(4, round.cards.size)
+
+    assert(round.cards[0] is ActionCardSimple)
+    assert(round.cards[1] is ActionCardComplex)
+    assert(round.cards[2] is DisplayCard)
+    assert(round.cards[3] is DisplayCard)
+
+}
+
+fun chooseFinish(round: Round) {
+    update(round)
+
+    invokeSimpleActionCard(round.cards[0])
+
+}
+
+fun chooseBonus(round: Round, points: Int) {
+    update(round)
+
+    invokeComplexActionCard(round.cards[1], points)
+
+}
+
+fun checkDone(round: Round) {
+    update(round)
+
+    assertEquals(1, round.cards.size)
 
 }
 

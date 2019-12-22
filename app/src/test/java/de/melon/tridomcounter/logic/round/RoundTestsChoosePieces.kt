@@ -11,7 +11,7 @@ import org.mockito.Mockito
 import org.mockito.runners.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RoundTestsChooseFirstPlayer {
+class RoundTestsChoosePieces {
 
     @Mock
     lateinit var context: Context
@@ -30,20 +30,15 @@ class RoundTestsChooseFirstPlayer {
 
         chooseCustomTridomVariant(round, 20)
 
-        choose7Pieces(round)
-
     }
 
     @Test
-    fun chooseFirstPlayerAsFirstPlayer()
-            = chooseFirstPlayer(round, 0, players)
+    fun testChoose7Pieces() = choose7Pieces(round)
 
     @Test
-    fun chooseSecondPlayerAsFirstPlayer()
-            = chooseFirstPlayer(round, 1, players)
+    fun testChoose9Pieces() = choose9Pieces(round)
 
     @Test
-    fun chooseThirdPlayerAsFirstPlayer()
-            = chooseFirstPlayer(round, 2, players)
+    fun testChooseCustomNumberOfPieces() = chooseCustomPieces(round, 20)
 
 }

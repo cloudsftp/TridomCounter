@@ -1,50 +1,76 @@
 package de.melon.tridomcounter.logic.round
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.FixMethodOrder
 import org.junit.Test
-import org.junit.runners.MethodSorters
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MoveTests {
 
-    // replace function test WrapperMove
-
     @Test
-    fun t02_instantiateDrawMove() {
-        val move =
-            DrawMove(BaseMove)
+    fun instantiateDrawMove() {
+        val move = DrawMove(BaseMove)
 
-        assert(move.points == -5)
-        assert(move.drawActions == 1)
+        assertMove(move, -5, 1, 1)
 
     }
 
     @Test
-    fun t03_instantiateMove() {
-        val move =
-            Move(BaseMove, 10)
+    fun instantiateMove() {
+        val move = Move(BaseMove, 10)
 
-        assert(move.points == 10)
+        assertMove(move, 10, -1, 0)
 
     }
 
     @Test
-    fun t04_drawMoveAndMove() {
-        var move : AbstractMove =
-            BaseMove
+    fun drawMoveAndMove() {
+        var move : AbstractMove = BaseMove
 
         move = DrawMove(move)
         move = DrawMove(move)
         move = Move(move, 20)
 
-        assert(move.points == 10)
-        assert(move.drawActions == 2)
+        assertMove(move, 10, 1, 2)
 
     }
 
     @Test
-    fun t05_isOver() {
+    fun bonusMove() {
+        var move : AbstractMove = BaseMove
+
+        move = DrawMove(move)
+        move = Move(move, 15)
+        move = BonusMove(move, 20)
+
+        assertMove(move, 30, 0, 1)
+
+        move = BonusMove(move, 50)
+
+        assertMove(move, 80, 0, 1)
+
+    }
+
+    @Test
+    fun winBonusMove() {
+        var move : AbstractMove = BaseMove
+
+        move = DrawMove(move)
+        move = Move(move, 15)
+        move = WinBonusMove(move)
+
+        assertMove(move, 35, 0, 1)
+
+    }
+
+    fun assertMove(move: AbstractMove, points: Int, pieces: Int, drawActions: Int) {
+        assertEquals(points, move.points)
+        assertEquals(pieces, move.pieces)
+        assertEquals(drawActions, move.drawActions)
+
+    }
+
+    @Test
+    fun isOver() {
         var move : AbstractMove =
             BaseMove
 

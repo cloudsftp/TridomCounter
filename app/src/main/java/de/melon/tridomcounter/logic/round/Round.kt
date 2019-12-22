@@ -18,10 +18,13 @@ class Round(val session: Session) : PointInterface {
         titleBuilder.append(
             when (state) {
                 RoundState.CHOOSE_VARIANT -> context.getString(R.string.choose_variant)
+                RoundState.CHOOSE_PIECES -> string(R.string.choose_pieces)
                 RoundState.CHOOSE_FIRST_PLAYER -> context.getString(R.string.choose_first_player)
                 RoundState.FIRST_MOVE -> context.getString(R.string.choose_first_piece)
                 RoundState.NORMAL -> session.players[currentPlayerId]
-                RoundState.LAST_MOVE -> session.players[currentPlayerId]
+                RoundState.WIN -> "${session.players[currentPlayerId]} ${string(R.string.won)}"
+
+                RoundState.DONE -> string(R.string.done)
             }
         )
 
@@ -31,7 +34,7 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    var state = RoundState.CHOOSE_VARIANT
+    private var state = RoundState.CHOOSE_VARIANT
 
     val cards = mutableListOf<Card>()
 
@@ -42,7 +45,14 @@ class Round(val session: Session) : PointInterface {
             RoundState.CHOOSE_VARIANT -> {
                 cards.add(ActionCardSimple(string(R.string.tridom), ::chooseNormalVariant))
                 cards.add(ActionCardSimple(string(R.string.super_tridom), ::chooseSuperVariant))
-                cards.add(ActionCardComplex(string(R.string.custom_tridom), ::chooseCustomVariant))
+                cards.add(ActionCardComplex(string(R.string.custom_number), ::chooseCustomVariant))
+
+            }
+
+            RoundState.CHOOSE_PIECES -> {
+                cards.add(ActionCardSimple(string(R.string.seven), ::choose7Pieces))
+                cards.add(ActionCardSimple(string(R.string.nine), ::choose9Pieces))
+                cards.add(ActionCardComplex(string(R.string.custom_number), ::choosePieces))
 
             }
 
@@ -69,12 +79,10 @@ class Round(val session: Session) : PointInterface {
 
                 if (currentMove.ableToDraw())
                     cards.add(ActionCardSimple(string(R.string.draw), ::draw))
-
                 else
                     cards.add(ActionCardSimple(string(R.string.pass), ::pass))
 
-                var move
-                        : AbstractMove = currentMove
+                var move: AbstractMove = currentMove
 
                 while (move is WrapperMove) {
                     cards.add(DisplayCard(move.deltaPoints.toString()))
@@ -84,7 +92,22 @@ class Round(val session: Session) : PointInterface {
 
             }
 
-            RoundState.LAST_MOVE -> {
+            RoundState.WIN -> {
+                cards.add(ActionCardSimple(string(R.string.finished), ::finishRound))
+                cards.add(ActionCardComplex(string(R.string.add_bonus), ::addBonus))
+
+                var move: AbstractMove = currentMove
+
+                while (move is WrapperMove) {
+                    cards.add(DisplayCard(move.deltaPoints.toString()))
+                    move = move.innerMove
+
+                }
+
+            }
+
+            RoundState.DONE -> {
+                cards.add(DisplayCard(string(R.string.no_more_actions)))
 
             }
 
@@ -97,17 +120,30 @@ class Round(val session: Session) : PointInterface {
     var currentPlayerId = -1
     val moves = Array(session.numberOfPlayers) {MutableList<AbstractMove>(0) { BaseMove }}
 
-    override fun getPoints(id: Int) = moves[id].sumBy { m -> m.points } + currentMove.points
+    override fun getPoints(playerId: Int) = currentMove.points + moves[playerId].sumBy { it.points }
 
+    private var numOfPieces = -1
+    private fun getPieces() = numOfPieces - moves.sumBy { it.sumBy { it.pieces } }
+    private var numOfStartPiecesEach = -1
+    private fun getPieces(playerId: Int) = numOfStartPiecesEach + moves[playerId].sumBy { it.pieces }
 
     // CHOOSE_VARIANT
-
-    var numOfPieces = -1
 
     private fun chooseNormalVariant() = chooseCustomVariant(56)
     private fun chooseSuperVariant() = chooseCustomVariant(76)
     private fun chooseCustomVariant(pieces: Int) {
         numOfPieces = pieces
+
+        state = RoundState.CHOOSE_PIECES
+
+    }
+
+    // CHOOSE_PIECES
+
+    private fun choose7Pieces() = choosePieces(7)
+    private fun choose9Pieces() = choosePieces(9)
+    private fun choosePieces(pieces: Int) {
+        numOfStartPiecesEach = pieces
 
         state = RoundState.CHOOSE_FIRST_PLAYER
 
@@ -148,7 +184,15 @@ class Round(val session: Session) : PointInterface {
     private fun place(points: Int) {
         currentMove = Move(currentMove, points)
 
-        next()
+        if (getPieces(currentPlayerId) > 0) {
+            next()
+
+        } else {
+            currentMove = WinBonusMove(currentMove)
+
+            state = RoundState.WIN
+
+        }
 
     }
 
@@ -165,7 +209,7 @@ class Round(val session: Session) : PointInterface {
     }
 
     private fun next() {
-        moves[currentPlayerId].add(currentMove)
+        saveCurrentMove()
 
         currentPlayerId++
 
@@ -176,7 +220,21 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    // LAST_MOVE
+    // WIN
 
+    fun addBonus(points: Int) {
+        currentMove = BonusMove(currentMove, points)
+
+    }
+
+
+    fun finishRound() {
+        saveCurrentMove()
+
+        state = RoundState.DONE
+
+    }
+
+    fun saveCurrentMove() = moves[currentPlayerId].add(currentMove)
 
 }
