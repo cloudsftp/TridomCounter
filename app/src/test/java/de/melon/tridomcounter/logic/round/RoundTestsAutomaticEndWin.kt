@@ -34,7 +34,7 @@ class RoundTestsAutomaticEndWin {
 
         chooseCustomTridomVariant(round, 6)
 
-        chooseCustomPieces(round, 2)
+        chooseCustomPieces(round, 3)
 
         chooseFirstPlayer(round, firstPlayer, players)
 

@@ -123,9 +123,12 @@ class Round(val session: Session) : PointInterface {
     override fun getPoints(playerId: Int) = currentMove.points + moves[playerId].sumBy { it.points }
 
     private var numOfPieces = -1
-    private fun getPieces() = numOfPieces - moves.sumBy { it.sumBy { it.pieces } }
+    private fun getPieces()
+            = numOfPieces - currentMove.pieces - moves.sumBy { it.sumBy { it.pieces } }
+
     private var numOfStartPiecesEach = -1
-    private fun getPieces(playerId: Int) = numOfStartPiecesEach + moves[playerId].sumBy { it.pieces }
+    private fun getPieces(playerId: Int)
+            = numOfStartPiecesEach + currentMove.pieces + moves[playerId].sumBy { it.pieces }
 
     // CHOOSE_VARIANT
 
