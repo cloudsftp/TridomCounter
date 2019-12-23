@@ -5,13 +5,13 @@ import de.melon.tridomcounter.logic.Session
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Matchers.anyInt
+import org.mockito.Matchers
 import org.mockito.Mock
-import org.mockito.Mockito.doReturn
+import org.mockito.Mockito
 import org.mockito.runners.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RoundTestsChooseVariant {
+class ChooseFirstPlayerTest {
 
     @Mock
     lateinit var context: Context
@@ -21,25 +21,29 @@ class RoundTestsChooseVariant {
 
     @Test
     @Before
-    fun instantiate() {
+    fun setUp() {
         val session = Session(players)
         round = Round(session)
 
-        doReturn("").`when`(context).getString(anyInt())
+        Mockito.doReturn("").`when`(context).getString(Matchers.anyInt())
         round.context = context
 
-        for (i in players.indices)
-            checkPoints(round, i, 0)
+        chooseCustomTridomVariant(round, 20)
+
+        choose7Pieces(round)
 
     }
 
     @Test
-    fun testNormalVariant() = chooseTridomVariant(round, 0)
+    fun chooseFirstPlayerAsFirstPlayer()
+            = chooseFirstPlayer(round, 0, players)
 
     @Test
-    fun testSuperVariant() = chooseTridomVariant(round, 1)
+    fun chooseSecondPlayerAsFirstPlayer()
+            = chooseFirstPlayer(round, 1, players)
 
     @Test
-    fun testCustomVariant() = chooseCustomTridomVariant(round, 20)
+    fun chooseThirdPlayerAsFirstPlayer()
+            = chooseFirstPlayer(round, 2, players)
 
 }

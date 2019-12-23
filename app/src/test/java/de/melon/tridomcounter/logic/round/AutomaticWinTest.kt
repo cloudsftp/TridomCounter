@@ -11,7 +11,7 @@ import org.mockito.Mockito
 import org.mockito.runners.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RoundTestsAutomaticEndWin {
+class AutomaticWinTest {
 
     @Mock
     lateinit var context: Context

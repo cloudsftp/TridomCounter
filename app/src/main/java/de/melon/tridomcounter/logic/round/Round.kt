@@ -3,8 +3,7 @@ package de.melon.tridomcounter.logic.round
 import android.content.Context
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
-import de.melon.tridomcounter.logic.PointInterface
-import de.melon.tridomcounter.logic.Session
+import de.melon.tridomcounter.logic.*
 
 class Round(val session: Session) : PointInterface {
     lateinit var context: Context
@@ -116,7 +115,8 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    private var currentMove : AbstractMove = BaseMove
+    private var currentMove : AbstractMove =
+        BaseMove
 
     var currentPlayerId = -1
     val moves = Array(session.numberOfPlayers) {MutableList<AbstractMove>(0) { BaseMove }}
@@ -242,7 +242,8 @@ class Round(val session: Session) : PointInterface {
     // STALEMATE
 
     fun addPunishment(points: Int) {
-        currentMove = PunishMove(currentMove, points)
+        currentMove =
+            PunishMove(currentMove, points)
 
     }
 

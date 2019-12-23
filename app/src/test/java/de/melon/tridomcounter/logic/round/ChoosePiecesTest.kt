@@ -11,7 +11,7 @@ import org.mockito.Mockito
 import org.mockito.runners.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RoundTestsChoosePieces {
+class ChoosePiecesTest {
 
     @Mock
     lateinit var context: Context

@@ -1,4 +1,4 @@
-package de.melon.tridomcounter.logic.round
+package de.melon.tridomcounter.logic
 
 abstract class AbstractMove {
     open val points = 0

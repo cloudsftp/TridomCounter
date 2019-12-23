@@ -11,7 +11,7 @@ import org.mockito.Mockito
 import org.mockito.runners.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RoundTestsAutomaticEndStalemate {
+class AutomaticStalemateTest {
 
     @Mock
     lateinit var context: Context
