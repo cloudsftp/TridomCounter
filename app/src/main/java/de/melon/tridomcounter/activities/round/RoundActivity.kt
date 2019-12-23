@@ -27,6 +27,8 @@ class RoundActivity : AppCompatActivity() {
         session = GameData.sessions[current.sessionId]
         round = session.rounds[current.roundId]
 
+        actionRecyclerView.layoutManager = LinearLayoutManager(this)
+
         round.context = this
         buildActivity()
 
@@ -38,8 +40,7 @@ class RoundActivity : AppCompatActivity() {
     fun buildActivity() {
         title = round.title()
 
-        customActionRecyclerView.adapter = ActionCardAdapter(round, this)
-        customActionRecyclerView.layoutManager = LinearLayoutManager(this)
+        actionRecyclerView.adapter = ActionCardAdapter(round, this)
 
     }
 
