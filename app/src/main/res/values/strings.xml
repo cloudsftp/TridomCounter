@@ -37,7 +37,11 @@
 
     <string name="won">hat gewonnen!</string>
     <string name="add_bonus">Bonus hinzufügen</string>
-    <string name="finished">Fertig</string>
+    <string name="finish">Fertig</string>
+
+    <string name="stalemate">Unentschieden</string>
+    <string name="continue_punishment">Weiter</string>
+    <string name="add_punishment">Strafe</string>
 
     <string name="done">Runde vorbei</string>
     <string name="no_more_actions">Kein Aktionen mehr möglich</string>

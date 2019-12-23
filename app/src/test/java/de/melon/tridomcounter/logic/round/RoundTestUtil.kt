@@ -104,10 +104,32 @@ fun chooseFinish(round: Round) {
 
 }
 
-fun chooseBonus(round: Round, points: Int) {
+fun chooseAddBonus(round: Round, points: Int) {
     update(round)
 
     invokeComplexActionCard(round.cards[1], points)
+
+}
+
+fun checkStalemate(round: Round) {
+    update(round)
+
+    assert(round.cards[0] is ActionCardSimple)
+    assert(round.cards[1] is ActionCardComplex)
+
+}
+
+fun chooseAddPunishment(round: Round, points: Int) {
+    checkStalemate(round)
+
+    invokeComplexActionCard(round.cards[1], points)
+
+}
+
+fun chooseContinuePunishment(round: Round) {
+    checkStalemate(round)
+
+    invokeSimpleActionCard(round.cards[0])
 
 }
 

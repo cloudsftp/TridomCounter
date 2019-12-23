@@ -11,7 +11,7 @@ import org.mockito.Mockito
 import org.mockito.runners.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RoundTestsAutomaticEndWin {
+class RoundTestsAutomaticEndStalemate {
 
     @Mock
     lateinit var context: Context
@@ -44,42 +44,45 @@ class RoundTestsAutomaticEndWin {
     }
 
     @Test
-    fun noDraws() {
+    fun drawOnly() {
         var currentPlayer = 1
+        for (i in 0 until 3)
+            chooseDraw(round)
+        choosePass(round)
 
-        for (i in 0 until 2) {
-            currentPlayer = 1
-            choosePlace(round, 0)
+        currentPlayer = 2
+        for (i in 0 until 3)
+            chooseDraw(round)
+        choosePass(round)
 
-            currentPlayer = 2
-            choosePlace(round, 0)
+        currentPlayer = 0
+        choosePass(round)
 
-            currentPlayer = 0
-            choosePlace(round, 0)
+        checkStalemate(round)
+
+    }
+
+    @Test
+    fun punish() {
+        drawOnly()
+
+        for (i in 0 until 3) {
+            chooseAddPunishment(round, 10)
+            chooseContinuePunishment(round)
 
         }
 
-        checkWin(round)
-
-        chooseAddBonus(round, 15)
-
-        checkPointsAndUpdate(currentPlayer, 40)
+        checkPoints(round, 0, 40)
+        checkPoints(round, 1, -35)
+        checkPoints(round, 2, -35)
 
     }
 
     @Test
     fun done() {
-        noDraws()
-
-        chooseFinish(round)
+        punish()
 
         checkDone(round)
-
-    }
-
-    fun checkPointsAndUpdate(playerId: Int, delta: Int) {
-        points[playerId] += delta
-        checkPoints(round, playerId, points[playerId])
 
     }
 

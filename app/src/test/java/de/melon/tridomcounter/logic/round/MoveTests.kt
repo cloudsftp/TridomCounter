@@ -62,6 +62,18 @@ class MoveTests {
 
     }
 
+    @Test
+    fun punishMove() {
+        var move: AbstractMove = BaseMove
+
+        move = DrawMove(move)
+        move = Move(move, 15)
+        move = PunishMove(move, 10)
+
+        assertMove(move, 0, 0, 1)
+
+    }
+
     fun assertMove(move: AbstractMove, points: Int, pieces: Int, drawActions: Int) {
         assertEquals(points, move.points)
         assertEquals(pieces, move.pieces)

@@ -40,3 +40,6 @@ class WinBonusMove(innerMove: AbstractMove)
 
 class BonusMove(innerMove: AbstractMove, points: Int)
     : VirtualMove(innerMove, points)
+
+class PunishMove(innerMove: AbstractMove, points: Int)
+    : VirtualMove(innerMove, - points)
