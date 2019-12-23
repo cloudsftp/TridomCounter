@@ -1,4 +1,4 @@
-package de.melon.tridomcounter.logic.round
+package de.melon.tridomcounter.logic
 
 abstract class AbstractMove {
     open val points = 0
@@ -40,3 +40,6 @@ class WinBonusMove(innerMove: AbstractMove)
 
 class BonusMove(innerMove: AbstractMove, points: Int)
     : VirtualMove(innerMove, points)
+
+class PunishMove(innerMove: AbstractMove, points: Int)
+    : VirtualMove(innerMove, - points)

@@ -1,10 +1,8 @@
 package de.melon.tridomcounter.logic
 
-import org.junit.FixMethodOrder
+import org.junit.Before
 import org.junit.Test
-import org.junit.runners.MethodSorters
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class SessionTests {
 
     val numberOfPlayers = 2
@@ -18,8 +16,9 @@ class SessionTests {
 
     }
 
+    @Before
     @Test
-    fun t01_instantiation() {
+    fun setUp() {
         val players = Array(numberOfPlayers) {String()}
         session = Session(players)
 
@@ -28,7 +27,7 @@ class SessionTests {
     }
 
     @Test
-    fun t02_addRound() {
+    fun addRound() {
         val roundId = session.newRound()
         val round = session.rounds[roundId]
 

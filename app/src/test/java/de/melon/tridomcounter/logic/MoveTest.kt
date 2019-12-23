@@ -1,14 +1,15 @@
-package de.melon.tridomcounter.logic.round
+package de.melon.tridomcounter.logic
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test
 
-class MoveTests {
+class MoveTest {
 
     @Test
     fun instantiateDrawMove() {
-        val move = DrawMove(BaseMove)
+        val move =
+            DrawMove(BaseMove)
 
         assertMove(move, -5, 1, 1)
 
@@ -16,7 +17,10 @@ class MoveTests {
 
     @Test
     fun instantiateMove() {
-        val move = Move(BaseMove, 10)
+        val move = Move(
+            BaseMove,
+            10
+        )
 
         assertMove(move, 10, -1, 0)
 
@@ -24,7 +28,8 @@ class MoveTests {
 
     @Test
     fun drawMoveAndMove() {
-        var move : AbstractMove = BaseMove
+        var move : AbstractMove =
+            BaseMove
 
         move = DrawMove(move)
         move = DrawMove(move)
@@ -36,7 +41,8 @@ class MoveTests {
 
     @Test
     fun bonusMove() {
-        var move : AbstractMove = BaseMove
+        var move : AbstractMove =
+            BaseMove
 
         move = DrawMove(move)
         move = Move(move, 15)
@@ -52,13 +58,27 @@ class MoveTests {
 
     @Test
     fun winBonusMove() {
-        var move : AbstractMove = BaseMove
+        var move : AbstractMove =
+            BaseMove
 
         move = DrawMove(move)
         move = Move(move, 15)
         move = WinBonusMove(move)
 
         assertMove(move, 35, 0, 1)
+
+    }
+
+    @Test
+    fun punishMove() {
+        var move: AbstractMove =
+            BaseMove
+
+        move = DrawMove(move)
+        move = Move(move, 15)
+        move = PunishMove(move, 10)
+
+        assertMove(move, 0, 0, 1)
 
     }
 

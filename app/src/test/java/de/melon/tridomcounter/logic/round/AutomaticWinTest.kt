@@ -11,7 +11,7 @@ import org.mockito.Mockito
 import org.mockito.runners.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RoundTestsAutomaticEndWin {
+class AutomaticWinTest {
 
     @Mock
     lateinit var context: Context
@@ -61,7 +61,7 @@ class RoundTestsAutomaticEndWin {
 
         checkWin(round)
 
-        chooseBonus(round, 15)
+        chooseAddBonus(round, 15)
 
         checkPointsAndUpdate(currentPlayer, 40)
 
@@ -69,21 +69,7 @@ class RoundTestsAutomaticEndWin {
 
     @Test
     fun done() {
-        var currentPlayer = 1
-
-        for (i in 0 until 2) {
-            currentPlayer = 1
-            choosePlace(round, 0)
-
-            currentPlayer = 2
-            choosePlace(round, 0)
-
-            currentPlayer = 0
-            choosePlace(round, 0)
-
-        }
-
-        checkWin(round)
+        noDraws()
 
         chooseFinish(round)
 
