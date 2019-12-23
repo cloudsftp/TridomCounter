@@ -47,7 +47,8 @@
                         android:paddingTop="@dimen/action_card_content_padding"
                         android:gravity="end"
                         android:textSize="@dimen/action_card_text_size"
-                        android:textColor="@color/color_text" />
+                        android:textColor="@color/color_text"
+                        android:imeOptions="actionDone" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
