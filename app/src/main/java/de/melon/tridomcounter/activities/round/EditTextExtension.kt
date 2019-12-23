@@ -1,16 +1,18 @@
 package de.melon.tridomcounter.activities.round
 
-import android.view.inputmethod.EditorInfo
+import android.view.KeyEvent
 import android.widget.EditText
 
-fun EditText.onSubmit(func: () -> Unit) {
-    setOnEditorActionListener { _, actionId, _ ->
+fun EditText.onSubmit(func: () -> Unit) = setOnKeyListener {
+    _, keyCode, event ->
 
-        if (actionId == EditorInfo.IME_ACTION_DONE) {
-            func()
-        }
+    if ((event.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+        func()
 
         true
 
     }
+
+    false
+
 }
