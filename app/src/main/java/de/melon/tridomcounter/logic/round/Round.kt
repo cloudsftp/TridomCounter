@@ -38,7 +38,13 @@ class Round(val session: Session) : PointInterface {
     fun help() : String {
         return string(when (state) {
             RoundState.VARIANT -> R.string.help_variant
-            else -> R.string.place_holder
+            RoundState.PIECES -> R.string.help_pieces
+            RoundState.FIRST_PLAYER -> R.string.help_first_player
+            RoundState.FIRST_MOVE -> R.string.help_first_move
+            RoundState.NORMAL -> R.string.help_normal
+            RoundState.WIN -> R.string.help_win
+            RoundState.STALEMATE -> R.string.help_stalemate
+            RoundState.DONE -> R.string.help_stalemate
         })
 
     }

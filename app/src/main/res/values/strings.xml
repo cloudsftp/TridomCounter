@@ -28,34 +28,57 @@
         alle Steine mit 2 gleichen Zahlen
         und alle Steine, bei denen die Zahlen im Uhrzeigersinn aufsteigen).\n
         Super Tridom hat 76 Steine (Alle Steine, die Tridom auch hat
-        und zusätzlihc alle Steine,
+        und zusätzlch alle Steine,
         bei denen die Zahlen gegen den Uhrzeigersinn aufsteigen).\n
         Man kan selbstverständlich auch eine eigene Variante angeben,
         dazu bitte die Anzahl der Steine eingeben.
     </string>
 
+    // PIECES
     <string name="choose_pieces">Anzahl der Steine am Anfang wählen</string>
     <string name="seven">7</string>
     <string name="nine">9</string>
+    <string name="help_pieces">
+        Man kann mit unterschiedlich vielen Steinen zu Beginn spielen.\n
+        Der Standard sind 7 Steine bei mehr als 2 Spielern und 9 bei 2 Spielern.\n
+        Eine eigene Anzahl kann aber auch eingegeben werden.
+    </string>
 
+    // FIRST_PLAYER
     <string name="choose_first_player">Ersten Spieler wählen</string>
+    <string name="help_first_player">
+        Hier muss der Spieler gewählt werden, der Anfangen darf.\n
+        Das ist der Spieler mit dem höchsten Stein mit 3 gleichen Zahlen (Triple),
+        dabei ist der Triple 0 Stein aber der höchste und danach kommt erst Triple 5, Triple 4, etc.\n
+        Falls niemand einen Triple-Stein hat, so beginnt der Spieler mit dem höchsten Stein
+        (Alle Zahlen aufaddiert).
+    </string>
 
+    // FIRST_MOVE
     <string name="choose_first_piece">Ersten Stein wählen</string>
     <string name="triple">Triple</string>
     <string name="other_piece">Anderer Stein</string>
+    <string name="help_first_move"></string>
 
+    // NORMAL
     <string name="make_move">Legen</string>
     <string name="draw">Ziehen</string>
     <string name="pass">Weiter</string>
+    <string name="help_normal"></string>
 
+    // WIN
     <string name="won">hat gewonnen!</string>
     <string name="add_bonus">Bonus hinzufügen</string>
     <string name="finish">Fertig</string>
+    <string name="help_win"></string>
 
+    // STALEMATE
     <string name="stalemate">Unentschieden</string>
     <string name="continue_punishment">Weiter</string>
     <string name="add_punishment">Strafe</string>
+    <string name="help_stalemate"></string>
 
+    //DONE
     <string name="done">Runde vorbei</string>
     <string name="no_more_actions">Kein Aktionen mehr möglich</string>
 
