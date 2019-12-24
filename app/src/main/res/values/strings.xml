@@ -58,29 +58,60 @@
     <string name="choose_first_piece">Ersten Stein wählen</string>
     <string name="triple">Triple</string>
     <string name="other_piece">Anderer Stein</string>
-    <string name="help_first_move"></string>
+    <string name="help_first_move">
+        Hier wird der Stein angegeben, der von dem ersten Spieler gelegt wird.\n
+        Dies ist genau der Stein, wegen dem er Anfangen darf.
+        Das bedeutet, hatte Spieler A den Triple 5 Stein und darf deshalb Anfangen,
+        so muss er diesen Stein jetzt legen.\n
+        Falls es kein Triple Stein war, so kann man unten den Wert (Alle Zahlen Aufaddiert) eingeben.
+    </string>
 
     // NORMAL
     <string name="make_move">Legen</string>
     <string name="draw">Ziehen</string>
     <string name="pass">Weiter</string>
-    <string name="help_normal"></string>
+    <string name="help_normal">
+        Hier gibt es 3 Möglichkeiten:\n
+        1. Man kann Legen. Dann gibt man den Wert des Steines (Alle Zahlen Aufaddiert),
+        den man legt einfach ein und bestätigt.
+        Falls man seinen letzten Stein gelegt hat, hat man gewonnen
+        (das erkennt die App automatisch).\n
+        2. Man kann nicht Legen.
+        Dann drückt man auf die Ziehen-Karte und zieht einen Stein.
+        Man darf insgesamt 3 mal Ziehen, danach gibt es Punktabzug,
+        falls man nicht kann (übernimmt die App).
+        Nach 3 mal Ziehen oder falls keine Steine mehr übrig sind (erkennt auch die App),
+        verwandelt die Ziehen-Karte in die Weiter-Karte.
+    </string>
 
     // WIN
     <string name="won">hat gewonnen!</string>
     <string name="add_bonus">Bonus hinzufügen</string>
     <string name="finish">Fertig</string>
-    <string name="help_win"></string>
+    <string name="help_win">
+        Herzlichen Glückwunsch, du hast gewonnen!\n
+        Nun kannst du die Werte aller Steine,
+        die deine Mitspieler noch nicht ausgespielt haben,
+        nacheinander eingeben.
+        Die Punkte werden dir Gutgeschrieben.
+    </string>
 
     // STALEMATE
     <string name="stalemate">Unentschieden</string>
     <string name="continue_punishment">Weiter</string>
     <string name="add_punishment">Strafe</string>
-    <string name="help_stalemate"></string>
+    <string name="help_stalemate">
+        Die App hat erkannt, dass es keine Möglichkeiten zum Anlegen mehr gibt!\n
+        Das liegt daran, dass alle Spieler in der letzten Runde keinen Stein gelegt haben
+        und es keine Steine mehr gibt, von denen man Ziehen kann.\n
+        Nun geben alle Spieler nacheinander die Werte der Steine ein,
+        die sie noch nicht Ausgespielt haben.
+        Die Punkte werden dann von dem jeweiligen Spieler Abgezogen.
+    </string>
 
     //DONE
     <string name="done">Runde vorbei</string>
-    <string name="no_more_actions">Kein Aktionen mehr möglich</string>
+    <string name="no_more_actions">Keine Aktionen mehr möglich</string>
 
     <string name="back_message_session">Zurück-Button für alle Sessions</string>
     <string name="back_message_round">Zurück-Button für alle Runden</string>
