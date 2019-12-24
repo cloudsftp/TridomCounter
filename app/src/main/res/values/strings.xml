@@ -81,7 +81,7 @@
         Man darf insgesamt 3 mal Ziehen, danach gibt es Punktabzug,
         falls man nicht kann (übernimmt die App).
         Nach 3 mal Ziehen oder falls keine Steine mehr übrig sind (erkennt auch die App),
-        verwandelt die Ziehen-Karte in die Weiter-Karte.
+        verwandelt sich die Ziehen-Karte in die Weiter-Karte.
     </string>
 
     // WIN
@@ -112,6 +112,11 @@
     //DONE
     <string name="done">Runde vorbei</string>
     <string name="no_more_actions">Keine Aktionen mehr möglich</string>
+    <string name="help_done">
+        Die Runde ist vorbei.\n
+        Mit dem Zurück-Button kommen Sie zurück zur Übersicht der Runden.\n
+        Der Spieler, der als erstes die 400 Punkte erreicht, hat gewonnen.
+    </string>
 
     <string name="back_message_session">Zurück-Button für alle Sessions</string>
     <string name="back_message_round">Zurück-Button für alle Runden</string>
