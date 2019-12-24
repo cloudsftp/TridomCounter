@@ -97,15 +97,16 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
                 viewHolder.actionNameTextView.text = card.displayText
 
                 fun getInput() {
-                    vibrate()
-
                     val pointsString = viewHolder.inputEditText.text.toString()
                     if (pointsString.isNotEmpty()) {
                         val points = pointsString.toInt()
                         card.function(points)
+                        vibrate()
+
+                        activity.buildActivity()
+
                     }
 
-                    activity.buildActivity()
                 }
 
                 viewHolder.itemView.setOnClickListener { getInput() }

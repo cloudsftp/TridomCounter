@@ -11,7 +11,7 @@ import org.mockito.Mockito
 import org.mockito.runners.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RoundTestsNormal {
+class NormalStateTest {
 
     @Mock
     lateinit var context: Context
@@ -33,6 +33,8 @@ class RoundTestsNormal {
         round.context = context
 
         chooseCustomTridomVariant(round, 20)
+
+        choose7Pieces(round)
 
         chooseFirstPlayer(round, firstPlayer, players)
 

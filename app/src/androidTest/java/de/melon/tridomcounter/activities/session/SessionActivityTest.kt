@@ -15,8 +15,8 @@ import de.melon.tridomcounter.activities.menu.MainActivity
 import de.melon.tridomcounter.activities.round.RoundActivity
 import de.melon.tridomcounter.activities.util.*
 import de.melon.tridomcounter.data.GameData
-import de.melon.tridomcounter.logic.round.BaseMove
-import de.melon.tridomcounter.logic.round.Move
+import de.melon.tridomcounter.logic.BaseMove
+import de.melon.tridomcounter.logic.Move
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

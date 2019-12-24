@@ -11,15 +11,13 @@ import org.mockito.Mockito
 import org.mockito.runners.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RoundTestsFirstMove {
+class ChoosePiecesTest {
 
     @Mock
     lateinit var context: Context
 
     val players = arrayOf("Fabian", "Paul", "Tim")
     lateinit var round: Round
-
-    val firstPlayer = 0
 
     @Test
     @Before
@@ -32,36 +30,15 @@ class RoundTestsFirstMove {
 
         chooseCustomTridomVariant(round, 20)
 
-        chooseFirstPlayer(round, firstPlayer, players)
-
     }
 
     @Test
-    fun chooseTriple0()
-            = chooseFirstPiece(round, firstPlayer, 0, 60)
+    fun testChoose7Pieces() = choose7Pieces(round)
 
     @Test
-    fun chooseTriple1()
-            = chooseFirstPiece(round, firstPlayer, 1, 23)
+    fun testChoose9Pieces() = choose9Pieces(round)
 
     @Test
-    fun chooseTriple2()
-            = chooseFirstPiece(round, firstPlayer, 2, 26)
-
-    @Test
-    fun chooseTriple3()
-            = chooseFirstPiece(round, firstPlayer, 3, 29)
-
-    @Test
-    fun chooseTriple4()
-            = chooseFirstPiece(round, firstPlayer, 4, 32)
-
-    @Test
-    fun chooseTriple5()
-            = chooseFirstPiece(round, firstPlayer, 5, 35)
-
-    @Test
-    fun chooseCustom()
-            = chooseCustomFirstPiece(round, firstPlayer, 13)
+    fun testChooseCustomNumberOfPieces() = chooseCustomPieces(round, 20)
 
 }
