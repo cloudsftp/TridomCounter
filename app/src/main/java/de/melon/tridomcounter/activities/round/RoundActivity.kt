@@ -1,7 +1,10 @@
 package de.melon.tridomcounter.activities.round
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +16,7 @@ import de.melon.tridomcounter.logic.Session
 import de.melon.tridomcounter.logic.round.Round
 import kotlinx.android.synthetic.main.activity_round.*
 import kotlinx.android.synthetic.main.content_round.*
+
 
 class RoundActivity : AppCompatActivity() {
 
@@ -51,5 +55,24 @@ class RoundActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() = backToSession()
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_round, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val alertDialog: AlertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setTitle(getString(R.string.help))
+        alertDialog.setMessage(round.help())
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK") {
+                dialog, _ -> dialog.dismiss()
+        }
+
+        alertDialog.show()
+
+        return true
+
+    }
 
 }
