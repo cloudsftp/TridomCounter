@@ -71,7 +71,7 @@
     <string name="draw">Ziehen</string>
     <string name="pass">Weiter</string>
     <string name="help_normal">
-        Hier gibt es 3 Möglichkeiten:\n
+        Hier gibt es 2 Möglichkeiten:\n
         1. Man kann Legen. Dann gibt man den Wert des Steines (Alle Zahlen Aufaddiert),
         den man legt einfach ein und bestätigt.
         Falls man seinen letzten Stein gelegt hat, hat man gewonnen
@@ -115,7 +115,6 @@
 
     <string name="back_message_session">Zurück-Button für alle Sessions</string>
     <string name="back_message_round">Zurück-Button für alle Runden</string>
-
 
     <string name="title_activity_session">Session</string>
     <string name="title_activity_new_session">Neue Session</string>
