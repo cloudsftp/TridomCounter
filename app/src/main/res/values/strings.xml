@@ -15,11 +15,24 @@
 
     // round
     <string name="round">Runde</string>
+    <string name="help">Hinweis</string>
 
+    // VARIANT
     <string name="choose_variant">Variante wählen</string>
     <string name="tridom">Tridom</string>
     <string name="super_tridom">Super Tridom</string>
     <string name="custom_number">Andere Anzahl:</string>
+    <string name="help_variant">
+        Es gibt unterschiedliche Varianten dieses Spieles.\n
+        Tridom hat 56 Steine (Alle Steine mit 3 gleichen Zahlen,
+        alle Steine mit 2 gleichen Zahlen
+        und alle Steine, bei denen die Zahlen im Uhrzeigersinn aufsteigen).\n
+        Super Tridom hat 76 Steine (Alle Steine, die Tridom auch hat
+        und zusätzlihc alle Steine,
+        bei denen die Zahlen gegen den Uhrzeigersinn aufsteigen).\n
+        Man kan selbstverständlich auch eine eigene Variante angeben,
+        dazu bitte die Anzahl der Steine eingeben.
+    </string>
 
     <string name="choose_pieces">Anzahl der Steine am Anfang wählen</string>
     <string name="seven">7</string>

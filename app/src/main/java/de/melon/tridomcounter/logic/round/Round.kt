@@ -9,6 +9,8 @@ class Round(val session: Session) : PointInterface {
     lateinit var context: Context
     fun string(id: Int) = context.getString(id)
 
+    private var state = RoundState.VARIANT
+
     fun title() : String {
         val titleBuilder = StringBuilder(context.getString(R.string.round))
         titleBuilder.append(' ')
@@ -33,7 +35,13 @@ class Round(val session: Session) : PointInterface {
 
     }
 
-    private var state = RoundState.VARIANT
+    fun help() : String {
+        return string(when (state) {
+            RoundState.VARIANT -> R.string.help_variant
+            else -> R.string.place_holder
+        })
+
+    }
 
     val cards = mutableListOf<Card>()
 
