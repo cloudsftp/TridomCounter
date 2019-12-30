@@ -32,7 +32,7 @@ class NormalStateTest {
         Mockito.doReturn("").`when`(context).getString(Matchers.anyInt())
         round.context = context
 
-        chooseCustomTridomVariant(round, 20)
+        chooseCustomTridomVariant(round, 40)
 
         choose7Pieces(round)
 
@@ -77,7 +77,6 @@ class NormalStateTest {
         chooseDraw(round)
         choosePlace(round, 10)
         checkPointsAndUpdate(currentPlayer, 5)
-        points[currentPlayer] += 5
 
         currentPlayer = 2
         for (i in 0 until 2)
@@ -100,6 +99,51 @@ class NormalStateTest {
             chooseDraw(round)
         choosePass(round)
         checkPointsAndUpdate(currentPlayer, -25)
+
+    }
+
+    @Test
+    fun undoPlaceSecondPlayer() {
+        var currentPlayer = 1
+        chooseUndo(round)
+        checkPointsAndUpdate(firstPlayer, -40)
+
+        currentPlayer = 0
+        chooseFirstPiece(round, firstPlayer, 0, 60)
+        checkPointsAndUpdate(firstPlayer, 40)
+
+    }
+
+    @Test
+    fun undoPlaceThirdPlayer() {
+        var currentPlayer = 1
+        choosePlace(round, 10)
+        checkPointsAndUpdate(currentPlayer, 10)
+
+        currentPlayer = 2
+        chooseUndo(round)
+        currentPlayer = 1
+        checkPointsAndUpdate(currentPlayer, -10)
+
+    }
+
+    @Test
+    fun undoDraw() {
+        var currentPlayer = 1
+        chooseDraw(round)
+        checkPointsAndUpdate(currentPlayer, -5)
+        chooseUndo(round)
+        checkPointsAndUpdate(currentPlayer, 5)
+
+        choosePlace(round, 10)
+        checkPointsAndUpdate(currentPlayer, 10)
+
+        currentPlayer = 2
+        chooseDraw(round)
+        chooseDraw(round)
+        checkPointsAndUpdate(currentPlayer, -10)
+        chooseUndo(round)
+        checkPointsAndUpdate(currentPlayer, 5)
 
     }
 

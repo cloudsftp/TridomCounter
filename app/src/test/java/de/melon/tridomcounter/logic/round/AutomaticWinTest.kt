@@ -61,14 +61,23 @@ class AutomaticWinTest {
 
         checkWin(round)
 
-        chooseAddBonus(round, 15)
-
-        checkPointsAndUpdate(currentPlayer, 40)
+        checkPointsAndUpdate(currentPlayer, 25)
 
     }
 
     @Test
-    fun done() {
+    fun addBonus() {
+        noDraws()
+
+        val currentPlayer = 0
+
+        chooseAddBonus(round, 15)
+        checkPointsAndUpdate(currentPlayer, 15)
+
+    }
+
+    @Test
+    fun finish() {
         noDraws()
 
         chooseFinish(round)
@@ -77,7 +86,46 @@ class AutomaticWinTest {
 
     }
 
-    fun checkPointsAndUpdate(playerId: Int, delta: Int) {
+    @Test
+    fun undoWinningMove() {
+        noDraws()
+
+        val currentPlayer = 0
+
+        chooseUndo(round)
+        checkPointsAndUpdate(currentPlayer, -25)
+
+        choosePlace(round, 0)
+        checkPointsAndUpdate(currentPlayer, 25)
+
+        checkWin(round)
+
+    }
+
+    @Test
+    fun undoAddBonus() {
+        addBonus()
+
+        val currentPlayer = 0
+
+        chooseUndo(round)
+        checkPointsAndUpdate(currentPlayer, -15)
+
+    }
+
+    @Test
+    fun undoFinish() {
+        finish()
+
+        val currentPlayer = 0
+
+        chooseUndo(round)
+
+        checkWin(round)
+
+    }
+
+    private fun checkPointsAndUpdate(playerId: Int, delta: Int) {
         points[playerId] += delta
         checkPoints(round, playerId, points[playerId])
 

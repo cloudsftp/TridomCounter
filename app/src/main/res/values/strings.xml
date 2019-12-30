@@ -16,6 +16,7 @@
     // round
     <string name="round">Runde</string>
     <string name="help">Hinweis</string>
+    <string name="undo">Schritt zurück</string>
 
     // VARIANT
     <string name="choose_variant">Variante wählen</string>
@@ -126,5 +127,8 @@
     <string name="title_activity_new_session">Neue Session</string>
     <string name="title_activity_round">Runde</string>
     <string name="title_activity_new_round">Neue Runde</string>
+
+
+    <string name="undefined">undefined</string>
 
 </resources>
