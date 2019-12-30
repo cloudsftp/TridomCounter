@@ -10,8 +10,8 @@ android {
         applicationId "de.melon.tridomcounter"
         minSdkVersion 26
         targetSdkVersion 29
-        versionCode 4
-        versionName "00.03"
+        versionCode 5
+        versionName "00.04"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
