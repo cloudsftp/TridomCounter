@@ -140,6 +140,13 @@ fun checkDone(round: Round) {
 
 }
 
+fun chooseUndo(round: Round) {
+    update(round)
+
+    invokeSimpleActionCard(round.cards.last())
+
+}
+
 fun update(round: Round) = round.updateCards()
 
 fun invokeComplexActionCard(card: Card, arg: Int)

@@ -127,6 +127,8 @@ class Round(val session: Session) : PointInterface {
 
         }
 
+
+
     }
 
     private var currentMove : AbstractMove =
@@ -145,6 +147,13 @@ class Round(val session: Session) : PointInterface {
     private var numOfStartPiecesEach = -1
     private fun getPieces(playerId: Int)
             = numOfStartPiecesEach + currentMove.pieces + moves[playerId].sumBy { it.pieces }
+
+    // undo
+
+    private fun undo() {
+
+
+    }
 
     // VARIANT
 
