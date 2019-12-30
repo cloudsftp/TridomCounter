@@ -2,6 +2,7 @@ package de.melon.tridomcounter.logic.round
 
 import android.content.Context
 import de.melon.tridomcounter.logic.Session
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,5 +41,14 @@ class ChoosePiecesTest {
 
     @Test
     fun testChooseCustomNumberOfPieces() = chooseCustomPieces(round, 20)
+
+    @Test
+    fun undo() {
+        chooseUndo(round)
+
+        update(round)
+        assertEquals(3, round.cards.size)
+
+    }
 
 }

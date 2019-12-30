@@ -129,7 +129,8 @@ class Round(val session: Session) : PointInterface {
 
         }
 
-        cards.add(ActionCardSimple(string(R.string.undo), ::undo))
+        if (state != RoundState.VARIANT)
+            cards.add(ActionCardSimple(string(R.string.undo), ::undo))
 
     }
 
@@ -153,6 +154,15 @@ class Round(val session: Session) : PointInterface {
 
     private fun undo() {
         when (state) {
+            RoundState.PIECES -> state = RoundState.VARIANT
+
+            RoundState.FIRST_PLAYER -> state = RoundState.PIECES
+
+            RoundState.FIRST_MOVE -> {
+                state = RoundState.FIRST_PLAYER
+                currentMove = BaseMove
+            }
+
             RoundState.NORMAL -> {
                 restoreSavedMove()
 

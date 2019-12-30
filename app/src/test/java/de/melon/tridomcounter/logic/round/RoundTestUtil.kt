@@ -8,7 +8,7 @@ fun checkPoints(round: Round, playerId: Int, points: Int)
 fun chooseTridomVariant(round: Round, variant: Int) {
     update(round)
 
-    assertEquals(4, round.cards.size)
+    assertEquals(3, round.cards.size)
 
     invokeSimpleActionCard(round.cards[variant])
 
@@ -17,7 +17,7 @@ fun chooseTridomVariant(round: Round, variant: Int) {
 fun chooseCustomTridomVariant(round: Round, pieces: Int) {
     update(round)
 
-    assertEquals(4, round.cards.size)
+    assertEquals(3, round.cards.size)
 
     invokeComplexActionCard(round.cards[2], pieces)
 
