@@ -139,7 +139,8 @@ class Round(val session: Session) : PointInterface {
 
     private var numOfPieces = -1
     private fun getPieces()
-            = numOfPieces - currentMove.drawActions - moves.sumBy { it.sumBy { it.drawActions } }
+            = numOfPieces - currentMove.drawActions - moves.sumBy { it.sumBy { it.drawActions } } -
+                session.players.size * numOfStartPiecesEach
 
     private var numOfStartPiecesEach = -1
     private fun getPieces(playerId: Int)

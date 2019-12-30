@@ -32,9 +32,9 @@ class AutomaticStalemateTest {
         Mockito.doReturn("").`when`(context).getString(Matchers.anyInt())
         round.context = context
 
-        chooseCustomTridomVariant(round, 6)
+        chooseCustomTridomVariant(round, 12)
 
-        chooseCustomPieces(round, 3)
+        chooseCustomPieces(round, 2)
 
         chooseFirstPlayer(round, firstPlayer, players)
 
