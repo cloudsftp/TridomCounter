@@ -153,31 +153,32 @@ class Round(val session: Session) : PointInterface {
 
     private fun undo() {
         when (state) {
-            RoundState.WIN,
             RoundState.NORMAL -> {
+                restoreSavedMove()
+
+                if (currentMove is StartMove)
+                    state = RoundState.FIRST_MOVE
+
+            }
+
+            RoundState.WIN -> {
                 if (currentMove is WinBonusMove) {
                     currentMove = currentMove.innerMove as Move
                     state = RoundState.NORMAL
                 }
 
-                if (currentMove is BaseMove) {
-                    currentPlayerId -= 1
-                    if (currentPlayerId < 0)
-                        currentPlayerId = session.players.indices.last
-
-                    val playerMoves = moves[currentPlayerId]
-                    currentMove = playerMoves.removeAt(playerMoves.indices.last)
-
-                }
-
-                val innerMove = currentMove.innerMove
-                if (innerMove is AbstractMove)
-                    currentMove = innerMove
-
-                if (innerMove is StartMove)
-                    state = RoundState.FIRST_MOVE
+                restoreSavedMove()
 
             }
+
+            RoundState.STALEMATE -> {
+                restoreSavedMove()
+
+                if (currentMove is DrawMove || currentMove is BaseMove)
+                    state = RoundState.NORMAL
+
+            }
+
             RoundState.DONE -> {
                 val playerMoves = moves[currentPlayerId]
                 currentMove = playerMoves.removeAt(playerMoves.indices.last)
@@ -190,7 +191,26 @@ class Round(val session: Session) : PointInterface {
 
             }
 
+            else -> state = RoundState.UNDEFINED
+
         }
+
+    }
+
+    fun restoreSavedMove() {
+        if (currentMove is BaseMove) {
+            currentPlayerId -= 1
+            if (currentPlayerId < 0)
+                currentPlayerId = session.players.indices.last
+
+            val playerMoves = moves[currentPlayerId]
+            currentMove = playerMoves.removeAt(playerMoves.indices.last)
+
+        }
+
+        val innerMove = currentMove.innerMove
+        if (innerMove is AbstractMove)
+            currentMove = innerMove
 
     }
 
