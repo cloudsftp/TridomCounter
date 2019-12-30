@@ -28,8 +28,7 @@ class MoveTest {
 
     @Test
     fun drawMoveAndMove() {
-        var move : AbstractMove =
-            BaseMove
+        var move : AbstractMove = BaseMove
 
         move = DrawMove(move)
         move = DrawMove(move)
@@ -41,8 +40,7 @@ class MoveTest {
 
     @Test
     fun bonusMove() {
-        var move : AbstractMove =
-            BaseMove
+        var move : AbstractMove = BaseMove
 
         move = DrawMove(move)
         move = Move(move, 15)
@@ -58,8 +56,7 @@ class MoveTest {
 
     @Test
     fun winBonusMove() {
-        var move : AbstractMove =
-            BaseMove
+        var move : AbstractMove = BaseMove
 
         move = DrawMove(move)
         move = Move(move, 15)
@@ -71,8 +68,7 @@ class MoveTest {
 
     @Test
     fun punishMove() {
-        var move: AbstractMove =
-            BaseMove
+        var move: AbstractMove = BaseMove
 
         move = DrawMove(move)
         move = Move(move, 15)
@@ -91,8 +87,7 @@ class MoveTest {
 
     @Test
     fun isOver() {
-        var move : AbstractMove =
-            BaseMove
+        var move : AbstractMove = BaseMove
 
         move = DrawMove(move)
         move = DrawMove(move)

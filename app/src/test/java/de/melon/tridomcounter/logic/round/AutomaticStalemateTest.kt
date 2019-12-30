@@ -32,9 +32,9 @@ class AutomaticStalemateTest {
         Mockito.doReturn("").`when`(context).getString(Matchers.anyInt())
         round.context = context
 
-        chooseCustomTridomVariant(round, 6)
+        chooseCustomTridomVariant(round, 12)
 
-        chooseCustomPieces(round, 3)
+        chooseCustomPieces(round, 2)
 
         chooseFirstPlayer(round, firstPlayer, players)
 
@@ -79,9 +79,60 @@ class AutomaticStalemateTest {
     }
 
     @Test
-    fun done() {
+    fun undoStalemate() {
+        drawOnly()
+
+        val currentPlayer = 0
+
+        chooseUndo(round)
+        choosePass(round)
+        checkStalemate(round)
+
+    }
+
+    @Test
+    fun undoPunish() {
+        drawOnly()
+
+        for (i in 0 until 2) {
+            chooseAddPunishment(round, 10)
+            chooseAddPunishment(round, 10)
+            chooseContinuePunishment(round)
+
+        }
+
+        chooseAddPunishment(round, 10)
+        chooseAddPunishment(round, 10)
+
+        var currentPlayer = 0
+
+        checkPoints(round, currentPlayer, 30)
+        chooseUndo(round)
+        checkPoints(round, currentPlayer, 40)
+        chooseUndo(round)
+        checkPoints(round, currentPlayer, 50)
+
+        currentPlayer = 2
+        checkPoints(round, currentPlayer, -45)
+        chooseUndo(round)
+        checkPoints(round, currentPlayer, -35)
+
+    }
+
+    @Test
+    fun finish() {
         punish()
 
+        checkDone(round)
+
+    }
+
+    @Test
+    fun undoFinish() {
+        finish()
+
+        chooseUndo(round)
+        chooseContinuePunishment(round)
         checkDone(round)
 
     }

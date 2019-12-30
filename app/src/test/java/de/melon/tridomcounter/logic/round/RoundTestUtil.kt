@@ -28,7 +28,7 @@ fun choose9Pieces(round: Round) = choosePieces(round, 1)
 fun choosePieces(round: Round, option: Int) {
     update(round)
 
-    assertEquals(3, round.cards.size)
+    assertEquals(4, round.cards.size)
 
     invokeSimpleActionCard(round.cards[option])
 
@@ -37,7 +37,7 @@ fun choosePieces(round: Round, option: Int) {
 fun chooseCustomPieces(round: Round, pieces: Int) {
     update(round)
 
-    assertEquals(3, round.cards.size)
+    assertEquals(4, round.cards.size)
 
     invokeComplexActionCard(round.cards[2], pieces)
 
@@ -46,7 +46,7 @@ fun chooseCustomPieces(round: Round, pieces: Int) {
 fun chooseFirstPlayer(round: Round, playerId: Int, players: Array<String>) {
     update(round)
 
-    assertEquals(players.size, round.cards.size)
+    assertEquals(players.size + 1, round.cards.size)
 
     invokeChoiceActionCard(round.cards[playerId], playerId)
 
@@ -88,12 +88,13 @@ fun chooseDraw(round: Round) {
 fun checkWin(round: Round) {
     update(round)
 
-    assertEquals(4, round.cards.size)
+    assertEquals(5, round.cards.size)
 
     assert(round.cards[0] is ActionCardSimple)
     assert(round.cards[1] is ActionCardComplex)
     assert(round.cards[2] is DisplayCard)
     assert(round.cards[3] is DisplayCard)
+    assert(round.cards[4] is ActionCardSimple)
 
 }
 
@@ -136,7 +137,14 @@ fun chooseContinuePunishment(round: Round) {
 fun checkDone(round: Round) {
     update(round)
 
-    assertEquals(1, round.cards.size)
+    assertEquals(2, round.cards.size)
+
+}
+
+fun chooseUndo(round: Round) {
+    update(round)
+
+    invokeSimpleActionCard(round.cards.last())
 
 }
 

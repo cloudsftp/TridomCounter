@@ -26,6 +26,7 @@ class Round(val session: Session) : PointInterface {
                 RoundState.WIN -> "${session.players[currentPlayerId]} ${string(R.string.won)}"
                 RoundState.STALEMATE -> "${string(R.string.stalemate)} - ${session.players[currentPlayerId]}"
                 RoundState.DONE -> string(R.string.done)
+                RoundState.UNDEFINED -> string(R.string.undefined)
             }
         )
 
@@ -44,7 +45,8 @@ class Round(val session: Session) : PointInterface {
             RoundState.NORMAL -> R.string.help_normal
             RoundState.WIN -> R.string.help_win
             RoundState.STALEMATE -> R.string.help_stalemate
-            RoundState.DONE -> R.string.help_stalemate
+            RoundState.DONE -> R.string.help_done
+            RoundState.UNDEFINED -> R.string.undefined
         })
 
     }
@@ -121,16 +123,18 @@ class Round(val session: Session) : PointInterface {
 
             while (move is WrapperMove) {
                 cards.add(DisplayCard(move.deltaPoints.toString()))
-                move = move.innerMove
+                move = move.innerMove as AbstractMove
 
             }
 
         }
 
+        if (state != RoundState.VARIANT)
+            cards.add(ActionCardSimple(string(R.string.undo), ::undo))
+
     }
 
-    private var currentMove : AbstractMove =
-        BaseMove
+    private var currentMove : AbstractMove = BaseMove
 
     var currentPlayerId = -1
     val moves = Array(session.numberOfPlayers) {MutableList<AbstractMove>(0) { BaseMove }}
@@ -139,11 +143,86 @@ class Round(val session: Session) : PointInterface {
 
     private var numOfPieces = -1
     private fun getPieces()
-            = numOfPieces - currentMove.drawActions - moves.sumBy { it.sumBy { it.drawActions } }
+            = numOfPieces - currentMove.drawActions - moves.sumBy { it.sumBy { it.drawActions } } -
+                session.players.size * numOfStartPiecesEach
 
     private var numOfStartPiecesEach = -1
     private fun getPieces(playerId: Int)
             = numOfStartPiecesEach + currentMove.pieces + moves[playerId].sumBy { it.pieces }
+
+    // undo
+
+    private fun undo() {
+        when (state) {
+            RoundState.PIECES -> state = RoundState.VARIANT
+
+            RoundState.FIRST_PLAYER -> state = RoundState.PIECES
+
+            RoundState.FIRST_MOVE -> {
+                state = RoundState.FIRST_PLAYER
+                currentMove = BaseMove
+            }
+
+            RoundState.NORMAL -> {
+                restoreSavedMove()
+
+                if (currentMove is StartMove)
+                    state = RoundState.FIRST_MOVE
+
+            }
+
+            RoundState.WIN -> {
+                if (currentMove is WinBonusMove) {
+                    currentMove = currentMove.innerMove as Move
+                    state = RoundState.NORMAL
+                }
+
+                restoreSavedMove()
+
+            }
+
+            RoundState.STALEMATE -> {
+                restoreSavedMove()
+
+                if (currentMove is DrawMove || currentMove is BaseMove)
+                    state = RoundState.NORMAL
+
+            }
+
+            RoundState.DONE -> {
+                val playerMoves = moves[currentPlayerId]
+                currentMove = playerMoves.removeAt(playerMoves.indices.last)
+
+                state = when (currentMove) {
+                    is WinBonusMove -> RoundState.WIN
+                    is PunishMove -> RoundState.STALEMATE
+                    else -> RoundState.UNDEFINED
+                }
+
+            }
+
+            else -> state = RoundState.UNDEFINED
+
+        }
+
+    }
+
+    fun restoreSavedMove() {
+        if (currentMove is BaseMove) {
+            currentPlayerId -= 1
+            if (currentPlayerId < 0)
+                currentPlayerId = session.players.indices.last
+
+            val playerMoves = moves[currentPlayerId]
+            currentMove = playerMoves.removeAt(playerMoves.indices.last)
+
+        }
+
+        val innerMove = currentMove.innerMove
+        if (innerMove is AbstractMove)
+            currentMove = innerMove
+
+    }
 
     // VARIANT
 

@@ -2,6 +2,7 @@ package de.melon.tridomcounter.logic.round
 
 import android.content.Context
 import de.melon.tridomcounter.logic.Session
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,5 +46,14 @@ class ChooseFirstPlayerTest {
     @Test
     fun chooseThirdPlayerAsFirstPlayer()
             = chooseFirstPlayer(round, 2, players)
+
+    @Test
+    fun undo() {
+        chooseUndo(round)
+
+        update(round)
+        assertEquals(4, round.cards.size)
+
+    }
 
 }
