@@ -8,5 +8,6 @@ enum class RoundState {
     NORMAL,
     WIN,
     STALEMATE,
-    DONE
+    DONE,
+    UNDEFINED
 }

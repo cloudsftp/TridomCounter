@@ -26,6 +26,7 @@ class Round(val session: Session) : PointInterface {
                 RoundState.WIN -> "${session.players[currentPlayerId]} ${string(R.string.won)}"
                 RoundState.STALEMATE -> "${string(R.string.stalemate)} - ${session.players[currentPlayerId]}"
                 RoundState.DONE -> string(R.string.done)
+                RoundState.UNDEFINED -> string(R.string.undefined)
             }
         )
 
@@ -45,6 +46,7 @@ class Round(val session: Session) : PointInterface {
             RoundState.WIN -> R.string.help_win
             RoundState.STALEMATE -> R.string.help_stalemate
             RoundState.DONE -> R.string.help_done
+            RoundState.UNDEFINED -> R.string.undefined
         })
 
     }
@@ -151,7 +153,13 @@ class Round(val session: Session) : PointInterface {
 
     private fun undo() {
         when (state) {
+            RoundState.WIN,
             RoundState.NORMAL -> {
+                if (currentMove is WinBonusMove) {
+                    currentMove = currentMove.innerMove as Move
+                    state = RoundState.NORMAL
+                }
+
                 if (currentMove is BaseMove) {
                     currentPlayerId -= 1
                     if (currentPlayerId < 0)
@@ -168,6 +176,17 @@ class Round(val session: Session) : PointInterface {
 
                 if (innerMove is StartMove)
                     state = RoundState.FIRST_MOVE
+
+            }
+            RoundState.DONE -> {
+                val playerMoves = moves[currentPlayerId]
+                currentMove = playerMoves.removeAt(playerMoves.indices.last)
+
+                state = when (currentMove) {
+                    is WinBonusMove -> RoundState.WIN
+                    is PunishMove -> RoundState.STALEMATE
+                    else -> RoundState.UNDEFINED
+                }
 
             }
 
