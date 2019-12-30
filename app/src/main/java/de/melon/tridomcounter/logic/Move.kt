@@ -1,6 +1,6 @@
 package de.melon.tridomcounter.logic
 
-abstract class AbstractMove {
+open class AbstractMove(open val innerMove: AbstractMove?) {
     open val points = 0
     open val pieces = 0
 
@@ -10,13 +10,13 @@ abstract class AbstractMove {
 
 }
 
-object BaseMove : AbstractMove()
+object BaseMove : AbstractMove(null)
 
 object StartMove : WrapperMove(BaseMove, 20, 0, 0)
 
-open class WrapperMove(val innerMove: AbstractMove, val deltaPoints: Int,
+open class WrapperMove(innerMove: AbstractMove, val deltaPoints: Int,
                        deltaDrawActions: Int, deltaPieces: Int)
-        : AbstractMove() {
+        : AbstractMove(innerMove) {
     override val points = innerMove.points + deltaPoints
     override val pieces = innerMove.pieces + deltaPieces
     override val drawActions = innerMove.drawActions + deltaDrawActions

@@ -121,18 +121,17 @@ class Round(val session: Session) : PointInterface {
 
             while (move is WrapperMove) {
                 cards.add(DisplayCard(move.deltaPoints.toString()))
-                move = move.innerMove
+                move = move.innerMove as AbstractMove
 
             }
 
         }
 
-
+        cards.add(ActionCardSimple(string(R.string.undo), ::undo))
 
     }
 
-    private var currentMove : AbstractMove =
-        BaseMove
+    private var currentMove : AbstractMove = BaseMove
 
     var currentPlayerId = -1
     val moves = Array(session.numberOfPlayers) {MutableList<AbstractMove>(0) { BaseMove }}
@@ -151,7 +150,35 @@ class Round(val session: Session) : PointInterface {
     // undo
 
     private fun undo() {
+        when (state) {
+            RoundState.NORMAL -> {
+                lastPlayer()
+                restoreMove()
+            }
 
+        }
+
+    }
+
+    private fun lastPlayer() {
+        currentPlayerId -= 1
+        if (currentPlayerId < 0)
+            currentPlayerId = session.players.indices.last
+
+    }
+
+    private fun restoreMove() {
+        val playerMoves = moves[currentPlayerId]
+        currentMove = playerMoves.removeAt(playerMoves.indices.last)
+
+        val innerMove = currentMove.innerMove
+        when (innerMove) {
+            is Move, BaseMove -> currentMove = innerMove
+            is StartMove -> {
+                currentMove = innerMove
+                state = RoundState.FIRST_MOVE
+            }
+        }
 
     }
 

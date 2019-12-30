@@ -106,16 +106,16 @@ class NormalStateTest {
     fun undoPlaceSecondPlayer() {
         var currentPlayer = 1
         chooseUndo(round)
-        checkPointsAndUpdate(firstPlayer, -60)
+        checkPointsAndUpdate(firstPlayer, -40)
 
         currentPlayer = 0
         chooseFirstPiece(round, firstPlayer, 0, 60)
-        checkPointsAndUpdate(firstPlayer, 60)
+        checkPointsAndUpdate(firstPlayer, 40)
 
     }
 
     @Test
-    fun undoPlaceThirstPlayer() {
+    fun undoPlaceThirdPlayer() {
         var currentPlayer = 1
         choosePlace(round, 10)
         checkPointsAndUpdate(currentPlayer, 10)

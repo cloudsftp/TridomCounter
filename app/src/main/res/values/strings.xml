@@ -16,6 +16,7 @@
     // round
     <string name="round">Runde</string>
     <string name="help">Hinweis</string>
+    <string name="undo">Schritt zurück</string>
 
     // VARIANT
     <string name="choose_variant">Variante wählen</string>
