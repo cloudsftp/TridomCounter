@@ -120,6 +120,7 @@
 
     <string name="back_message_session">Zurück-Button für alle Sessions</string>
     <string name="back_message_round">Zurück-Button für alle Runden</string>
+    <string name="warning_empty">Feld für die Anzahl muss ausgefüllt sein</string>
 
     <string name="title_activity_session">Session</string>
     <string name="title_activity_new_session">Neue Session</string>

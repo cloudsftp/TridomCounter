@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.logic.round.*
@@ -98,7 +99,11 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
 
                 fun getInput() {
                     val pointsString = viewHolder.inputEditText.text.toString()
-                    if (pointsString.isNotEmpty()) {
+                    if (pointsString.isEmpty()) {
+                        val warningEmpty = Toast.makeText(activity, R.string.warning_empty, Toast.LENGTH_SHORT)
+                        warningEmpty.show()
+
+                    } else {
                         val points = pointsString.toInt()
                         card.function(points)
                         vibrate()
