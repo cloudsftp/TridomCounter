@@ -152,32 +152,25 @@ class Round(val session: Session) : PointInterface {
     private fun undo() {
         when (state) {
             RoundState.NORMAL -> {
-                lastPlayer()
-                restoreMove()
+                if (currentMove is BaseMove) {
+                    currentPlayerId -= 1
+                    if (currentPlayerId < 0)
+                        currentPlayerId = session.players.indices.last
+
+                    val playerMoves = moves[currentPlayerId]
+                    currentMove = playerMoves.removeAt(playerMoves.indices.last)
+
+                }
+
+                val innerMove = currentMove.innerMove
+                if (innerMove is AbstractMove)
+                    currentMove = innerMove
+
+                if (innerMove is StartMove)
+                    state = RoundState.FIRST_MOVE
+
             }
 
-        }
-
-    }
-
-    private fun lastPlayer() {
-        currentPlayerId -= 1
-        if (currentPlayerId < 0)
-            currentPlayerId = session.players.indices.last
-
-    }
-
-    private fun restoreMove() {
-        val playerMoves = moves[currentPlayerId]
-        currentMove = playerMoves.removeAt(playerMoves.indices.last)
-
-        val innerMove = currentMove.innerMove
-        when (innerMove) {
-            is Move, BaseMove -> currentMove = innerMove
-            is StartMove -> {
-                currentMove = innerMove
-                state = RoundState.FIRST_MOVE
-            }
         }
 
     }

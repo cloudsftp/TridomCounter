@@ -127,6 +127,26 @@ class NormalStateTest {
 
     }
 
+    @Test
+    fun undoDraw() {
+        var currentPlayer = 1
+        chooseDraw(round)
+        checkPointsAndUpdate(currentPlayer, -5)
+        chooseUndo(round)
+        checkPointsAndUpdate(currentPlayer, 5)
+
+        choosePlace(round, 10)
+        checkPointsAndUpdate(currentPlayer, 10)
+
+        currentPlayer = 2
+        chooseDraw(round)
+        chooseDraw(round)
+        checkPointsAndUpdate(currentPlayer, -10)
+        chooseUndo(round)
+        checkPointsAndUpdate(currentPlayer, 5)
+
+    }
+
     fun checkPointsAndUpdate(playerId: Int, delta: Int) {
         points[playerId] += delta
         checkPoints(round, playerId, points[playerId])
