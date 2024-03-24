@@ -13,10 +13,9 @@ import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.menu.MainActivity
 import de.melon.tridomcounter.activities.round.RoundActivity
 import de.melon.tridomcounter.data.GameData
+import de.melon.tridomcounter.databinding.ActivitySessionBinding
 import de.melon.tridomcounter.logic.round.Round
 import de.melon.tridomcounter.logic.Session
-import kotlinx.android.synthetic.main.activity_session.*
-import kotlinx.android.synthetic.main.content_session.*
 
 class SessionActivity : AppCompatActivity() {
 
@@ -26,10 +25,14 @@ class SessionActivity : AppCompatActivity() {
 
     lateinit var roundCardAdapter: RoundCardAdapter
 
+    private lateinit var binding: ActivitySessionBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_session)
-        setSupportActionBar(toolbar)
+        binding = ActivitySessionBinding.inflate(layoutInflater)
+
+        setSupportActionBar(binding.toolbar)
 
         sessionId = current.sessionId
 
@@ -38,16 +41,16 @@ class SessionActivity : AppCompatActivity() {
         session = GameData.sessions[sessionId]
         val players = session.players
 
-        playerRecyclerView.adapter = PlayerCardAdapter(players, session)
-        playerRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.playerRecyclerView.adapter = PlayerCardAdapter(players, session)
+        binding.playerRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         rounds = session.rounds
 
         roundCardAdapter = RoundCardAdapter(rounds)
-        roundRecyclerView.adapter = roundCardAdapter
-        roundRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.roundRecyclerView.adapter = roundCardAdapter
+        binding.roundRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        roundRecyclerView.addOnItemClickListener(object: OnItemClickListener {
+        binding.roundRecyclerView.addOnItemClickListener(object: OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
                 val intent = Intent(view.context, RoundActivity::class.java)
                 current.roundId = position
@@ -55,7 +58,7 @@ class SessionActivity : AppCompatActivity() {
             }
         })
 
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
             current.roundId = session.newRound()
             val intent = Intent(this, RoundActivity::class.java)
             startActivity(intent)
@@ -76,9 +79,9 @@ class SessionActivity : AppCompatActivity() {
     fun updateRoundRecyclerView() = roundCardAdapter.notifyDataSetChanged()
 
     override fun onBackPressed() {
+        super.onBackPressed()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-
     }
 
 }

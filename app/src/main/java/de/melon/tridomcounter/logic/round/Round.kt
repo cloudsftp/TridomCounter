@@ -116,6 +116,9 @@ class Round(val session: Session) : PointInterface {
 
             }
 
+            // TODO
+            RoundState.UNDEFINED -> {}
+
         }
 
         if (currentMove != BaseMove) {

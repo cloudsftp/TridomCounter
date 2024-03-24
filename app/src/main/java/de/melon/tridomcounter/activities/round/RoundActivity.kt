@@ -12,26 +12,28 @@ import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.activities.session.SessionActivity
 import de.melon.tridomcounter.data.GameData
+import de.melon.tridomcounter.databinding.ActivityRoundBinding
 import de.melon.tridomcounter.logic.Session
 import de.melon.tridomcounter.logic.round.Round
-import kotlinx.android.synthetic.main.activity_round.*
-import kotlinx.android.synthetic.main.content_round.*
-
 
 class RoundActivity : AppCompatActivity() {
 
     lateinit var session: Session
     lateinit var round: Round
 
+    private lateinit var binding: ActivityRoundBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round)
-        setSupportActionBar(toolbar)
+        binding = ActivityRoundBinding.inflate(layoutInflater)
+
+        setSupportActionBar(binding.toolbar)
 
         session = GameData.sessions[current.sessionId]
         round = session.rounds[current.roundId]
 
-        actionRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.actionRecyclerView.layoutManager = LinearLayoutManager(this)
 
         round.context = this
         buildActivity()
@@ -44,7 +46,7 @@ class RoundActivity : AppCompatActivity() {
     fun buildActivity() {
         title = round.title()
 
-        actionRecyclerView.adapter = ActionCardAdapter(round, this)
+        binding.actionRecyclerView.adapter = ActionCardAdapter(round, this)
 
     }
 
@@ -54,7 +56,11 @@ class RoundActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() = backToSession()
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        backToSession()
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_round, menu)

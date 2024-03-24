@@ -20,6 +20,23 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_round" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".activities.round.RoundActivity"
+            tools:showIn="@layout/activity_round">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/actionRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

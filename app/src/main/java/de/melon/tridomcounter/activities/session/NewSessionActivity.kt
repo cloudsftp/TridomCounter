@@ -3,26 +3,29 @@ package de.melon.tridomcounter.activities.session
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.data.GameData
-import kotlinx.android.synthetic.main.activity_new_session.*
-import kotlinx.android.synthetic.main.content_new_session.*
+import de.melon.tridomcounter.databinding.ActivityNewSessionBinding
 
 class NewSessionActivity : AppCompatActivity() {
 
     lateinit var editPlayerCardAdapter: EditPlayerCardAdapter
 
+    private lateinit var binding: ActivityNewSessionBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_session)
-        setSupportActionBar(toolbar)
+
+        binding = ActivityNewSessionBinding.inflate(layoutInflater)
+
+        setSupportActionBar(binding.toolbar)
 
         setUpPlayerControls()
 
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
             val intent = Intent(this, SessionActivity::class.java)
 
             editPlayerCardAdapter.savePlayerNames()
@@ -36,12 +39,12 @@ class NewSessionActivity : AppCompatActivity() {
     }
 
     fun setUpPlayerControls() {
-        numberOfPlayersMinus.setOnClickListener { changeNumberOfPlayers(-1) }
-        numberOfPlayersPlus.setOnClickListener { changeNumberOfPlayers(1) }
+        binding.numberOfPlayersMinus.setOnClickListener { changeNumberOfPlayers(-1) }
+        binding.numberOfPlayersPlus.setOnClickListener { changeNumberOfPlayers(1) }
 
         editPlayerCardAdapter = EditPlayerCardAdapter()
-        editPlayerRecyclerView.adapter = editPlayerCardAdapter
-        editPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.editPlayerRecyclerView.adapter = editPlayerCardAdapter
+        binding.editPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
 
         renderCards()
 
@@ -50,7 +53,7 @@ class NewSessionActivity : AppCompatActivity() {
     fun changeNumberOfPlayers(delta: Int) {
         val newValue = editPlayerCardAdapter.changeNumberOfPlayers(delta)
 
-        numberOfPlayersTextView.text = "$newValue"
+        binding.numberOfPlayersTextView.text = "$newValue"
         renderCards()
 
     }
