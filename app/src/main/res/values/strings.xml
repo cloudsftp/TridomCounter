@@ -13,6 +13,8 @@
 
     <string name="show_all_sessions">Alle Sessions</string>
 
+    <string name="new_session">Neue Session</string>
+
     // round
     <string name="round">Runde</string>
     <string name="help">Hinweis</string>

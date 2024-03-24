@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import de.melon.tridomcounter.R
 import de.melon.tridomcounter.activities.OnItemClickListener
 import de.melon.tridomcounter.activities.addOnItemClickListener
 import de.melon.tridomcounter.activities.current
@@ -22,8 +21,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
 
@@ -52,6 +51,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    fun updateSessionRecyclerView() = sessionCardAdapter.notifyDataSetChanged()
+    private fun updateSessionRecyclerView() = sessionCardAdapter.notifyDataSetChanged()
 
 }
