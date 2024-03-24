@@ -1,28 +1,28 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
 
 android {
-    compileSdkVersion 29
+    kotlin {
+        jvmToolchain(17)
+    }
     defaultConfig {
         applicationId "de.melon.tridomcounter"
         minSdkVersion 26
-        targetSdkVersion 29
+        compileSdk 34
+        targetSdkVersion 34
         versionCode 5
-        versionName "00.04"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionName "v0.0.5-alpha"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    defaultConfig {
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+    namespace 'de.melonn.tridomcounter'
 }
 
 dependencies {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="de.melon.tridomcounter">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.VIBRATE"/>
 
@@ -12,41 +11,42 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".activities.round.RoundActivity"
+                android:name="de.melon.tridomcounter.activities.round.RoundActivity"
                 android:label="@string/title_activity_round"
-                android:parentActivityName=".activities.session.SessionActivity"
+                android:parentActivityName="de.melon.tridomcounter.activities.session.SessionActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="de.melon.tridomcounter.activities.session.SessionActivity" />
         </activity>
-        <activity
-                android:name=".activities.round.NewRoundActivity"
+        <!---activity
+                android:name="de.melon.tridomcounter.activities.round.NewRoundActivity"
                 android:label="@string/title_activity_new_round"
-                android:parentActivityName=".activities.session.SessionActivity"
+                android:parentActivityName="de.melon.tridomcounter.activities.session.SessionActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="de.melon.tridomcounter.activities.session.SessionActivity" />
-        </activity>
+        </activity-->
         <activity
-                android:name=".activities.session.SessionActivity"
+                android:name="de.melon.tridomcounter.activities.session.SessionActivity"
                 android:label="@string/title_activity_session"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".activities.session.NewSessionActivity"
+                android:name="de.melon.tridomcounter.activities.session.NewSessionActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:label="@string/title_activity_new_session"
-                android:parentActivityName=".activities.menu.MainActivity"
+                android:parentActivityName="de.melon.tridomcounter.activities.menu.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="de.melon.tridomcounter.activities.menu.MainActivity" />
         </activity>
         <activity
-                android:name=".activities.menu.MainActivity"
+                android:name="de.melon.tridomcounter.activities.menu.MainActivity"
                 android:label="@string/menu_title"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
