@@ -19,4 +19,19 @@ open class ActivityWithMenu : AppCompatActivity() {
 
         return true
     }
+
+    /*
+    private fun displayHint() {
+        val alertDialog: AlertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setTitle(getString(R.string.help))
+        alertDialog.setMessage(round.help())
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK") {
+                dialog, _ -> dialog.dismiss()
+        }
+
+        alertDialog.show()
+
+        return true
+    }
+     */
 }

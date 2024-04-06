@@ -3,10 +3,10 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="de.melon.tridomcounter.activities.menu.MainActivity">
 
-    <item android:id="@+id/action_help"
+    <!---item android:id="@+id/action_help"
             android:title="@string/help"
             android:orderInCategory="100"
-            app:showAsAction="never"/>
+            app:showAsAction="never"/-->
 
     <item android:id="@+id/action_privacy"
           android:title="@string/action_privacy"
