@@ -1,5 +1,6 @@
 package de.melon.tridomcounter.activities.menu
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -14,7 +15,6 @@ import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.databinding.ActivityMainBinding
 
 class MainActivity : ActivityWithMenu() {
-
     lateinit var sessionCardAdapter : SessionCardAdapter
 
     private lateinit var binding : ActivityMainBinding
@@ -51,6 +51,6 @@ class MainActivity : ActivityWithMenu() {
         super.onResume()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun updateSessionRecyclerView() = sessionCardAdapter.notifyDataSetChanged()
-
 }

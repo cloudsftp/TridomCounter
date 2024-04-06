@@ -1,5 +1,6 @@
 package de.melon.tridomcounter.activities.session
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,7 +10,6 @@ import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.databinding.ActivityNewSessionBinding
 
 class NewSessionActivity : ActivityWithMenu() {
-
     lateinit var editPlayerCardAdapter: EditPlayerCardAdapter
 
     private lateinit var binding: ActivityNewSessionBinding
@@ -33,7 +33,6 @@ class NewSessionActivity : ActivityWithMenu() {
             startActivity(intent)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
     }
 
     fun setUpPlayerControls() {
@@ -45,7 +44,6 @@ class NewSessionActivity : ActivityWithMenu() {
         binding.editPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
 
         renderCards()
-
     }
 
     fun changeNumberOfPlayers(delta: Int) {
@@ -56,6 +54,6 @@ class NewSessionActivity : ActivityWithMenu() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun renderCards() = editPlayerCardAdapter.notifyDataSetChanged()
-
 }
