@@ -15,7 +15,7 @@ import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.databinding.ActivityMainBinding
 
 class MainActivity : ActivityWithMenu() {
-    lateinit var sessionCardAdapter : SessionCardAdapter
+    private lateinit var sessionCardAdapter : SessionCardAdapter
 
     private lateinit var binding : ActivityMainBinding
 

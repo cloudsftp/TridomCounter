@@ -10,7 +10,7 @@ import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.databinding.ActivityNewSessionBinding
 
 class NewSessionActivity : ActivityWithMenu() {
-    lateinit var editPlayerCardAdapter: EditPlayerCardAdapter
+    private lateinit var editPlayerCardAdapter: EditPlayerCardAdapter
 
     private lateinit var binding: ActivityNewSessionBinding
 
