@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.melon.tridomcounter.R
+import de.melon.tridomcounter.activities.ActivityWithMenu
 import de.melon.tridomcounter.activities.OnItemClickListener
 import de.melon.tridomcounter.activities.addOnItemClickListener
 import de.melon.tridomcounter.activities.current
@@ -17,7 +17,7 @@ import de.melon.tridomcounter.databinding.ActivitySessionBinding
 import de.melon.tridomcounter.logic.round.Round
 import de.melon.tridomcounter.logic.Session
 
-class SessionActivity : AppCompatActivity() {
+class SessionActivity : ActivityWithMenu() {
 
     var sessionId = -1
     lateinit var session: Session

@@ -2,13 +2,13 @@ package de.melon.tridomcounter.activities.session
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import de.melon.tridomcounter.activities.ActivityWithMenu
 import de.melon.tridomcounter.activities.current
 import de.melon.tridomcounter.data.GameData
 import de.melon.tridomcounter.databinding.ActivityNewSessionBinding
 
-class NewSessionActivity : AppCompatActivity() {
+class NewSessionActivity : ActivityWithMenu() {
 
     lateinit var editPlayerCardAdapter: EditPlayerCardAdapter
 
