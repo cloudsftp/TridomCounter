@@ -63,7 +63,7 @@ class RoundActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_round, menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 

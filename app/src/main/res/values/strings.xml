@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">TridomCounter</string>
-    <string name="action_settings">Settings</string>
     <string name="menu_title">Tridom Counter</string>
 
     <string name="place_holder">Some Text.</string>
+
+    <string name="action_privacy">Datenschutzerklärung</string>
 
     <string name="number_of_players">Anzahl der Spieler:</string>
     <string name="minus">-</string>

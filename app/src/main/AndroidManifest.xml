@@ -10,38 +10,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity
-                android:name="de.melon.tridomcounter.activities.round.RoundActivity"
-                android:label="@string/title_activity_round"
-                android:parentActivityName="de.melon.tridomcounter.activities.session.SessionActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="de.melon.tridomcounter.activities.session.SessionActivity" />
-        </activity>
-        <!---activity
-                android:name="de.melon.tridomcounter.activities.round.NewRoundActivity"
-                android:label="@string/title_activity_new_round"
-                android:parentActivityName="de.melon.tridomcounter.activities.session.SessionActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="de.melon.tridomcounter.activities.session.SessionActivity" />
-        </activity-->
-        <activity
-                android:name="de.melon.tridomcounter.activities.session.SessionActivity"
-                android:label="@string/title_activity_session"
-                android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-                android:name="de.melon.tridomcounter.activities.session.NewSessionActivity"
-                android:configChanges="orientation|keyboardHidden|screenSize"
-                android:label="@string/title_activity_new_session"
-                android:parentActivityName="de.melon.tridomcounter.activities.menu.MainActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="de.melon.tridomcounter.activities.menu.MainActivity" />
-        </activity>
+
         <activity
                 android:name="de.melon.tridomcounter.activities.menu.MainActivity"
                 android:label="@string/menu_title"
@@ -53,6 +22,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+                android:name="de.melon.tridomcounter.activities.round.RoundActivity"
+                android:label="@string/title_activity_round"
+                android:parentActivityName="de.melon.tridomcounter.activities.session.SessionActivity"
+                android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+                android:name="de.melon.tridomcounter.activities.session.SessionActivity"
+                android:label="@string/title_activity_session"
+                android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+                android:name="de.melon.tridomcounter.activities.session.NewSessionActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:label="@string/title_activity_new_session"
+                android:parentActivityName="de.melon.tridomcounter.activities.menu.MainActivity"
+                android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>
