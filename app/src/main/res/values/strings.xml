@@ -5,6 +5,7 @@
     <string name="place_holder">Some Text.</string>
 
     <string name="action_privacy">Datenschutzerklärung</string>
+    <string name="privacy_url">https://cloudsftp.de/misc/tridom_privacy</string>
 
     <string name="number_of_players">Anzahl der Spieler:</string>
     <string name="minus">-</string>
