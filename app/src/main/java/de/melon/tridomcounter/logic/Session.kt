@@ -15,7 +15,6 @@ class Session(val players: Array<String>) : PointInterface {
         rounds.add(round)
 
         return rounds.indexOf(round)
-
     }
 
 }

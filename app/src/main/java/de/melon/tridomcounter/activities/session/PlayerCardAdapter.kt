@@ -14,7 +14,6 @@ class PlayerCardAdapter(val players: Array<String>, val pointSource: PointInterf
     class PlayerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameTextView = view.findViewById<TextView>(R.id.playerNameTextView)!!
         val pointsTextView = view.findViewById<TextView>(R.id.playerPointsTextView)!!
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : PlayerCardViewHolder {
@@ -22,7 +21,6 @@ class PlayerCardAdapter(val players: Array<String>, val pointSource: PointInterf
             .inflate(R.layout.card_player, parent, false) as View
 
         return PlayerCardViewHolder(view)
-
     }
 
     override fun onBindViewHolder(viewHolder: PlayerCardViewHolder, position: Int) {
@@ -32,9 +30,7 @@ class PlayerCardAdapter(val players: Array<String>, val pointSource: PointInterf
         if (small) {
             viewHolder.nameTextView.textSize = 14f
             viewHolder.pointsTextView.textSize = 12f
-
         }
-
     }
 
     override fun getItemCount() = players.size

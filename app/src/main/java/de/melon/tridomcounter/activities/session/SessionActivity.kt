@@ -34,11 +34,9 @@ class SessionActivity : ActivityWithMenu() {
 
         setSupportActionBar(binding.toolbar)
 
-        sessionId = current.sessionId
+        title = "$title ${current.sessionId+1}"
 
-        title = "$title ${sessionId+1}"
-
-        session = GameData.sessions[sessionId]
+        session = GameData.sessions[current.sessionId]
         val players = session.players
 
         playerCardAdapter = PlayerCardAdapter(players, session)
@@ -50,7 +48,6 @@ class SessionActivity : ActivityWithMenu() {
         )
 
         rounds = session.rounds
-
         roundCardAdapter = RoundCardAdapter(rounds)
         binding.roundRecyclerView.adapter = roundCardAdapter
         binding.roundRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -67,7 +64,6 @@ class SessionActivity : ActivityWithMenu() {
             current.roundId = session.newRound()
             val intent = Intent(this, RoundActivity::class.java)
             startActivity(intent)
-
         }
 
         val infoBack = Toast.makeText(this, R.string.back_message_session, Toast.LENGTH_LONG)
