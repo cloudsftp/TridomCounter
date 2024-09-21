@@ -8,7 +8,7 @@ class Session(val players: Array<String>) : PointInterface {
 
     internal val rounds = MutableList(0) { Round(this) }
 
-    override fun getPoints(playerId: Int) = rounds.sumBy { it.getPoints(playerId) }
+    override fun getPoints(playerId: Int) = rounds.sumOf { it.getPoints(playerId) }
 
     fun newRound() : Int {
         val round = Round(this)

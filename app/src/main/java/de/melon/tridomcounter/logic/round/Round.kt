@@ -142,16 +142,16 @@ class Round(val session: Session) : PointInterface {
     var currentPlayerId = -1
     val moves = Array(session.numberOfPlayers) {MutableList<AbstractMove>(0) { BaseMove }}
 
-    override fun getPoints(playerId: Int) = currentMove.points + moves[playerId].sumBy { it.points }
+    override fun getPoints(playerId: Int) = currentMove.points + moves[playerId].sumOf { it.points }
 
     private var numOfPieces = -1
     private fun getPieces()
-            = numOfPieces - currentMove.drawActions - moves.sumBy { it.sumBy { it.drawActions } } -
+            = numOfPieces - currentMove.drawActions - moves.sumOf { it.sumOf { it.drawActions } } -
                 session.players.size * numOfStartPiecesEach
 
     private var numOfStartPiecesEach = -1
     private fun getPieces(playerId: Int)
-            = numOfStartPiecesEach + currentMove.pieces + moves[playerId].sumBy { it.pieces }
+            = numOfStartPiecesEach + currentMove.pieces + moves[playerId].sumOf { it.pieces }
 
     // undo
 
