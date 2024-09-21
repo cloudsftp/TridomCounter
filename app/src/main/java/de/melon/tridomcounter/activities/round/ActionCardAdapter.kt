@@ -1,8 +1,11 @@
 package de.melon.tridomcounter.activities.round
 
 import android.content.Context
+import android.content.Context.VIBRATOR_SERVICE
+import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.os.VibratorManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -169,8 +172,14 @@ class ActionCardAdapter(val round: Round, val activity: RoundActivity)
 
     }
 
-    private val v = activity.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-    private fun vibrate() = v.vibrate(
+    private val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val vibratorManager = activity.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+        vibratorManager.defaultVibrator
+    } else {
+        @Suppress("DEPRECATION")
+        activity.getSystemService(VIBRATOR_SERVICE) as Vibrator
+    }
+    private fun vibrate() = vibrator.vibrate(
         VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE)
     )
 
