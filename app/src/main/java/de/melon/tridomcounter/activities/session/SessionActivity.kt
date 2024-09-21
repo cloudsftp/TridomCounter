@@ -22,6 +22,7 @@ class SessionActivity : ActivityWithMenu() {
     lateinit var session: Session
     lateinit var rounds: MutableList<Round>
 
+    lateinit var playerCardAdapter: PlayerCardAdapter
     lateinit var roundCardAdapter: RoundCardAdapter
 
     private lateinit var binding: ActivitySessionBinding
@@ -40,8 +41,13 @@ class SessionActivity : ActivityWithMenu() {
         session = GameData.sessions[sessionId]
         val players = session.players
 
-        binding.playerRecyclerView.adapter = PlayerCardAdapter(players, session)
-        binding.playerRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        playerCardAdapter = PlayerCardAdapter(players, session)
+        binding.playerRecyclerView.adapter = playerCardAdapter
+        binding.playerRecyclerView.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.HORIZONTAL,
+            false,
+        )
 
         rounds = session.rounds
 
@@ -69,10 +75,14 @@ class SessionActivity : ActivityWithMenu() {
     }
 
     override fun onResume() {
+        updatePlayerRecyclerView()
         updateRoundRecyclerView()
 
         super.onResume()
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updatePlayerRecyclerView() = playerCardAdapter.notifyDataSetChanged()
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateRoundRecyclerView() = roundCardAdapter.notifyDataSetChanged()
