@@ -16,7 +16,7 @@ fun RecyclerView.addOnItemClickListener(onClickListener: OnItemClickListener) {
         override fun onChildViewAttachedToWindow(view: View) {
             view.setOnClickListener {
                 val holder = getChildViewHolder(view)
-                onClickListener.onItemClicked(holder.adapterPosition, view)
+                onClickListener.onItemClicked(holder.bindingAdapterPosition, view)
             }
         }
     })
